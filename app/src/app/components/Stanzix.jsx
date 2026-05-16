@@ -30,8 +30,10 @@ export default function Stanzix() {
   const auth = useAuth();
   const pe = useStanzix(auth.user);
 
-  // Subscription / payment gate state
+  // Subscription state — true when user has an active paid plan
   const [isPaid, setIsPaid] = useState(false);
+  // Paywall visibility — only shown when free limit is hit
+  const [showPaywall, setShowPaywall] = useState(false);
   const [pendingPro, setPendingPro] = useState(false);
   const [pendingTeam, setPendingTeam] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
@@ -40,7 +42,7 @@ export default function Stanzix() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const result = params.get("checkout");
-    if (result === "success") setIsPaid(true);
+    if (result === "success") { setIsPaid(true); setShowPaywall(false); }
     if (result === "canceled") setCheckoutError("Payment was canceled. Try again when you're ready.");
     if (result) window.history.replaceState({}, "", window.location.pathname);
   }, []);
@@ -105,15 +107,21 @@ export default function Stanzix() {
           .eq("user_id", auth.user.id)
           .eq("action", "generate")
           .gte("created_at", start.toISOString());
-        setUsageCount(count ?? 0);
+        const c = count ?? 0;
+        setUsageCount(c);
+        if (c >= FREE_LIMIT) setShowPaywall(true);
       } catch {}
     })();
   }, [auth.user, isPaid]);
 
-  // Increment local counter when a generation completes
+  // Increment local counter when a generation completes; show paywall if limit hit
   useEffect(() => {
     if (prevLoadingRef.current && !pe.loading && usageCount !== null) {
-      setUsageCount(c => c + 1);
+      setUsageCount(c => {
+        const next = c + 1;
+        if (!isPaid && next >= FREE_LIMIT) setShowPaywall(true);
+        return next;
+      });
     }
     prevLoadingRef.current = pe.loading;
   }, [pe.loading]);
@@ -189,7 +197,7 @@ export default function Stanzix() {
         </div>
       ) : !auth.user ? (
         <SignInGate isMobile={pe.isMobile} signInWithMagicLink={auth.signInWithMagicLink} />
-      ) : !isPaid ? (
+      ) : showPaywall && !isPaid ? (
         <PaymentGate
           email={auth.user.email}
           onCheckoutPro={() => initiateCheckout(process.env.NEXT_PUBLIC_STRIPE_PRO_PRICE_ID, setPendingPro)}
@@ -415,7 +423,7 @@ export default function Stanzix() {
           {/* ── Usage / subscription footer ─────────────────────────────── */}
           <UsageDisplay
             isMobile={pe.isMobile}
-            onUpgrade={() => setIsPaid(false)}
+            onUpgrade={() => setShowPaywall(true)}
           />
         </>
       )}
