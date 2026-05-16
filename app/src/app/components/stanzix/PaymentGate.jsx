@@ -92,23 +92,6 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
         ))}
       </ul>
 
-      {error && (
-        <div
-          role="alert"
-          style={{
-            fontSize: "12px",
-            color: "#dc5050",
-            background: "rgba(220,80,80,0.08)",
-            border: "1px solid rgba(220,80,80,0.25)",
-            borderRadius: "8px",
-            padding: "8px 12px",
-            lineHeight: 1.5,
-          }}
-        >
-          {error}
-        </div>
-      )}
-
       <button
         onClick={onCheckout}
         disabled={pending}
