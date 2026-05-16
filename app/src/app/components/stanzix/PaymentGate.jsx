@@ -135,7 +135,17 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
   );
 }
 
-export default function PaymentGate({ email, onCheckoutPro, onCheckoutTeam, pendingPro, pendingTeam, error, isMobile }) {
+export default function PaymentGate({
+  email,
+  onCheckoutPro,
+  onCheckoutTeam,
+  pendingPro,
+  pendingTeam,
+  error,
+  isMobile,
+  promptLibraryCount = 0,
+  onOpenPromptLibrary,
+}) {
   return (
     <div
       style={{
@@ -299,6 +309,28 @@ export default function PaymentGate({ email, onCheckoutPro, onCheckoutTeam, pend
         >
           {error}
         </div>
+      )}
+
+      {typeof onOpenPromptLibrary === "function" && (
+        <button
+          type="button"
+          onClick={onOpenPromptLibrary}
+          style={{
+            marginTop: "14px",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "13px",
+            fontFamily: "'JetBrains Mono', monospace",
+            color: GOLD,
+            textDecoration: "underline",
+            textUnderlineOffset: "3px",
+          }}
+        >
+          {promptLibraryCount > 0
+            ? `View saved prompts (${promptLibraryCount}) — copy without upgrading`
+            : "Open prompt library"}
+        </button>
       )}
 
       <p

@@ -5,6 +5,7 @@ import { buildOutput, STEPS } from "../lib/outputBuilder";
 import { getSupabaseClient } from "../lib/supabase/client";
 
 const TABLE = "prompt_engine_states";
+const MAX_PROMPT_HISTORY = 50;
 
 export function useStanzix(user) {
   // Non-persisted UI state
@@ -70,6 +71,8 @@ export function useStanzix(user) {
   const [pastedInstructions, setPastedInstructions] = useState("");
   const [parsedPreview, setParsedPreview] = useState(null);
   const [selectedSections, setSelectedSections] = useState(new Set());
+  /** @type {{ id: string, savedAt: string, projectName: string, blurb: string, instructions: string }[]} */
+  const [promptHistory, setPromptHistory] = useState([]);
 
   // Load state from Supabase when user becomes available
   useEffect(() => {
@@ -114,6 +117,16 @@ export function useStanzix(user) {
           if (Array.isArray(s.selectedTemplates)) setSelectedTemplates(new Set(s.selectedTemplates));
           if (Array.isArray(s.examples)) setExamples(s.examples);
           if (Array.isArray(s.approvedExamples)) setApprovedExamples(new Set(s.approvedExamples));
+          if (Array.isArray(s.promptHistory)) {
+            const cleaned = s.promptHistory.filter(
+              (h) =>
+                h &&
+                typeof h.id === "string" &&
+                typeof h.instructions === "string" &&
+                h.instructions.trim().length > 0
+            );
+            setPromptHistory(cleaned.slice(0, MAX_PROMPT_HISTORY));
+          }
         }
       } catch (e) {
         console.error("Supabase load error:", e);
@@ -144,6 +157,7 @@ export function useStanzix(user) {
           modes, defaultModeIdx, priorities, failures,
           templates, templatesEnabled, selectedTemplates: [...selectedTemplates],
           examples, approvedExamples: [...approvedExamples],
+          promptHistory,
         };
         const { error: saveErr } = await supabase
           .from(TABLE)
@@ -157,7 +171,7 @@ export function useStanzix(user) {
       }
     }, 500);
     return () => { if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current); };
-  }, [user, step, projectName, projectDesc, domain, goals, customInjection, identityOptions, selectedIdentity, quizQuestions, quizAnswers, knowledgeResult, negativeSuggestions, selectedNegatives, modes, defaultModeIdx, priorities, failures, templates, templatesEnabled, selectedTemplates, examples, approvedExamples]);
+  }, [user, step, projectName, projectDesc, domain, goals, customInjection, identityOptions, selectedIdentity, quizQuestions, quizAnswers, knowledgeResult, negativeSuggestions, selectedNegatives, modes, defaultModeIdx, priorities, failures, templates, templatesEnabled, selectedTemplates, examples, approvedExamples, promptHistory]);
 
   const showError = (msg) => { setError(msg); setTimeout(() => setError(null), 6000); };
 
@@ -393,23 +407,74 @@ export function useStanzix(user) {
     setParsedPreview(null); setPastedInstructions(""); setAppMode("create"); setStep(0);
   };
 
+  const projectBlurb = `${projectDesc}${goals ? " Goal: " + goals.trim().replace(/\.?\s*$/, ".") : ""}`.trim();
+  const canAdvance = () => (step === 0 ? !!(projectName || domain || projectDesc || goals) : true);
+
+  const appendPromptHistoryIfNew = useCallback(
+    (instructionsRaw, blurbRaw, nameRaw) => {
+      const instructions = String(instructionsRaw || "").trim();
+      if (instructions.length < 20) return;
+      const blurb = String(blurbRaw || "").trim();
+      const title = String(nameRaw || "").trim() || "Untitled";
+      setPromptHistory((prev) => {
+        if (prev.length > 0 && prev[0].instructions === instructions) return prev;
+        const id =
+          typeof crypto !== "undefined" && crypto.randomUUID
+            ? crypto.randomUUID()
+            : `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
+        const entry = {
+          id,
+          savedAt: new Date().toISOString(),
+          projectName: title,
+          blurb,
+          instructions,
+        };
+        return [entry, ...prev].slice(0, MAX_PROMPT_HISTORY);
+      });
+    },
+    []
+  );
+
+  const savePromptToHistory = useCallback(() => {
+    const instructions = compiledOutput.trim();
+    if (instructions.length < 20) {
+      showError("Build your instructions first — nothing meaningful to save yet.");
+      return;
+    }
+    const title = projectName.trim() || domain.trim() || "Untitled";
+    appendPromptHistoryIfNew(instructions, projectBlurb, title);
+    trackActivity();
+  }, [compiledOutput, projectName, domain, projectBlurb, appendPromptHistoryIfNew, trackActivity]);
+
+  const removePromptFromHistory = useCallback((id) => {
+    setPromptHistory((prev) => prev.filter((h) => h.id !== id));
+    trackActivity();
+  }, [trackActivity]);
+
   const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(compiledOutput);
-      setCopied(true); setShowFireworks(true);
-      setTimeout(() => setCopied(false), 2000);
-      setTimeout(() => setShowFireworks(false), 3000);
-    } catch {
+    const tryCopy = async () => {
       try {
+        await navigator.clipboard.writeText(compiledOutput);
+      } catch {
         const ta = document.createElement("textarea");
         ta.value = compiledOutput;
         Object.assign(ta.style, { position: "fixed", left: "-9999px", top: "-9999px", opacity: "0" });
-        document.body.appendChild(ta); ta.focus(); ta.select();
-        document.execCommand("copy"); document.body.removeChild(ta);
-        setCopied(true); setShowFireworks(true);
-        setTimeout(() => setCopied(false), 2000);
-        setTimeout(() => setShowFireworks(false), 3000);
-      } catch { showError("Copy failed. Try selecting the text manually."); }
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+    };
+    try {
+      await tryCopy();
+      appendPromptHistoryIfNew(compiledOutput, projectBlurb, projectName.trim() || domain.trim() || "Untitled");
+      setCopied(true);
+      setShowFireworks(true);
+      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setShowFireworks(false), 3000);
+    } catch {
+      showError("Copy failed. Try selecting the text manually.");
     }
   };
 
@@ -467,9 +532,6 @@ export function useStanzix(user) {
   const updateExample = useCallback((idx, changes) => {
     setExamples(prev => prev.map((e, i) => i === idx ? { ...e, ...changes } : e));
   }, []);
-
-  const projectBlurb = `${projectDesc}${goals ? " Goal: " + goals.trim().replace(/\.?\s*$/, ".") : ""}`.trim();
-  const canAdvance = () => step === 0 ? !!(projectName || domain || projectDesc || goals) : true;
 
   return {
     // Navigation
@@ -534,6 +596,7 @@ export function useStanzix(user) {
     pastedInstructions, setPastedInstructions,
     parsedPreview, setParsedPreview,
     selectedSections, setSelectedSections,
+    promptHistory,
     // Computed
     projectBlurb,
     canAdvance,
@@ -562,6 +625,8 @@ export function useStanzix(user) {
     applyParsed,
     copyToClipboard,
     copyBlurb,
+    savePromptToHistory,
+    removePromptFromHistory,
     handleDragStart,
     handleDragOver,
     handleDragEnd,

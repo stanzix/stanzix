@@ -1,6 +1,6 @@
 "use client";
 import { Fragment, useState, useEffect, useRef } from "react";
-import { ChevronRight, ChevronLeft, Zap, PanelRightOpen, PanelRightClose, X, Lightbulb, Wand2, Check, Copy, CheckCircle2, LogOut, Loader2 } from "lucide-react";
+import { ChevronRight, ChevronLeft, Zap, PanelRightOpen, PanelRightClose, X, Lightbulb, Wand2, Check, Copy, CheckCircle2, LogOut, Loader2, Library } from "lucide-react";
 import { useStanzix } from "../hooks/useStanzix";
 import { useAuth } from "../hooks/useAuth";
 import { STEPS, VERSION } from "../lib/outputBuilder";
@@ -21,6 +21,7 @@ import EditMode from "./stanzix/EditMode";
 import SignInGate from "./stanzix/SignInGate";
 import PaymentGate from "./stanzix/PaymentGate";
 import UsageDisplay from "./stanzix/UsageDisplay";
+import PromptLibraryModal from "./stanzix/PromptLibraryModal";
 
 const FREE_LIMIT = 5;
 
@@ -37,6 +38,7 @@ export default function Stanzix() {
   const [pendingPro, setPendingPro] = useState(false);
   const [pendingTeam, setPendingTeam] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
+  const [showPromptLibrary, setShowPromptLibrary] = useState(false);
 
   // Detect checkout=success / canceled params on mount (Stripe redirect back)
   useEffect(() => {
@@ -148,7 +150,7 @@ export default function Stanzix() {
     { loading: pe.loading, failures: pe.failures, itemLoading: pe.itemLoading, generateFailures: pe.generateFailures, regenerateFailure: pe.regenerateFailure, updateFailure: pe.updateFailure, trackActivity: pe.trackActivity },
     { loading: pe.loading, templates: pe.templates, templatesEnabled: pe.templatesEnabled, setTemplatesEnabled: pe.setTemplatesEnabled, selectedTemplates: pe.selectedTemplates, setSelectedTemplates: pe.setSelectedTemplates, generateTemplates: pe.generateTemplates, trackActivity: pe.trackActivity },
     { loading: pe.loading, examples: pe.examples, approvedExamples: pe.approvedExamples, setApprovedExamples: pe.setApprovedExamples, generateExamples: pe.generateExamples, updateExample: pe.updateExample, trackActivity: pe.trackActivity },
-    { projectBlurb: pe.projectBlurb, compiledOutput: pe.compiledOutput, customInjection: pe.customInjection, setCustomInjection: pe.setCustomInjection, copied: pe.copied, copiedBlurb: pe.copiedBlurb, feedbackText: pe.feedbackText, setFeedbackText: pe.setFeedbackText, feedbackSubmitted: pe.feedbackSubmitted, feedbackSending: pe.feedbackSending, onCopy: pe.copyToClipboard, onCopyBlurb: pe.copyBlurb, onSubmitFeedback: pe.submitFeedback, trackActivity: pe.trackActivity },
+    { projectBlurb: pe.projectBlurb, compiledOutput: pe.compiledOutput, customInjection: pe.customInjection, setCustomInjection: pe.setCustomInjection, copied: pe.copied, copiedBlurb: pe.copiedBlurb, feedbackText: pe.feedbackText, setFeedbackText: pe.setFeedbackText, feedbackSubmitted: pe.feedbackSubmitted, feedbackSending: pe.feedbackSending, onCopy: pe.copyToClipboard, onCopyBlurb: pe.copyBlurb, onSubmitFeedback: pe.submitFeedback, onSaveToLibrary: pe.savePromptToHistory, trackActivity: pe.trackActivity },
   ];
 
   const CurrentStep = STEP_COMPONENTS[pe.step];
@@ -206,6 +208,8 @@ export default function Stanzix() {
           pendingTeam={pendingTeam}
           error={checkoutError}
           isMobile={pe.isMobile}
+          promptLibraryCount={pe.promptHistory.length}
+          onOpenPromptLibrary={() => setShowPromptLibrary(true)}
         />
       ) : (
         <>
@@ -233,6 +237,21 @@ export default function Stanzix() {
               <Badge active={pe.appMode === "create"} onClick={() => { pe.setAppMode("create"); pe.setParsedPreview(null); }}>Create</Badge>
               <Badge active={pe.appMode === "edit"} onClick={() => pe.setAppMode("edit")}>Edit</Badge>
               {!pe.isMobile && <div style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.1)", margin: "0 4px" }} />}
+              <button
+                type="button"
+                onClick={() => setShowPromptLibrary(true)}
+                title="Saved prompts"
+                aria-label="Open prompt library"
+                style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px", color: "rgba(255,255,255,0.55)" }}
+              >
+                <Library size={18} color="rgba(255,255,255,0.6)" />
+                {!pe.isMobile && (
+                  <span style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace" }}>
+                    Library{pe.promptHistory.length ? ` (${pe.promptHistory.length})` : ""}
+                  </span>
+                )}
+              </button>
+              <div style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.1)", margin: "0 2px" }} />
               <button onClick={() => pe.setShowPreview(!pe.showPreview)} aria-label={pe.showPreview ? "Hide preview panel" : "Show preview panel"} style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px" }}>
                 {pe.showPreview ? <PanelRightClose size={18} color="rgba(255,255,255,0.6)" /> : <PanelRightOpen size={18} color="rgba(255,255,255,0.6)" />}
                 {!pe.isMobile && <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace" }}>Preview</span>}
@@ -426,6 +445,19 @@ export default function Stanzix() {
             onUpgrade={() => setShowPaywall(true)}
           />
         </>
+      )}
+
+      {auth.user && !auth.loading && !pe.hydrating && (
+        <PromptLibraryModal
+          open={showPromptLibrary}
+          onClose={() => setShowPromptLibrary(false)}
+          history={pe.promptHistory}
+          onDelete={pe.removePromptFromHistory}
+          onSaveCurrent={pe.savePromptToHistory}
+          showError={pe.showError}
+          canSaveCurrent={pe.compiledOutput.trim().length >= 20}
+          currentTitle={pe.projectName.trim() || pe.domain.trim() || "Untitled"}
+        />
       )}
     </div>
   );

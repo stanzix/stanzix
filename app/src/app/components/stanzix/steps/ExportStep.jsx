@@ -1,8 +1,8 @@
 "use client";
-import { Loader2, Sparkles, Check, Copy, CheckCircle2 } from "lucide-react";
+import { Loader2, Sparkles, Check, Copy, CheckCircle2, Library } from "lucide-react";
 import { SectionLabel, Btn, TextArea } from "../ui";
 
-export function ExportStep({ projectBlurb, compiledOutput, customInjection, setCustomInjection, copied, copiedBlurb, feedbackText, setFeedbackText, feedbackSubmitted, feedbackSending, onCopy, onCopyBlurb, onSubmitFeedback, trackActivity }) {
+export function ExportStep({ projectBlurb, compiledOutput, customInjection, setCustomInjection, copied, copiedBlurb, feedbackText, setFeedbackText, feedbackSubmitted, feedbackSending, onCopy, onCopyBlurb, onSubmitFeedback, onSaveToLibrary, trackActivity }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
       <div>
@@ -35,7 +35,21 @@ export function ExportStep({ projectBlurb, compiledOutput, customInjection, setC
             <SectionLabel>Step 2: Project Instructions</SectionLabel>
             <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.6)", fontFamily: "'DM Sans', sans-serif", marginTop: "-10px", marginBottom: "10px" }}>Paste into <strong style={{ color: "rgba(255,255,255,0.8)" }}>Custom Instructions</strong> in the same project settings page.</div>
           </div>
-          <Btn small primary onClick={onCopy}>{copied ? <><Check size={14} /> Copied!</> : <><Copy size={14} /> Copy</>}</Btn>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center" }}>
+            <Btn small primary onClick={onCopy}>{copied ? <><Check size={14} /> Copied!</> : <><Copy size={14} /> Copy</>}</Btn>
+            {typeof onSaveToLibrary === "function" && (
+              <Btn
+                small
+                onClick={() => {
+                  onSaveToLibrary();
+                  trackActivity();
+                }}
+                disabled={!compiledOutput || compiledOutput.trim().length < 20}
+              >
+                <Library size={14} /> Save to library
+              </Btn>
+            )}
+          </div>
         </div>
         <div style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px", maxHeight: "420px", overflowY: "auto" }}>
           <pre style={{ color: "#e0e0e0", fontSize: "13px", fontFamily: "'JetBrains Mono', monospace", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.7 }}>{compiledOutput}</pre>
