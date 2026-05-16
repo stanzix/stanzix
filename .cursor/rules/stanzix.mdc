@@ -1,0 +1,179 @@
+---
+description: Stanzix marketing website - persistent project rules
+alwaysApply: true
+---
+
+# Stanzix Project Rules
+
+## What is Stanzix
+
+Stanzix is a structured prompt builder. Users describe what they need, configure 8 levers (Tone, Depth, Format, Role, Audience, Output, Constraints, Examples), and get a structured prompt ready to paste into any LLM.
+
+This codebase is the MARKETING WEBSITE at stanzix.com. The product app lives separately at app.stanzix.com.
+
+## Tech Stack
+
+- Next.js 15 with App Router
+- TypeScript (strict mode)
+- Tailwind CSS
+- Framer Motion (light use only)
+- next/font for Geist, Geist Mono, Fraunces
+- Vercel Analytics
+- Deployed to Vercel
+
+Do not introduce additional dependencies without justification.
+
+## Design Tokens (use these literally)
+
+### Colors
+- background: `#0A0A0A` (warm black, not pure)
+- surface: `#141414`
+- text-primary: `#F5F1E8` (cream white)
+- text-secondary: `#8B8579` (warm muted)
+- text-dim: `#5C564D`
+- accent: `#D4A04C` (amber - the Stanzix signature)
+- accent-hover: `#C49340`
+- accent-dim: `#8B6B30`
+- border: `#2A2620`
+- success: `#7DB86A`
+
+### Typography
+- Headlines: Fraunces (font-serif). Weights 400-600. Use `font-medium` for h1-h3.
+- Body: Geist (font-sans). Weights 400-500.
+- Code/Mono: Geist Mono (font-mono).
+
+### Type Scale
+- Display (h1): `font-serif text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[1.05]`
+- H2: `font-serif text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight`
+- H3: `font-serif text-2xl md:text-3xl font-medium`
+- Body Large: `font-sans text-lg md:text-xl text-text-secondary leading-relaxed`
+- Body: `font-sans text-base text-text-secondary leading-relaxed`
+- Caption: `font-sans text-sm text-text-dim uppercase tracking-wider`
+- Code: `font-mono text-sm md:text-base`
+
+### Spacing
+- Section padding: `py-24 md:py-32 lg:py-40`
+- Container: `max-w-7xl mx-auto px-6 md:px-12`
+- Prose width: `max-w-5xl`
+- Testimonial width: `max-w-3xl`
+
+## File Structure
+
+```
+src/
+  app/
+    layout.tsx
+    page.tsx
+    globals.css
+  components/
+    sections/
+      Hero.tsx, SocialProof.tsx, Problem.tsx, HowItWorks.tsx,
+      Features.tsx, BeforeAfter.tsx, UseCases.tsx, Testimonial.tsx,
+      Pricing.tsx, FAQ.tsx, FinalCTA.tsx, Footer.tsx
+    ui/
+      Button.tsx, LeverBar.tsx, ScaffoldLine.tsx, Bracket.tsx
+  lib/
+    constants.ts
+```
+
+One section per file. Reusable components in ui/. No prop drilling beyond two levels.
+
+## Component Patterns
+
+### Visual Signature
+
+The Stanzix visual signature is **lever bars and scaffold lines**, not gradients or orbs.
+
+- LeverBar: small horizontal indicator with label + animated bar fill. Used in hero demo and as recurring motif.
+- ScaffoldLine: thin amber line with transparent ends, used as section divider, vertical separator, visual flourish.
+- Bracket: amber `[ ]` characters wrapping headlines for feature names and key callouts.
+
+Use these three components throughout. They are the brand.
+
+### Buttons
+
+Primary: `bg-accent text-background font-medium px-6 py-3 rounded-md hover:bg-accent-hover transition-colors`
+
+Secondary: `border border-accent text-accent font-medium px-6 py-3 rounded-md hover:bg-accent/10 transition-colors`
+
+## Voice and Tone for All Copy
+
+- Direct. No marketing fluff. No "revolutionary," "game-changing," "powerful," "seamless."
+- Builder-to-builder. Assume reader is technically capable.
+- Confident, not arrogant. State what the product does.
+- Specific. Numbers over adjectives. "8 levers" beats "powerful customization."
+- Active voice always.
+- Short sentences. Strong verbs.
+
+## DO NOT
+
+- DO NOT use em dashes or en dashes anywhere. Use periods or commas.
+- DO NOT add gradients, glassmorphism, or animated orbs. These are Linear-clone signals.
+- DO NOT use Inter font. Use Geist (Inter is the AI tool default we are avoiding).
+- DO NOT use stock illustrations, generic AI imagery, or lorem ipsum.
+- DO NOT add a light mode toggle in v1. Dark mode only.
+- DO NOT over-animate. Restraint is the brand.
+- DO NOT use marketing words: revolutionary, game-changing, powerful, seamless, robust, cutting-edge, world-class.
+- DO NOT add features I did not ask for. No newsletter modal, no chat widget, no cookie banner, no countdown timer.
+- DO NOT use HTML form tags inside React components. Use button onClick handlers.
+- DO NOT introduce CSS-in-JS libraries. Tailwind only.
+- DO NOT add unused dependencies.
+
+## Animation Guidance
+
+- Section reveals on scroll: subtle fade-in + 8px upward translate, 400ms ease-out, once only.
+- Hover states: smooth color or border transitions, no transforms (no scaling, no bouncing).
+- Hero lever animations: continuous loop, smooth value transitions every 3-4 seconds.
+- Accordion expand: smooth height transition, 250ms ease-out.
+- Total animation budget: visitor never waits for an animation to complete.
+
+## Performance Requirements
+
+- Lighthouse Performance: 90+
+- First Contentful Paint: under 1.5s
+- Largest Contentful Paint: under 2.5s
+- No cumulative layout shift after initial load
+- font-display: swap on all custom fonts
+- Preload Fraunces (used in hero, critical)
+- Use next/image for any images
+- Code-split heavy sections with dynamic imports
+
+## Accessibility
+
+- WCAG AA minimum
+- All interactive elements keyboard accessible
+- Visible focus states (amber outline, 2px offset)
+- Semantic HTML (use button for buttons, a for links)
+- Alt text on all images
+- ARIA labels on icon-only buttons
+- Sufficient color contrast (verify with WebAIM contrast checker)
+- Respect prefers-reduced-motion (disable animations when set)
+
+## Verification Commands
+
+Run after each phase. Fix any errors before continuing.
+
+```bash
+npm run build        # Must complete without errors
+npm run lint         # Zero warnings
+npx tsc --noEmit     # TypeScript clean
+```
+
+For the dev server during development:
+```bash
+npm run dev
+```
+
+After deployment:
+```bash
+npx lighthouse https://stanzix.com --view  # Verify 90+ scores
+```
+
+## When in Doubt
+
+- Match the design intent, not just the requirements.
+- Restraint over decoration.
+- Specific values over conceptual descriptions.
+- Read the relevant section spec in stanzix-build-plan.md before building.
+- Read copy from stanzix-website-copy.md, do not invent new copy.
+- Reference the visual signature (lever bars and scaffold lines) in every section.
