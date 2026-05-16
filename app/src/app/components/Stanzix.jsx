@@ -20,8 +20,9 @@ import PreviewPanel from "./stanzix/PreviewPanel";
 import EditMode from "./stanzix/EditMode";
 import SignInGate from "./stanzix/SignInGate";
 import PaymentGate from "./stanzix/PaymentGate";
+import UsageDisplay from "./stanzix/UsageDisplay";
 
-const FREE_LIMIT = 50;
+const FREE_LIMIT = 5;
 
 const STEP_COMPONENTS = [ContextStep, IdentityStep, KnowledgeStep, NegativeSpaceStep, ModesStep, PriorityStep, FailureStep, TemplatesStep, ExamplesStep, ExportStep];
 
@@ -29,24 +30,22 @@ export default function Stanzix() {
   const auth = useAuth();
   const pe = useStanzix(auth.user);
 
-  // Payment gate state
+  // Subscription / payment gate state
   const [isPaid, setIsPaid] = useState(false);
-  const [checkoutPending, setCheckoutPending] = useState(false);
+  const [pendingPro, setPendingPro] = useState(false);
+  const [pendingTeam, setPendingTeam] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
 
-  // Detect session_id / canceled params on mount (Stripe redirect back)
+  // Detect checkout=success / canceled params on mount (Stripe redirect back)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const sessionId = params.get("session_id");
-    const canceled = params.get("canceled");
-    if (sessionId) setIsPaid(true);
-    if (canceled) setCheckoutError("Payment was canceled. Try again when you're ready.");
-    if (sessionId || canceled) {
-      window.history.replaceState({}, "", window.location.pathname);
-    }
+    const result = params.get("checkout");
+    if (result === "success") setIsPaid(true);
+    if (result === "canceled") setCheckoutError("Payment was canceled. Try again when you're ready.");
+    if (result) window.history.replaceState({}, "", window.location.pathname);
   }, []);
 
-  // Fetch user tier from Supabase after auth; pro tier bypasses payment gate
+  // Fetch subscription status from Supabase after auth
   useEffect(() => {
     if (!auth.user) return;
     (async () => {
@@ -54,56 +53,62 @@ export default function Stanzix() {
         const supabase = getSupabaseClient();
         const { data } = await supabase
           .from("profiles")
-          .select("tier")
-          .eq("user_id", auth.user.id)
+          .select("subscription_tier, subscription_status")
+          .eq("id", auth.user.id)
           .maybeSingle();
-        if (data?.tier === "pro") setIsPaid(true);
+        if (data?.subscription_tier !== "free" && data?.subscription_status === "active") {
+          setIsPaid(true);
+        }
       } catch {}
     })();
   }, [auth.user]);
 
-  const initiateCheckout = async () => {
-    if (!auth.user?.email) return;
-    setCheckoutPending(true);
+  const initiateCheckout = async (priceId, setPending) => {
+    if (!auth.user) return;
+    setPending(true);
     setCheckoutError("");
     try {
+      const supabase = getSupabaseClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
       const res = await fetch("/api/checkout", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: auth.user.email, userId: auth.user.id }),
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ priceId }),
       });
       const data = await res.json();
       if (data.url) {
         window.location.href = data.url;
       } else {
         setCheckoutError(data.error || "Failed to start checkout. Please try again.");
-        setCheckoutPending(false);
+        setPending(false);
       }
     } catch {
       setCheckoutError("Failed to start checkout. Please try again.");
-      setCheckoutPending(false);
+      setPending(false);
     }
   };
 
-  // Usage counter
+  // Usage counter (for header display and warning banners)
   const [usageCount, setUsageCount] = useState(null);
   const prevLoadingRef = useRef(false);
 
   useEffect(() => {
-    if (!auth.user) return;
+    if (!auth.user || isPaid) return;
     (async () => {
       try {
         const supabase = getSupabaseClient();
         const start = new Date(); start.setDate(1); start.setHours(0, 0, 0, 0);
         const { count } = await supabase
-          .from("usage_events")
+          .from("usage")
           .select("*", { count: "exact", head: true })
           .eq("user_id", auth.user.id)
+          .eq("action", "generate")
           .gte("created_at", start.toISOString());
         setUsageCount(count ?? 0);
       } catch {}
     })();
-  }, [auth.user]);
+  }, [auth.user, isPaid]);
 
   // Increment local counter when a generation completes
   useEffect(() => {
@@ -141,8 +146,8 @@ export default function Stanzix() {
   const CurrentStep = STEP_COMPONENTS[pe.step];
 
   // Usage display helpers
-  const usageAtRisk = usageCount !== null && usageCount >= FREE_LIMIT * 0.8;
-  const usageHit = usageCount !== null && usageCount >= FREE_LIMIT;
+  const usageAtRisk = !isPaid && usageCount !== null && usageCount >= FREE_LIMIT - 1;
+  const usageHit = !isPaid && usageCount !== null && usageCount >= FREE_LIMIT;
 
   return (
     <div style={{ minHeight: "100vh", background: "#111113", color: "#e0e0e0", fontFamily: "'DM Sans', sans-serif", display: "flex", flexDirection: "column" }}>
@@ -187,8 +192,10 @@ export default function Stanzix() {
       ) : !isPaid ? (
         <PaymentGate
           email={auth.user.email}
-          onCheckout={initiateCheckout}
-          pending={checkoutPending}
+          onCheckoutPro={() => initiateCheckout(process.env.NEXT_PUBLIC_STRIPE_PRO_PRICE_ID, setPendingPro)}
+          onCheckoutTeam={() => initiateCheckout(process.env.NEXT_PUBLIC_STRIPE_TEAM_PRICE_ID, setPendingTeam)}
+          pendingPro={pendingPro}
+          pendingTeam={pendingTeam}
           error={checkoutError}
           isMobile={pe.isMobile}
         />
@@ -205,9 +212,12 @@ export default function Stanzix() {
             </div>
 
             <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
-              {/* Usage counter */}
-              {usageCount !== null && !pe.isMobile && (
-                <div title={usageHit ? "Monthly limit reached — upgrade for unlimited" : `${FREE_LIMIT - usageCount} calls remaining this month`} style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace", color: usageHit ? "#dc5050" : usageAtRisk ? "#d4a24e" : "rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.04)", border: `1px solid ${usageHit ? "rgba(220,80,80,0.3)" : usageAtRisk ? "rgba(212,162,78,0.25)" : "rgba(255,255,255,0.08)"}`, borderRadius: "6px", padding: "4px 10px", cursor: "default", transition: "all 0.2s" }}>
+              {/* Usage counter (free tier only, header pill) */}
+              {!isPaid && usageCount !== null && !pe.isMobile && (
+                <div
+                  title={usageHit ? "Monthly limit reached — upgrade for unlimited" : `${FREE_LIMIT - usageCount} prompts remaining this month`}
+                  style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace", color: usageHit ? "#dc5050" : usageAtRisk ? "#d4a24e" : "rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.04)", border: `1px solid ${usageHit ? "rgba(220,80,80,0.3)" : usageAtRisk ? "rgba(212,162,78,0.25)" : "rgba(255,255,255,0.08)"}`, borderRadius: "6px", padding: "4px 10px", cursor: "default", transition: "all 0.2s" }}
+                >
                   {usageCount} / {FREE_LIMIT}
                 </div>
               )}
@@ -356,13 +366,13 @@ export default function Stanzix() {
                   {/* Usage warning banner */}
                   {usageAtRisk && !usageHit && (
                     <div style={{ background: "rgba(212,162,78,0.06)", border: "1px solid rgba(212,162,78,0.2)", borderRadius: "8px", padding: "10px 14px", display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px", fontSize: "12px", color: "rgba(212,162,78,0.85)" }}>
-                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 600 }}>{FREE_LIMIT - usageCount} calls left</span>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 600 }}>{FREE_LIMIT - usageCount} prompt{FREE_LIMIT - usageCount === 1 ? "" : "s"} left</span>
                       <span style={{ color: "rgba(255,255,255,0.5)" }}>this month on the free plan.</span>
                     </div>
                   )}
                   {usageHit && (
                     <div style={{ background: "rgba(220,80,80,0.06)", border: "1px solid rgba(220,80,80,0.25)", borderRadius: "8px", padding: "10px 14px", marginBottom: "16px", fontSize: "12px", color: "rgba(220,150,150,0.9)" }}>
-                      Monthly limit reached. AI generation is paused until next month.
+                      Monthly limit reached. Upgrade to Pro for unlimited prompts.
                     </div>
                   )}
 
@@ -401,6 +411,12 @@ export default function Stanzix() {
               currentStep={pe.step}
             />
           </div>
+
+          {/* ── Usage / subscription footer ─────────────────────────────── */}
+          <UsageDisplay
+            isMobile={pe.isMobile}
+            onUpgrade={() => setIsPaid(false)}
+          />
         </>
       )}
     </div>

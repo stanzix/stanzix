@@ -1,33 +1,81 @@
 import Stripe from "stripe";
+import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+
+function makeSupabaseClient(token: string) {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      global: { headers: { Authorization: `Bearer ${token}` } },
+      auth: { persistSession: false },
+    }
+  );
+}
 
 export async function POST(req: Request) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  try {
-    const { email, userId } = await req.json();
 
-    if (!email) {
-      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+  // Require auth
+  const authHeader = req.headers.get("authorization");
+  const token = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : null;
+
+  if (!token) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const supabase = makeSupabaseClient(token);
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const { priceId } = await req.json();
+
+    if (!priceId) {
+      return NextResponse.json({ error: "priceId is required" }, { status: 400 });
     }
 
-    const origin = req.headers.get("origin") ?? "https://app.stanzix.com";
+    const appUrl =
+      process.env.NEXT_PUBLIC_APP_URL ??
+      req.headers.get("origin") ??
+      "https://app.stanzix.com";
+
+    // Get or create Stripe customer
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("stripe_customer_id")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    let customerId = profile?.stripe_customer_id as string | undefined;
+
+    if (!customerId) {
+      const customer = await stripe.customers.create({
+        email: user.email,
+        metadata: { supabase_user_id: user.id },
+      });
+      customerId = customer.id;
+
+      await supabase
+        .from("profiles")
+        .update({ stripe_customer_id: customerId })
+        .eq("id", user.id);
+    }
 
     const session = await stripe.checkout.sessions.create({
+      customer: customerId,
+      mode: "subscription",
       payment_method_types: ["card"],
-      customer_email: email,
-      line_items: [
-        {
-          price: process.env.STRIPE_PRICE_ID!,
-          quantity: 1,
-        },
-      ],
-      mode: "payment",
-      success_url: `${origin}/?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/?canceled=true`,
-      metadata: {
-        userId: userId ?? "",
-        email,
-      },
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: `${appUrl}/?checkout=success`,
+      cancel_url: `${appUrl}/?checkout=canceled`,
+      metadata: { supabase_user_id: user.id },
     });
 
     return NextResponse.json({ url: session.url });

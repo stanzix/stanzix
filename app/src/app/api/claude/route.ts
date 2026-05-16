@@ -1,17 +1,18 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+import { checkUsage, logUsage, MONTHLY_FREE_LIMIT } from "@/lib/usage";
 
 export const maxDuration = 300;
 
-const FREE_TIER_LIMIT = 50;
-
 function makeSupabaseClient(token: string) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-  return createClient(url, anonKey, {
-    global: { headers: { Authorization: `Bearer ${token}` } },
-    auth: { persistSession: false },
-  });
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      global: { headers: { Authorization: `Bearer ${token}` } },
+      auth: { persistSession: false },
+    }
+  );
 }
 
 export async function POST(req: Request) {
@@ -33,35 +34,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // 2. Check tier and enforce monthly call cap
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("tier")
-    .eq("user_id", user.id)
-    .maybeSingle();
+  // 2. Check tier and enforce monthly limit
+  const usage = await checkUsage(user.id, supabase);
 
-  const tier: string = profile?.tier ?? "free";
-
-  if (tier === "free") {
-    const startOfMonth = new Date();
-    startOfMonth.setDate(1);
-    startOfMonth.setHours(0, 0, 0, 0);
-
-    const { count } = await supabase
-      .from("usage_events")
-      .select("*", { count: "exact", head: true })
-      .eq("user_id", user.id)
-      .gte("created_at", startOfMonth.toISOString());
-
-    if ((count ?? 0) >= FREE_TIER_LIMIT) {
-      return NextResponse.json(
-        {
-          error: "monthly_limit_reached",
-          message: `You've used all ${FREE_TIER_LIMIT} free AI calls this month. Upgrade to Pro for unlimited access.`,
-        },
-        { status: 429 }
-      );
-    }
+  if (!usage.allowed) {
+    return NextResponse.json(
+      {
+        error: "monthly_limit_reached",
+        message: `You've used all ${MONTHLY_FREE_LIMIT} free prompts this month. Upgrade to Pro for unlimited access.`,
+        usage: { used: usage.used, limit: usage.limit, tier: usage.tier },
+      },
+      { status: 429 }
+    );
   }
 
   // 3. Proxy to Anthropic
@@ -85,13 +69,8 @@ export async function POST(req: Request) {
       return NextResponse.json(data, { status: response.status });
     }
 
-    // 4. Log usage (fire-and-forget — don't delay the response)
-    supabase
-      .from("usage_events")
-      .insert({ user_id: user.id, event_type: "claude_call" })
-      .then(({ error: insertErr }) => {
-        if (insertErr) console.error("Usage insert failed:", insertErr);
-      });
+    // 4. Log usage after successful generation (fire-and-forget)
+    logUsage(user.id, "generate", supabase);
 
     return NextResponse.json(data);
   } catch (error) {
