@@ -22,7 +22,7 @@ const TIERS: PricingTier[] = [
       "5 prompts per month",
       "All 8 levers",
       "Basic export",
-      "One device",
+      "No credit card required",
     ],
     cta: "Get Started Free",
     ctaHref: "https://app.stanzix.com",

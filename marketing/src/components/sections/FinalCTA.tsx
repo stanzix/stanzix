@@ -11,10 +11,12 @@ export default function FinalCTA() {
         <p className="font-sans text-lg text-text-secondary leading-relaxed">
           Build your first structured prompt in 60 seconds. Free, no credit card.
         </p>
-        <div className="flex items-center justify-center gap-4 pt-2">
-          <ScaffoldLine className="w-16 hidden sm:block" />
-          <Button href="https://app.stanzix.com">Try Stanzix Free</Button>
-          <ScaffoldLine className="w-16 hidden sm:block" />
+        <div className="flex items-center justify-center gap-8 mt-10">
+          <ScaffoldLine className="w-24 hidden md:block" />
+          <Button href="https://app.stanzix.com" className="whitespace-nowrap shrink-0">
+            Try Stanzix Free
+          </Button>
+          <ScaffoldLine className="w-24 hidden md:block" />
         </div>
       </div>
     </section>

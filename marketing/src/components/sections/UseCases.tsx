@@ -74,7 +74,7 @@ export default function UseCases() {
   const active = TABS.find((t) => t.id === activeId) ?? TABS[0];
 
   return (
-    <section id="use-cases" className="py-24 md:py-32 lg:py-40">
+    <section id="use-cases" className="py-16 md:py-24 lg:py-28">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <p className="font-sans text-sm text-text-dim uppercase tracking-wider mb-4">
           Use Cases
