@@ -127,7 +127,14 @@ function StanzixInner() {
 
   // Usage counter (for header display and warning banners)
   const [usageCount, setUsageCount] = useState(null);
-  const prevLoadingRef = useRef(false);
+
+  const onExportLogged = async () => {
+    const usage = await pe.logExport();
+    if (usage) {
+      setUsageCount(usage.used);
+      if (!isPaid && usage.used >= FREE_LIMIT) setShowPaywall(true);
+    }
+  };
 
   useEffect(() => {
     if (!auth.user || isPaid) return;
@@ -139,7 +146,7 @@ function StanzixInner() {
           .from("usage")
           .select("*", { count: "exact", head: true })
           .eq("user_id", auth.user.id)
-          .eq("action", "generate")
+          .eq("action", "export")
           .gte("created_at", start.toISOString());
         const c = count ?? 0;
         setUsageCount(c);
@@ -147,18 +154,6 @@ function StanzixInner() {
       } catch {}
     })();
   }, [auth.user, isPaid]);
-
-  // Increment local counter when a generation completes; show paywall if limit hit
-  useEffect(() => {
-    if (prevLoadingRef.current && !pe.loading && usageCount !== null) {
-      setUsageCount(c => {
-        const next = c + 1;
-        if (!isPaid && next >= FREE_LIMIT) setShowPaywall(true);
-        return next;
-      });
-    }
-    prevLoadingRef.current = pe.loading;
-  }, [pe.loading]);
 
   // Step transition animation
   const [stepEntering, setStepEntering] = useState(false);
@@ -199,7 +194,7 @@ function StanzixInner() {
     { loading: pe.loading, failures: pe.failures, itemLoading: pe.itemLoading, generateFailures: pe.generateFailures, regenerateFailure: pe.regenerateFailure, updateFailure: pe.updateFailure, trackActivity: pe.trackActivity },
     { loading: pe.loading, templates: pe.templates, templatesEnabled: pe.templatesEnabled, setTemplatesEnabled: pe.setTemplatesEnabled, selectedTemplates: pe.selectedTemplates, setSelectedTemplates: pe.setSelectedTemplates, generateTemplates: pe.generateTemplates, trackActivity: pe.trackActivity },
     { loading: pe.loading, examples: pe.examples, approvedExamples: pe.approvedExamples, setApprovedExamples: pe.setApprovedExamples, generateExamples: pe.generateExamples, updateExample: pe.updateExample, trackActivity: pe.trackActivity },
-    { projectBlurb: pe.projectBlurb, compiledOutput: pe.compiledOutput, customInjection: pe.customInjection, setCustomInjection: pe.setCustomInjection, copied: pe.copied, copiedBlurb: pe.copiedBlurb, feedbackText: pe.feedbackText, setFeedbackText: pe.setFeedbackText, feedbackSubmitted: pe.feedbackSubmitted, feedbackSending: pe.feedbackSending, onCopy: pe.copyToClipboard, onCopyBlurb: pe.copyBlurb, onSubmitFeedback: pe.submitFeedback, onSaveToLibrary: pe.savePromptToHistory, trackActivity: pe.trackActivity },
+    { projectBlurb: pe.projectBlurb, compiledOutput: pe.compiledOutput, customInjection: pe.customInjection, setCustomInjection: pe.setCustomInjection, copied: pe.copied, copiedBlurb: pe.copiedBlurb, feedbackText: pe.feedbackText, setFeedbackText: pe.setFeedbackText, feedbackSubmitted: pe.feedbackSubmitted, feedbackSending: pe.feedbackSending, onCopy: pe.copyToClipboard, onCopyBlurb: pe.copyBlurb, onSubmitFeedback: pe.submitFeedback, onSaveToLibrary: pe.savePromptToHistory, onExportLogged, trackActivity: pe.trackActivity },
   ];
 
   const CurrentStep = STEP_COMPONENTS[pe.step];

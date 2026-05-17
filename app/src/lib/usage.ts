@@ -37,7 +37,7 @@ export async function checkUsage(
     .from("usage")
     .select("*", { count: "exact", head: true })
     .eq("user_id", userId)
-    .eq("action", "generate")
+    .eq("action", "export")
     .gte("created_at", startOfMonth.toISOString());
 
   const used = count ?? 0;

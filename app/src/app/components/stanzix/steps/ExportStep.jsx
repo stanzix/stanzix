@@ -2,7 +2,7 @@
 import { Loader2, Sparkles, Check, Copy, CheckCircle2, Library } from "lucide-react";
 import { SectionLabel, Btn, TextArea } from "../ui";
 
-export function ExportStep({ projectBlurb, compiledOutput, customInjection, setCustomInjection, copied, copiedBlurb, feedbackText, setFeedbackText, feedbackSubmitted, feedbackSending, onCopy, onCopyBlurb, onSubmitFeedback, onSaveToLibrary, trackActivity }) {
+export function ExportStep({ projectBlurb, compiledOutput, customInjection, setCustomInjection, copied, copiedBlurb, feedbackText, setFeedbackText, feedbackSubmitted, feedbackSending, onCopy, onCopyBlurb, onSubmitFeedback, onSaveToLibrary, onExportLogged, trackActivity }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
       <div>
@@ -12,7 +12,7 @@ export function ExportStep({ projectBlurb, compiledOutput, customInjection, setC
             <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.6)", fontFamily: "'DM Sans', sans-serif", marginTop: "-10px", marginBottom: "6px" }}>Paste into <strong style={{ color: "rgba(255,255,255,0.8)" }}>"What are you trying to achieve?"</strong> in Claude project settings.</div>
             <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)", fontFamily: "'JetBrains Mono', monospace", marginBottom: "10px" }}>Go to claude.ai → Projects → New project → Settings</div>
           </div>
-          <Btn small primary onClick={onCopyBlurb}>{copiedBlurb ? <><Check size={14} /> Copied!</> : <><Copy size={14} /> Copy</>}</Btn>
+          <Btn small primary onClick={() => { onCopyBlurb(); onExportLogged?.(); }}>{copiedBlurb ? <><Check size={14} /> Copied!</> : <><Copy size={14} /> Copy</>}</Btn>
         </div>
         <div style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "16px 18px" }}>
           <p style={{ color: "#e0e0e0", fontSize: "14px", lineHeight: 1.7, margin: 0 }}>{projectBlurb || "Fill in Project Context to generate this."}</p>
@@ -36,12 +36,13 @@ export function ExportStep({ projectBlurb, compiledOutput, customInjection, setC
             <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.6)", fontFamily: "'DM Sans', sans-serif", marginTop: "-10px", marginBottom: "10px" }}>Paste into <strong style={{ color: "rgba(255,255,255,0.8)" }}>Custom Instructions</strong> in the same project settings page.</div>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center" }}>
-            <Btn small primary onClick={onCopy}>{copied ? <><Check size={14} /> Copied!</> : <><Copy size={14} /> Copy</>}</Btn>
+            <Btn small primary onClick={() => { onCopy(); onExportLogged?.(); }}>{copied ? <><Check size={14} /> Copied!</> : <><Copy size={14} /> Copy</>}</Btn>
             {typeof onSaveToLibrary === "function" && (
               <Btn
                 small
                 onClick={() => {
                   onSaveToLibrary();
+                  onExportLogged?.();
                   trackActivity();
                 }}
                 disabled={!compiledOutput || compiledOutput.trim().length < 20}

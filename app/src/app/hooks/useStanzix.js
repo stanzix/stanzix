@@ -75,6 +75,7 @@ export function useStanzix(user) {
   /** @type {{ id: string, savedAt: string, projectName: string, blurb: string, instructions: string }[]} */
   const [promptHistory, setPromptHistory] = useState([]);
   const [intakeComplete, setIntakeComplete] = useState(false);
+  const [exportLogged, setExportLogged] = useState(false);
   const [viewMode, setViewMode] = useState("dashboard"); // "dashboard" | "intake" | "builder"
 
   // Load state from Supabase when user becomes available
@@ -276,6 +277,7 @@ export function useStanzix(user) {
     setExamples([]);
     setApprovedExamples(new Set());
     setIntakeComplete(false);
+    setExportLogged(false);
     setPastedInstructions("");
     setParsedPreview(null);
     setSelectedSections(new Set());
@@ -659,6 +661,26 @@ export function useStanzix(user) {
     setExamples(prev => prev.map((e, i) => i === idx ? { ...e, ...changes } : e));
   }, []);
 
+  const logExport = useCallback(async () => {
+    if (exportLogged) return null;
+    try {
+      const supabase = getSupabaseClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) return null;
+      const res = await fetch("/api/usage", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      });
+      if (!res.ok) return null;
+      const usage = await res.json();
+      setExportLogged(true);
+      return usage;
+    } catch (e) {
+      console.error("logExport failed:", e);
+      return null;
+    }
+  }, [exportLogged]);
+
   return {
     // Navigation
     step, setStep,
@@ -769,5 +791,7 @@ export function useStanzix(user) {
     parseIntake,
     triggerCascade,
     resetSession,
+    exportLogged,
+    logExport,
   };
 }

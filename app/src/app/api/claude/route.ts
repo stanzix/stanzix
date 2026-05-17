@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
-import { checkUsage, logUsage, MONTHLY_FREE_LIMIT } from "@/lib/usage";
+import { checkUsage, MONTHLY_FREE_LIMIT } from "@/lib/usage";
 
 export const maxDuration = 300;
 
@@ -78,9 +78,6 @@ export async function POST(req: Request) {
       console.error("Anthropic error:", data);
       return NextResponse.json(data, { status: response.status });
     }
-
-    // 4. Log usage after successful generation (fire-and-forget)
-    logUsage(user.id, "generate", supabase);
 
     return NextResponse.json(data);
   } catch (error) {
