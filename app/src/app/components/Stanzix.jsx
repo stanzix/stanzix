@@ -24,6 +24,7 @@ import UsageDisplay from "./stanzix/UsageDisplay";
 import PromptLibraryModal from "./stanzix/PromptLibraryModal";
 import IntakeScreen from "./stanzix/IntakeScreen";
 import Dashboard from "./stanzix/Dashboard";
+import ErrorBoundary from "./ErrorBoundary";
 
 const PHASES = [
   { label: "Describe",  steps: [0] },
@@ -41,7 +42,7 @@ const FREE_LIMIT = 5;
 
 const STEP_COMPONENTS = [ContextStep, IdentityStep, KnowledgeStep, NegativeSpaceStep, ModesStep, PriorityStep, FailureStep, TemplatesStep, ExamplesStep, ExportStep];
 
-export default function Stanzix() {
+function StanzixInner() {
   const auth = useAuth();
   const pe = useStanzix(auth.user);
 
@@ -593,5 +594,13 @@ export default function Stanzix() {
         />
       )}
     </div>
+  );
+}
+
+export default function StanzixWithBoundary(props) {
+  return (
+    <ErrorBoundary>
+      <StanzixInner {...props} />
+    </ErrorBoundary>
   );
 }

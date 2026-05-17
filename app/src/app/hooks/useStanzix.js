@@ -297,14 +297,18 @@ export function useStanzix(user) {
     withItemLoading("identity_cascade", async () => {
       const r = await callClaude(
         `You generate professional role identities for AI assistants based on project context. Return ONLY valid JSON array of 3 objects: [{"title":"...","description":"...","traits":["...","...","..."]}]`,
-        `Project: ${name}\nDescription: ${desc}\nDomain: ${dm}\nGoals: ${gl}`
+        `Project: ${name}\nDescription: ${desc}\nDomain: ${dm}\nGoals: ${gl}`,
+        2048,
+        "claude-haiku-4-5"
       );
       if (r && !r._error) setIdentityOptions(r);
     });
     withItemLoading("negative_cascade", async () => {
       const r = await callClaude(
         `You identify counterproductive AI behaviors for a specific domain and project. Return ONLY valid JSON array: [{"behavior":"short name","instruction":"do not... directive","reason":"why this matters"}]`,
-        `Project: ${name}\nDomain: ${dm}\nDescription: ${desc}`
+        `Project: ${name}\nDomain: ${dm}\nDescription: ${desc}`,
+        2048,
+        "claude-haiku-4-5"
       );
       if (r && !r._error) { setNegativeSuggestions(r); setSelectedNegatives(new Set(r.map((_, i) => i))); }
     });
@@ -325,7 +329,9 @@ export function useStanzix(user) {
 - domain: The industry or functional domain (e.g. "Healthcare / Patient Intake", "E-commerce / Product Descriptions")
 - description: A 1-2 sentence description of what this AI assistant will do. Be specific about the role and scope.
 - goals: 1-3 concrete goals the user likely has. Make them measurable where possible.`,
-        `User input: "${userInput}"`
+        `User input: "${userInput}"`,
+        1024,
+        "claude-haiku-4-5"
       );
       if (r && !r._error && r.projectName) {
         const name = r.projectName || "";

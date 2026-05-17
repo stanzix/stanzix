@@ -38,7 +38,7 @@ const getSessionToken = async () => {
   }
 };
 
-const callClaude = async (systemPrompt, userPrompt, maxTokens = 8192) => {
+const callClaude = async (systemPrompt, userPrompt, maxTokens = 8192, model = "claude-opus-4-20250514") => {
   const token = await getSessionToken();
 
   try {
@@ -49,7 +49,7 @@ const callClaude = async (systemPrompt, userPrompt, maxTokens = 8192) => {
       method: "POST",
       headers,
       body: JSON.stringify({
-        model: "claude-opus-4-20250514",
+        model,
         max_tokens: maxTokens,
         system: systemPrompt,
         messages: [{ role: "user", content: userPrompt }],
