@@ -49,9 +49,9 @@ const TABS: Tab[] = [
     prompt: [
       { label: "ROLE", value: "Strategy consultant, SaaS expertise" },
       { label: "EXPERTISE", value: "C-suite depth" },
+      { label: "PRIORITY", value: "Data accuracy over speed" },
       { label: "FORMAT", value: "Executive summary, board-ready" },
       { label: "GUARDRAILS", value: "No fluff, lead with data" },
-      { label: "EXAMPLES", value: "Comparable exits" },
     ],
   },
   {
