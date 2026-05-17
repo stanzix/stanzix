@@ -47,7 +47,8 @@ export function useStanzix(user) {
   const [projectName, setProjectName] = useState("");
   const [projectDesc, setProjectDesc] = useState("");
   const [domain, setDomain] = useState("");
-  const [goals, setGoals] = useState("");
+  const [goals, _setGoals] = useState("");
+  const setGoals = (v) => _setGoals(Array.isArray(v) ? v.join(" ") : String(v ?? ""));
   const [customInjection, setCustomInjection] = useState("");
   const [refineLoading, setRefineLoading] = useState({});
   const [refineSuggestions, setRefineSuggestions] = useState({});
@@ -334,10 +335,10 @@ export function useStanzix(user) {
         "claude-haiku-4-5"
       );
       if (r && !r._error && r.projectName) {
-        const name = r.projectName || "";
-        const dm = r.domain || "";
-        const desc = r.description || "";
-        const gl = r.goals || "";
+        const name = String(r.projectName || "");
+        const dm = String(r.domain || "");
+        const desc = String(r.description || "");
+        const gl = Array.isArray(r.goals) ? r.goals.join(" ") : String(r.goals || "");
         setProjectName(name);
         setDomain(dm);
         setProjectDesc(desc);
