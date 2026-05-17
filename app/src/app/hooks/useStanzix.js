@@ -74,6 +74,7 @@ export function useStanzix(user) {
   /** @type {{ id: string, savedAt: string, projectName: string, blurb: string, instructions: string }[]} */
   const [promptHistory, setPromptHistory] = useState([]);
   const [intakeComplete, setIntakeComplete] = useState(false);
+  const [viewMode, setViewMode] = useState("dashboard"); // "dashboard" | "intake" | "builder"
 
   // Load state from Supabase when user becomes available
   useEffect(() => {
@@ -119,6 +120,14 @@ export function useStanzix(user) {
           if (Array.isArray(s.examples)) setExamples(s.examples);
           if (Array.isArray(s.approvedExamples)) setApprovedExamples(new Set(s.approvedExamples));
           if (typeof s.intakeComplete === "boolean") setIntakeComplete(s.intakeComplete);
+          if (typeof s.viewMode === "string" && ["dashboard", "intake", "builder"].includes(s.viewMode)) {
+            // Don't restore "builder" if there's no session data — fall back to dashboard
+            if (s.viewMode === "builder" && !s.projectName && !s.domain && !s.projectDesc && !s.goals) {
+              setViewMode("dashboard");
+            } else {
+              setViewMode(s.viewMode);
+            }
+          }
           if (Array.isArray(s.promptHistory)) {
             const cleaned = s.promptHistory.filter(
               (h) =>
@@ -161,6 +170,7 @@ export function useStanzix(user) {
           examples, approvedExamples: [...approvedExamples],
           promptHistory,
           intakeComplete,
+          viewMode,
         };
         const { error: saveErr } = await supabase
           .from(TABLE)
@@ -174,7 +184,7 @@ export function useStanzix(user) {
       }
     }, 500);
     return () => { if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current); };
-  }, [user, step, projectName, projectDesc, domain, goals, customInjection, identityOptions, selectedIdentity, quizQuestions, quizAnswers, knowledgeResult, negativeSuggestions, selectedNegatives, modes, defaultModeIdx, priorities, failures, templates, templatesEnabled, selectedTemplates, examples, approvedExamples, promptHistory, intakeComplete]);
+  }, [user, step, projectName, projectDesc, domain, goals, customInjection, identityOptions, selectedIdentity, quizQuestions, quizAnswers, knowledgeResult, negativeSuggestions, selectedNegatives, modes, defaultModeIdx, priorities, failures, templates, templatesEnabled, selectedTemplates, examples, approvedExamples, promptHistory, intakeComplete, viewMode]);
 
   const showError = (msg) => { setError(msg); setTimeout(() => setError(null), 6000); };
 
@@ -239,6 +249,40 @@ export function useStanzix(user) {
     }
     finally { setLoading(false); }
   };
+
+  // Clear all lever state without touching promptHistory.
+  const resetSession = useCallback(() => {
+    setStep(0);
+    setProjectName("");
+    setProjectDesc("");
+    setDomain("");
+    setGoals("");
+    setCustomInjection("");
+    setIdentityOptions([]);
+    setSelectedIdentity(null);
+    setQuizQuestions([]);
+    setQuizAnswers({});
+    setKnowledgeResult([]);
+    setNegativeSuggestions([]);
+    setSelectedNegatives(new Set());
+    setModes([]);
+    setDefaultModeIdx(0);
+    setPriorities([]);
+    setFailures([]);
+    setTemplates([]);
+    setTemplatesEnabled(false);
+    setSelectedTemplates(new Set());
+    setExamples([]);
+    setApprovedExamples(new Set());
+    setIntakeComplete(false);
+    setPastedInstructions("");
+    setParsedPreview(null);
+    setSelectedSections(new Set());
+    setAppMode("create");
+    setItemLoading({});
+    setGenerateLoading({});
+    // promptHistory intentionally preserved
+  }, []);
 
   // Runs a generation fn under a named item-loading key (non-blocking cascade).
   const withItemLoading = async (key, fn) => {
@@ -712,9 +756,11 @@ export function useStanzix(user) {
     updatePriority,
     updateFailure,
     updateExample,
-    // Intake flow
+    // Intake / view flow
     intakeComplete, setIntakeComplete,
+    viewMode, setViewMode,
     parseIntake,
     triggerCascade,
+    resetSession,
   };
 }

@@ -1,6 +1,6 @@
 "use client";
 import { Fragment, useState, useEffect, useRef } from "react";
-import { ChevronRight, ChevronLeft, Zap, PanelRightOpen, PanelRightClose, X, Lightbulb, Wand2, Check, Copy, CheckCircle2, LogOut, Loader2, Library } from "lucide-react";
+import { ChevronRight, ChevronLeft, Zap, PanelRightOpen, PanelRightClose, Home, Lightbulb, Wand2, Check, Copy, CheckCircle2, LogOut, Loader2 } from "lucide-react";
 import { useStanzix } from "../hooks/useStanzix";
 import { useAuth } from "../hooks/useAuth";
 import { STEPS, VERSION } from "../lib/outputBuilder";
@@ -23,6 +23,7 @@ import PaymentGate from "./stanzix/PaymentGate";
 import UsageDisplay from "./stanzix/UsageDisplay";
 import PromptLibraryModal from "./stanzix/PromptLibraryModal";
 import IntakeScreen from "./stanzix/IntakeScreen";
+import Dashboard from "./stanzix/Dashboard";
 
 const PHASES = [
   { label: "Describe",  steps: [0] },
@@ -229,12 +230,6 @@ export default function Stanzix() {
         </div>
       ) : !auth.user ? (
         <SignInGate isMobile={pe.isMobile} signInWithMagicLink={auth.signInWithMagicLink} />
-      ) : !pe.intakeComplete && !pe.projectName && !pe.domain && !pe.projectDesc && !pe.goals ? (
-        <IntakeScreen
-          onComplete={pe.parseIntake}
-          onSkip={() => pe.setIntakeComplete(true)}
-          isMobile={pe.isMobile}
-        />
       ) : showPaywall && !isPaid ? (
         <PaymentGate
           email={auth.user.email}
@@ -246,6 +241,46 @@ export default function Stanzix() {
           isMobile={pe.isMobile}
           promptLibraryCount={pe.promptHistory.length}
           onOpenPromptLibrary={() => setShowPromptLibrary(true)}
+        />
+      ) : pe.viewMode === "dashboard" ? (
+        <Dashboard
+          email={auth.user.email}
+          hasActiveSession={!!(pe.projectName || pe.domain || pe.projectDesc || pe.goals)}
+          activeProjectName={pe.projectName}
+          activeDomain={pe.domain}
+          activeLastEdited={null}
+          promptHistory={pe.promptHistory}
+          usageCount={usageCount}
+          freeLimit={FREE_LIMIT}
+          isPaid={isPaid}
+          onContinue={() => pe.setViewMode("builder")}
+          onNewPrompt={() => { pe.resetSession(); pe.setViewMode("intake"); }}
+          onStartFromScratch={() => { pe.resetSession(); pe.setIntakeComplete(true); pe.setViewMode("builder"); }}
+          onEditExisting={() => { pe.setAppMode("edit"); pe.setViewMode("builder"); }}
+          onCopyPrompt={async (entry) => {
+            try {
+              await navigator.clipboard.writeText(entry.instructions);
+            } catch {
+              const ta = document.createElement("textarea");
+              ta.value = entry.instructions;
+              Object.assign(ta.style, { position: "fixed", left: "-9999px", top: "-9999px", opacity: "0" });
+              document.body.appendChild(ta); ta.focus(); ta.select();
+              document.execCommand("copy"); document.body.removeChild(ta);
+            }
+          }}
+          onDeletePrompt={pe.removePromptFromHistory}
+          onSignOut={auth.signOut}
+          isMobile={pe.isMobile}
+        />
+      ) : pe.viewMode === "intake" ? (
+        <IntakeScreen
+          onComplete={async (input) => {
+            const ok = await pe.parseIntake(input);
+            if (ok) pe.setViewMode("builder");
+            return ok;
+          }}
+          onSkip={() => { pe.setIntakeComplete(true); pe.setViewMode("builder"); }}
+          isMobile={pe.isMobile}
         />
       ) : (
         <>
@@ -273,21 +308,6 @@ export default function Stanzix() {
               <Badge active={pe.appMode === "create"} onClick={() => { pe.setAppMode("create"); pe.setParsedPreview(null); }}>Create</Badge>
               <Badge active={pe.appMode === "edit"} onClick={() => pe.setAppMode("edit")}>Edit</Badge>
               {!pe.isMobile && <div style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.1)", margin: "0 4px" }} />}
-              <button
-                type="button"
-                onClick={() => setShowPromptLibrary(true)}
-                title="Saved prompts"
-                aria-label="Open prompt library"
-                style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px", color: "rgba(255,255,255,0.55)" }}
-              >
-                <Library size={18} color="rgba(255,255,255,0.6)" />
-                {!pe.isMobile && (
-                  <span style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace" }}>
-                    Library{pe.promptHistory.length ? ` (${pe.promptHistory.length})` : ""}
-                  </span>
-                )}
-              </button>
-              <div style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.1)", margin: "0 2px" }} />
               <button onClick={() => pe.setShowPreview(!pe.showPreview)} aria-label={pe.showPreview ? "Hide preview panel" : "Show preview panel"} style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px" }}>
                 {pe.showPreview ? <PanelRightClose size={18} color="rgba(255,255,255,0.6)" /> : <PanelRightOpen size={18} color="rgba(255,255,255,0.6)" />}
                 {!pe.isMobile && <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace" }}>Preview</span>}
@@ -298,9 +318,10 @@ export default function Stanzix() {
                 {!pe.isMobile && <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace" }}>Sign out</span>}
               </button>
               <div style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.1)", margin: "0 2px" }} />
-              <a href="/" style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px", textDecoration: "none" }} title="Back to site" aria-label="Back to site">
-                <X size={18} color="rgba(255,255,255,0.55)" />
-              </a>
+              <button onClick={() => pe.setViewMode("dashboard")} title="Back to dashboard" aria-label="Dashboard" style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px" }}>
+                <Home size={16} color="rgba(255,255,255,0.55)" />
+                {!pe.isMobile && <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace" }}>Dashboard</span>}
+              </button>
             </div>
           </header>
 
@@ -456,8 +477,8 @@ export default function Stanzix() {
                     <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.45)", marginTop: "6px", lineHeight: 1.6, fontFamily: "'DM Sans', sans-serif" }}>{STEPS[pe.step].desc}</p>
                   </div>
 
-                  {/* Idle assist nudge */}
-                  {pe.showAssist && pe.step < 9 && (
+                  {/* Idle assist nudge — suppress on step 0 when context is pre-filled */}
+                  {pe.showAssist && pe.step < 9 && !(pe.step === 0 && pe.projectName && pe.domain && pe.projectDesc && pe.goals) && (
                     <div style={{ background: "rgba(212,162,78,0.08)", border: "1px solid rgba(212,162,78,0.25)", borderRadius: "10px", padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
                       <Lightbulb size={18} color="#d4a24e" />
                       <span style={{ flex: 1, fontSize: "13px", color: "rgba(255,255,255,0.7)" }}>Looks like you might be stuck. Want me to auto-generate this section?</span>
