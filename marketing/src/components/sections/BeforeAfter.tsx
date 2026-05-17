@@ -6,8 +6,9 @@ const PROMPT_LINES = [
   { label: "EXPERTISE", value: "Developer-level depth, practical focus" },
   { label: "GUARDRAILS", value: "No buzzwords. No speculation. 2026 frameworks only." },
   { label: "BEHAVIOR", value: "Analysis mode" },
-  { label: "FORMAT", value: "1,200-word article with 4 sections" },
+  { label: "PRIORITY", value: "Guardrails override tone preferences" },
   { label: "SAFETY", value: "Flag unverified claims, cite sources" },
+  { label: "FORMAT", value: "1,200-word article with 4 sections" },
   { label: "EXAMPLES", value: "LangChain, AutoGen, CrewAI in production" },
 ];
 
@@ -75,7 +76,7 @@ export default function BeforeAfter() {
                 Same idea. Completely different output quality.
               </p>
               <p className="font-mono text-xs text-accent">
-                7 parameters / ~300 words / paste into any LLM
+                8 parameters / ~300 words / paste into any LLM
               </p>
             </div>
           </div>

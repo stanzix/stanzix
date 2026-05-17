@@ -13,7 +13,7 @@ interface DemoState {
     Expertise: number;
     Guardrails: number;
     Behavior: number;
-    Conflict: number;
+    Priority: number;
     Safety: number;
     Format: number;
     Examples: number;
@@ -26,7 +26,7 @@ const DEMO_STATES: DemoState[] = [
     label: "Code Review Agent",
     levers: {
       Role: 90, Expertise: 85, Guardrails: 70, Behavior: 60,
-      Conflict: 55, Safety: 75, Format: 80, Examples: 65,
+      Priority: 55, Safety: 75, Format: 80, Examples: 65,
     },
     lines: [
       { label: "ROLE", value: "Senior software engineer" },
@@ -41,7 +41,7 @@ const DEMO_STATES: DemoState[] = [
     label: "Newsletter Writer",
     levers: {
       Role: 50, Expertise: 45, Guardrails: 50, Behavior: 40,
-      Conflict: 35, Safety: 30, Format: 55, Examples: 80,
+      Priority: 35, Safety: 30, Format: 55, Examples: 80,
     },
     lines: [
       { label: "ROLE", value: "Tech writer, startup beat" },
@@ -56,7 +56,7 @@ const DEMO_STATES: DemoState[] = [
     label: "Executive Summary",
     levers: {
       Role: 85, Expertise: 70, Guardrails: 85, Behavior: 45,
-      Conflict: 65, Safety: 80, Format: 90, Examples: 45,
+      Priority: 65, Safety: 80, Format: 90, Examples: 45,
     },
     lines: [
       { label: "ROLE", value: "Strategy consultant" },
@@ -74,7 +74,7 @@ const LEVER_KEYS = [
   "Expertise",
   "Guardrails",
   "Behavior",
-  "Conflict",
+  "Priority",
   "Safety",
   "Format",
   "Examples",

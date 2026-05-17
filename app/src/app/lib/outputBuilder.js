@@ -11,7 +11,7 @@ export const STEPS = [
   { id: "knowledge", label: "Expertise",       icon: Brain,         desc: "Answer a short quiz so Claude knows what you already understand. It calibrates depth without over-explaining." },
   { id: "negative",  label: "Guardrails",      icon: ShieldOff,     desc: "Select behaviors Claude should never do. These become hard limits baked into every response." },
   { id: "modes",     label: "Behavior",        icon: Sliders,       desc: "Define switchable work modes for different situations. Activate a mode by typing its trigger word." },
-  { id: "priority",  label: "Conflict",        icon: ArrowUp,       desc: "Set which rule wins when two instructions compete. Claude reads this list top-to-bottom." },
+  { id: "priority",  label: "Priority",        icon: ArrowUp,       desc: "Set which rule wins when two instructions compete. Claude reads this list top-to-bottom." },
   { id: "failure",   label: "Safety",          icon: AlertTriangle, desc: "Identify failure patterns in your domain and give Claude explicit instructions to prevent each one." },
   { id: "templates", label: "Format",          icon: FileText,      desc: "Optional: define named response formats that Claude can switch into on demand." },
   { id: "examples",  label: "Examples",        icon: BookOpen,      desc: "Show Claude what a perfect response looks like. Examples anchor rules better than instructions alone." },

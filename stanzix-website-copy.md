@@ -40,7 +40,7 @@ Three steps. Sixty seconds. A prompt that works.
 Tell Stanzix what you want the AI to do, in plain language. No formatting required.
 
 **Step 2: Configure your 8 levers**
-Role, expertise, guardrails, behavior, conflict resolution, safety, format, examples. Each lever shapes the prompt for your exact use case.
+Role, expertise, guardrails, behavior, priority, safety, format, examples. Each lever shapes the prompt for your exact use case.
 
 **Step 3: Get a structured prompt**
 Stanzix builds a complete, structured prompt ready to paste into Claude, ChatGPT, Gemini, or any LLM.
@@ -50,7 +50,7 @@ Stanzix builds a complete, structured prompt ready to paste into Claude, ChatGPT
 ## FEATURES
 
 **8-Lever Architecture**
-Precision control over role, expertise, guardrails, behavior modes, conflict resolution, safety, format, and examples. The same levers that prompt engineers use, made accessible.
+Precision control over role, expertise, guardrails, behavior, priority, safety, format, and examples. The same levers that prompt engineers use, made accessible.
 
 **Save and Reuse**
 Your best prompts become templates. Build your own personal library of structured prompts you can deploy in seconds.
@@ -155,7 +155,7 @@ Prompt libraries give you pre-written prompts for common tasks. Stanzix builds c
 Stanzix generates prompts that work with Claude, ChatGPT, Gemini, Llama, Mistral, or any large language model. We don't connect to your AI directly. You copy the structured prompt and paste it wherever you use AI.
 
 **Do I need to know prompt engineering?**
-No. The 8 levers have plain-language labels: Role, Expertise, Guardrails, Behavior, Conflict, Safety, Format, Examples. If you can describe what you want Claude to do, you can use Stanzix.
+No. The 8 levers have plain-language labels: Role, Expertise, Guardrails, Behavior, Priority, Safety, Format, Examples. If you can describe what you want Claude to do, you can use Stanzix.
 
 **Is my data private?**
 Yes. We don't train models on your prompts. We don't sell your data. Your saved templates are private to your account.

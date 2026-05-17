@@ -3,7 +3,7 @@ import Bracket from "@/components/ui/Bracket";
 const FEATURES = [
   {
     title: "8-Lever Architecture",
-    body: "Precision control over role, expertise, guardrails, behavior modes, conflict resolution, safety, format, and examples. The same levers that prompt engineers use, made accessible.",
+    body: "Precision control over role, expertise, guardrails, behavior, priority, safety, format, and examples. The same levers that prompt engineers use, made accessible.",
   },
   {
     title: "Save and Reuse",
