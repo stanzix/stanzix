@@ -43,6 +43,7 @@ export default function Dashboard({
   onCopyPrompt,
   onDeletePrompt,
   onSignOut,
+  onManageSubscription,
   isMobile,
 }) {
   const isNewUser = promptHistory.length === 0 && !hasActiveSession;
@@ -163,6 +164,16 @@ export default function Dashboard({
             >
               {usageCount} / {freeLimit} free
             </div>
+          )}
+          {isPaid && typeof onManageSubscription === "function" && (
+            <button
+              onClick={onManageSubscription}
+              title="Manage subscription"
+              style={{ background: "none", border: "1px solid rgba(212,162,78,0.25)", borderRadius: "6px", cursor: "pointer", padding: "4px 10px", display: "flex", alignItems: "center", gap: "4px", color: "#d4a24e", fontSize: "11px", fontFamily: "'JetBrains Mono', monospace" }}
+            >
+              {!isMobile && "Manage subscription"}
+              {isMobile && "Billing"}
+            </button>
           )}
           <button
             onClick={onSignOut}

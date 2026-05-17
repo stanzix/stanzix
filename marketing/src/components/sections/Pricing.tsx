@@ -10,6 +10,7 @@ interface PricingTier {
   ctaHref: string;
   variant: "primary" | "secondary";
   highlighted: boolean;
+  comingSoon?: boolean;
 }
 
 const TIERS: PricingTier[] = [
@@ -58,10 +59,11 @@ const TIERS: PricingTier[] = [
       "Priority support",
       "Usage analytics",
     ],
-    cta: "Start Team",
-    ctaHref: "https://app.stanzix.com",
+    cta: "Notify Me",
+    ctaHref: "mailto:dejuan@stanzix.com?subject=Team%20Plan%20Interest",
     variant: "secondary",
     highlighted: false,
+    comingSoon: true,
   },
 ];
 
@@ -88,6 +90,11 @@ export default function Pricing() {
                 {tier.highlighted && (
                   <span className="font-mono text-xs bg-accent text-background px-2 py-0.5 rounded self-start inline-block">
                     Most Popular
+                  </span>
+                )}
+                {tier.comingSoon && (
+                  <span className="font-mono text-xs border border-border text-text-dim px-2 py-0.5 rounded self-start inline-block">
+                    Coming Soon
                   </span>
                 )}
                 <p className="font-mono text-xs text-text-dim uppercase tracking-wider">

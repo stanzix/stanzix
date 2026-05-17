@@ -81,6 +81,23 @@ export default function Stanzix() {
     })();
   }, [auth.user]);
 
+  const initiatePortal = async () => {
+    if (!auth.user) return;
+    try {
+      const supabase = getSupabaseClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const res = await fetch("/api/portal", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch {}
+  };
+
   const initiateCheckout = async (priceId, setPending) => {
     if (!auth.user) return;
     setPending(true);
@@ -270,6 +287,7 @@ export default function Stanzix() {
           }}
           onDeletePrompt={pe.removePromptFromHistory}
           onSignOut={auth.signOut}
+          onManageSubscription={initiatePortal}
           isMobile={pe.isMobile}
         />
       ) : pe.viewMode === "intake" ? (
