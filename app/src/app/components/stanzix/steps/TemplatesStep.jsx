@@ -1,5 +1,5 @@
 "use client";
-import { Loader2, Sparkles, ToggleLeft, ToggleRight, CheckCircle2, Circle } from "lucide-react";
+import { Loader2, Sparkles, RefreshCw, ToggleLeft, ToggleRight, CheckCircle2, Circle } from "lucide-react";
 import { SectionLabel, Btn, Card } from "../ui";
 
 export function TemplatesStep({ loading, templates, templatesEnabled, setTemplatesEnabled, selectedTemplates, setSelectedTemplates, generateTemplates, trackActivity }) {
@@ -14,7 +14,10 @@ export function TemplatesStep({ loading, templates, templatesEnabled, setTemplat
           <button onClick={() => { setTemplatesEnabled(!templatesEnabled); trackActivity(); }} aria-label={templatesEnabled ? "Disable templates" : "Enable templates"} aria-pressed={templatesEnabled} style={{ background: "none", border: "none", cursor: "pointer", padding: "4px" }}>
             {templatesEnabled ? <ToggleRight size={28} color="#d4a24e" /> : <ToggleLeft size={28} color="rgba(255,255,255,0.3)" />}
           </button>
-          <Btn small onClick={generateTemplates} disabled={loading || !templatesEnabled}>{loading ? <Loader2 size={14} className="spin" /> : <Sparkles size={14} />} Generate</Btn>
+          <Btn small onClick={generateTemplates} disabled={loading || !templatesEnabled}>
+            {loading ? <Loader2 size={14} className="spin" /> : templates.length ? <RefreshCw size={14} /> : <Sparkles size={14} />}
+            {templates.length ? "Regenerate" : "Generate"}
+          </Btn>
         </div>
       </div>
       {!templatesEnabled && <div style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", fontStyle: "italic" }}>Toggle on to define response formats for common interaction types.</div>}

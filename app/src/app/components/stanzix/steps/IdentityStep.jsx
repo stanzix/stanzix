@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
-import { Loader2, Sparkles, CheckCircle2, Circle } from "lucide-react";
+import { Loader2, Sparkles, RefreshCw, CheckCircle2, Circle } from "lucide-react";
 import { SectionLabel, Btn, Card } from "../ui";
 
 const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(212,162,78,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#e0e0e0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
 
-export function IdentityStep({ loading, identityOptions, selectedIdentity, setSelectedIdentity, generateIdentities, updateIdentityOption, trackActivity }) {
+export function IdentityStep({ loading, itemLoading, identityOptions, selectedIdentity, setSelectedIdentity, generateIdentities, updateIdentityOption, trackActivity }) {
+  const cascading = itemLoading?.identity_cascade;
   const [editKey, setEditKey] = useState(null);
   const [editVal, setEditVal] = useState("");
 
@@ -33,13 +34,39 @@ export function IdentityStep({ loading, identityOptions, selectedIdentity, setSe
     if (e.key === "Escape") cancelEdit();
   };
 
+  const hasContent = identityOptions.length > 0;
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <SectionLabel>Choose Claude's Identity</SectionLabel>
-        <Btn small onClick={generateIdentities} disabled={loading}>{loading ? <Loader2 size={14} className="spin" /> : <Sparkles size={14} />}{identityOptions.length ? "Regenerate" : "Generate Options"}</Btn>
+        <Btn small onClick={generateIdentities} disabled={loading || cascading}>
+          {loading || cascading
+            ? <Loader2 size={14} className="spin" />
+            : hasContent ? <RefreshCw size={14} /> : <Sparkles size={14} />
+          }
+          {hasContent ? "Regenerate" : "Generate Options"}
+        </Btn>
       </div>
-      {!identityOptions.length && !loading && <div style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", fontStyle: "italic" }}>Click "Generate Options" to get role suggestions based on your project context.</div>}
+
+      {/* Review banner — cascade generated content, awaiting selection */}
+      {hasContent && selectedIdentity === null && (
+        <div style={{ background: "rgba(212,162,78,0.06)", border: "1px solid rgba(212,162,78,0.15)", borderRadius: "8px", padding: "10px 14px", fontSize: "13px", color: "rgba(212,162,78,0.85)" }}>
+          We generated 3 options based on your project. Pick one, or regenerate for different options.
+        </div>
+      )}
+
+      {/* Cascade in-progress placeholder */}
+      {!hasContent && cascading && (
+        <div style={{ color: "rgba(255,255,255,0.45)", fontSize: "14px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <Loader2 size={14} color="#d4a24e" className="spin" />
+          Generating identity options in the background...
+        </div>
+      )}
+
+      {!hasContent && !cascading && !loading && (
+        <div style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", fontStyle: "italic" }}>Click "Generate Options" to get role suggestions based on your project context.</div>
+      )}
       <div role="radiogroup" aria-label="Identity options" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
         {identityOptions.map((opt, i) => (
           <Card key={i} highlight={selectedIdentity === i} style={{ cursor: "pointer" }}>

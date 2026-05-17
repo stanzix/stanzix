@@ -73,6 +73,7 @@ export function useStanzix(user) {
   const [selectedSections, setSelectedSections] = useState(new Set());
   /** @type {{ id: string, savedAt: string, projectName: string, blurb: string, instructions: string }[]} */
   const [promptHistory, setPromptHistory] = useState([]);
+  const [intakeComplete, setIntakeComplete] = useState(false);
 
   // Load state from Supabase when user becomes available
   useEffect(() => {
@@ -117,6 +118,7 @@ export function useStanzix(user) {
           if (Array.isArray(s.selectedTemplates)) setSelectedTemplates(new Set(s.selectedTemplates));
           if (Array.isArray(s.examples)) setExamples(s.examples);
           if (Array.isArray(s.approvedExamples)) setApprovedExamples(new Set(s.approvedExamples));
+          if (typeof s.intakeComplete === "boolean") setIntakeComplete(s.intakeComplete);
           if (Array.isArray(s.promptHistory)) {
             const cleaned = s.promptHistory.filter(
               (h) =>
@@ -158,6 +160,7 @@ export function useStanzix(user) {
           templates, templatesEnabled, selectedTemplates: [...selectedTemplates],
           examples, approvedExamples: [...approvedExamples],
           promptHistory,
+          intakeComplete,
         };
         const { error: saveErr } = await supabase
           .from(TABLE)
@@ -171,7 +174,7 @@ export function useStanzix(user) {
       }
     }, 500);
     return () => { if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current); };
-  }, [user, step, projectName, projectDesc, domain, goals, customInjection, identityOptions, selectedIdentity, quizQuestions, quizAnswers, knowledgeResult, negativeSuggestions, selectedNegatives, modes, defaultModeIdx, priorities, failures, templates, templatesEnabled, selectedTemplates, examples, approvedExamples, promptHistory]);
+  }, [user, step, projectName, projectDesc, domain, goals, customInjection, identityOptions, selectedIdentity, quizQuestions, quizAnswers, knowledgeResult, negativeSuggestions, selectedNegatives, modes, defaultModeIdx, priorities, failures, templates, templatesEnabled, selectedTemplates, examples, approvedExamples, promptHistory, intakeComplete]);
 
   const showError = (msg) => { setError(msg); setTimeout(() => setError(null), 6000); };
 
@@ -235,6 +238,78 @@ export function useStanzix(user) {
       console.error(e);
     }
     finally { setLoading(false); }
+  };
+
+  // Runs a generation fn under a named item-loading key (non-blocking cascade).
+  const withItemLoading = async (key, fn) => {
+    setItemLoading(p => ({ ...p, [key]: true }));
+    try { await fn(); }
+    catch (e) { console.error(`Cascade ${key} error:`, e); }
+    finally { setItemLoading(p => ({ ...p, [key]: false })); }
+  };
+
+  // Cascade generation for the first 3 configure steps using freshly-resolved values.
+  const cascadeFromIntake = (name, dm, desc, gl) => {
+    withItemLoading("identity_cascade", async () => {
+      const r = await callClaude(
+        `You generate professional role identities for AI assistants based on project context. Return ONLY valid JSON array of 3 objects: [{"title":"...","description":"...","traits":["...","...","..."]}]`,
+        `Project: ${name}\nDescription: ${desc}\nDomain: ${dm}\nGoals: ${gl}`
+      );
+      if (r && !r._error) setIdentityOptions(r);
+    });
+    withItemLoading("negative_cascade", async () => {
+      const r = await callClaude(
+        `You identify counterproductive AI behaviors for a specific domain and project. Return ONLY valid JSON array: [{"behavior":"short name","instruction":"do not... directive","reason":"why this matters"}]`,
+        `Project: ${name}\nDomain: ${dm}\nDescription: ${desc}`
+      );
+      if (r && !r._error) { setNegativeSuggestions(r); setSelectedNegatives(new Set(r.map((_, i) => i))); }
+    });
+  };
+
+  // Trigger cascade using current state values (called when advancing past step 0 manually).
+  const triggerCascade = () => {
+    cascadeFromIntake(projectName, domain, projectDesc, goals);
+  };
+
+  // Parse a plain-language intake description into structured project context.
+  const parseIntake = async (userInput) => {
+    setLoading(true);
+    try {
+      const r = await callClaude(
+        `You are an expert at understanding what someone wants to build with AI and structuring it into a project definition. Return ONLY valid JSON with these four fields:
+- projectName: A short, clear name for this project (2-5 words)
+- domain: The industry or functional domain (e.g. "Healthcare / Patient Intake", "E-commerce / Product Descriptions")
+- description: A 1-2 sentence description of what this AI assistant will do. Be specific about the role and scope.
+- goals: 1-3 concrete goals the user likely has. Make them measurable where possible.`,
+        `User input: "${userInput}"`
+      );
+      if (r && !r._error && r.projectName) {
+        const name = r.projectName || "";
+        const dm = r.domain || "";
+        const desc = r.description || "";
+        const gl = r.goals || "";
+        setProjectName(name);
+        setDomain(dm);
+        setProjectDesc(desc);
+        setGoals(gl);
+        setIntakeComplete(true);
+        setStep(0);
+        // Kick off cascade immediately with fresh values before React re-renders.
+        cascadeFromIntake(name, dm, desc, gl);
+        return true;
+      } else {
+        showError("Couldn't parse your description. Try again or start from scratch.");
+        return false;
+      }
+    } catch (e) {
+      const msg = e?.message?.includes("fetch") || e?.message?.includes("network") || e?.message?.includes("Failed to fetch")
+        ? "Network error. Check your connection and try again."
+        : "Generation failed. Try again or start from scratch.";
+      showError(msg);
+      return false;
+    } finally {
+      setLoading(false);
+    }
   };
 
   const generateField = async (field) => {
@@ -637,5 +712,9 @@ export function useStanzix(user) {
     updatePriority,
     updateFailure,
     updateExample,
+    // Intake flow
+    intakeComplete, setIntakeComplete,
+    parseIntake,
+    triggerCascade,
   };
 }

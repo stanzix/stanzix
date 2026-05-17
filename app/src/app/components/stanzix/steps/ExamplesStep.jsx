@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Loader2, Sparkles, Check } from "lucide-react";
+import { Loader2, Sparkles, RefreshCw, Check } from "lucide-react";
 import { SectionLabel, Btn, Card } from "../ui";
 
 const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(212,162,78,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#e0e0e0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
@@ -32,7 +32,10 @@ export function ExamplesStep({ loading, examples, approvedExamples, setApprovedE
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <SectionLabel>Approve Reference Examples</SectionLabel>
-        <Btn small onClick={generateExamples} disabled={loading}>{loading ? <Loader2 size={14} className="spin" /> : <Sparkles size={14} />}{examples.length ? "Regenerate" : "Generate"}</Btn>
+        <Btn small onClick={generateExamples} disabled={loading}>
+          {loading ? <Loader2 size={14} className="spin" /> : examples.length ? <RefreshCw size={14} /> : <Sparkles size={14} />}
+          {examples.length ? "Regenerate" : "Generate"}
+        </Btn>
       </div>
       {!examples.length && !loading && <div style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", fontStyle: "italic" }}>Examples anchor Claude's behavior. Approve the ones that represent ideal responses.</div>}
       <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>

@@ -37,7 +37,10 @@ export function FailureStep({ loading, failures, itemLoading, generateFailures, 
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <SectionLabel>Failure Mode Preemption</SectionLabel>
-        <Btn small onClick={generateFailures} disabled={loading}>{loading ? <Loader2 size={14} className="spin" /> : <Sparkles size={14} />}{failures.length ? "Regenerate All" : "Generate"}</Btn>
+        <Btn small onClick={generateFailures} disabled={loading}>
+          {loading ? <Loader2 size={14} className="spin" /> : failures.length ? <RefreshCw size={14} /> : <Sparkles size={14} />}
+          {failures.length ? "Regenerate All" : "Generate"}
+        </Btn>
       </div>
       {!failures.length && !loading && <div style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", fontStyle: "italic" }}>Domain-specific failure patterns Claude should be explicitly blocked from.</div>}
       {failures.length > 0 && (

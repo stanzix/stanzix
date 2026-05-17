@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
-import { Loader2, Sparkles, CheckCircle2, Circle } from "lucide-react";
+import { Loader2, Sparkles, RefreshCw, CheckCircle2, Circle } from "lucide-react";
 import { SectionLabel, Btn, Card, StepExample } from "../ui";
 
 const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(212,162,78,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#e0e0e0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
 
-export function NegativeSpaceStep({ loading, negativeSuggestions, selectedNegatives, setSelectedNegatives, generateNegativeSpace, updateNegative, trackActivity }) {
+export function NegativeSpaceStep({ loading, itemLoading, negativeSuggestions, selectedNegatives, setSelectedNegatives, generateNegativeSpace, updateNegative, trackActivity }) {
+  const cascading = itemLoading?.negative_cascade;
   const [editKey, setEditKey] = useState(null);
   const [editVal, setEditVal] = useState("");
 
@@ -47,9 +48,21 @@ export function NegativeSpaceStep({ loading, negativeSuggestions, selectedNegati
       </StepExample>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <SectionLabel sub>Select Behaviors to Block</SectionLabel>
-        <Btn small onClick={generateNegativeSpace} disabled={loading}>{loading ? <Loader2 size={14} className="spin" /> : <Sparkles size={14} />}{negativeSuggestions.length ? "Regenerate" : "Generate Guardrails"}</Btn>
+        <Btn small onClick={generateNegativeSpace} disabled={loading || cascading}>
+          {loading || cascading
+            ? <Loader2 size={14} className="spin" />
+            : negativeSuggestions.length ? <RefreshCw size={14} /> : <Sparkles size={14} />
+          }
+          {negativeSuggestions.length ? "Regenerate" : "Generate Guardrails"}
+        </Btn>
       </div>
-      {!negativeSuggestions.length && !loading && <div style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", fontStyle: "italic" }}>Auto-generated based on your domain. Deselect any that don't apply to your project.</div>}
+      {!negativeSuggestions.length && cascading && (
+        <div style={{ color: "rgba(255,255,255,0.45)", fontSize: "14px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <Loader2 size={14} color="#d4a24e" className="spin" />
+          Generating guardrails in the background...
+        </div>
+      )}
+      {!negativeSuggestions.length && !cascading && !loading && <div style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", fontStyle: "italic" }}>Auto-generated based on your domain. Deselect any that don't apply to your project.</div>}
       {negativeSuggestions.length > 0 && selectedNegatives.size === negativeSuggestions.length && (
         <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 16px", background: "rgba(80,180,80,0.06)", border: "1px solid rgba(80,180,80,0.2)", borderRadius: "8px" }}>
           <CheckCircle2 size={16} color="#50b450" style={{ flexShrink: 0 }} />
