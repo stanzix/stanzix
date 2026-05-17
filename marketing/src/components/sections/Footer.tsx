@@ -7,26 +7,22 @@ const NAV_COLUMNS = [
   {
     label: "Product",
     links: [
-      { text: "Features", href: "#" },
-      { text: "Pricing", href: "#" },
-      { text: "Use Cases", href: "#" },
-      { text: "Documentation", href: "#" },
+      { text: "Features", href: "#features" },
+      { text: "Pricing", href: "#pricing" },
+      { text: "Use Cases", href: "#use-cases" },
     ],
   },
   {
     label: "Company",
     links: [
-      { text: "About", href: "#" },
-      { text: "Blog", href: "#" },
-      { text: "Contact", href: "#" },
+      { text: "Built by DeJuan Spencer", href: "https://dejuanspencer.com" },
     ],
   },
   {
     label: "Legal",
     links: [
-      { text: "Privacy Policy", href: "#" },
-      { text: "Terms of Service", href: "#" },
-      { text: "Cookie Policy", href: "#" },
+      { text: "Privacy Policy", href: "/privacy" },
+      { text: "Terms of Service", href: "/terms" },
     ],
   },
 ];

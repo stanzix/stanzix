@@ -1,6 +1,5 @@
 import AnimateInView from "@/components/ui/AnimateInView";
 import Hero from "@/components/sections/Hero";
-import SocialProof from "@/components/sections/SocialProof";
 import Problem from "@/components/sections/Problem";
 import HowItWorks from "@/components/sections/HowItWorks";
 import Features from "@/components/sections/Features";
@@ -16,7 +15,6 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background">
       <Hero />
-      <AnimateInView><SocialProof /></AnimateInView>
       <AnimateInView><Problem /></AnimateInView>
       <AnimateInView><HowItWorks /></AnimateInView>
       <AnimateInView><Features /></AnimateInView>

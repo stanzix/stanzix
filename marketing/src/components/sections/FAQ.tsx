@@ -23,7 +23,7 @@ const FAQS = [
   {
     question: "Do I need to know prompt engineering?",
     answer:
-      "No. The 8-lever interface translates prompt engineering principles into simple choices. If you can answer \"what tone should this be in?\" you can use Stanzix.",
+      "No. The 8 levers have plain-language labels: Role, Expertise, Guardrails, Behavior, Conflict, Safety, Format, Examples. If you can describe what you want Claude to do, you can use Stanzix.",
   },
   {
     question: "Is my data private?",

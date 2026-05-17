@@ -3,12 +3,12 @@ import ScaffoldLine from "@/components/ui/ScaffoldLine";
 
 const PROMPT_LINES = [
   { label: "ROLE", value: "Senior technology writer, AI systems expertise" },
-  { label: "AUDIENCE", value: "Software developers exploring AI agents" },
+  { label: "EXPERTISE", value: "Developer-level depth, practical focus" },
+  { label: "GUARDRAILS", value: "No buzzwords. No speculation. 2026 frameworks only." },
+  { label: "BEHAVIOR", value: "Analysis mode" },
   { label: "FORMAT", value: "1,200-word article with 4 sections" },
-  { label: "TONE", value: "Informative and direct. No hype." },
-  { label: "CONSTRAINTS", value: "No buzzwords. No speculation. 2026 frameworks only." },
+  { label: "SAFETY", value: "Flag unverified claims, cite sources" },
   { label: "EXAMPLES", value: "LangChain, AutoGen, CrewAI in production" },
-  { label: "OUTPUT", value: "Intro, 3 body sections, 3-bullet takeaway summary" },
 ];
 
 export default function BeforeAfter() {

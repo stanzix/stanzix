@@ -10,7 +10,7 @@ const STEPS = [
   {
     number: "02",
     title: "Configure your 8 levers",
-    body: "Tone, depth, format, role, audience, output structure, constraints, examples. Each lever shapes the prompt for your exact use case.",
+    body: "Role, expertise, guardrails, behavior, conflict resolution, safety, format, examples. Each lever shapes the prompt for your exact use case.",
   },
   {
     number: "03",

@@ -3,7 +3,7 @@ import Bracket from "@/components/ui/Bracket";
 const FEATURES = [
   {
     title: "8-Lever Architecture",
-    body: "Precision control over tone, depth, format, role, audience, output structure, constraints, and examples. The same levers that prompt engineers use, made accessible.",
+    body: "Precision control over role, expertise, guardrails, behavior modes, conflict resolution, safety, format, and examples. The same levers that prompt engineers use, made accessible.",
   },
   {
     title: "Save and Reuse",
@@ -29,7 +29,7 @@ const FEATURES = [
 
 export default function Features() {
   return (
-    <section className="py-24 md:py-32 lg:py-40">
+    <section id="features" className="py-24 md:py-32 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <p className="font-sans text-sm text-text-dim uppercase tracking-wider mb-4">
           What&apos;s inside

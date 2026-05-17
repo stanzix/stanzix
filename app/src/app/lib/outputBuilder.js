@@ -6,16 +6,16 @@ import {
 export const VERSION = "v1.6";
 
 export const STEPS = [
-  { id: "context",   label: "Project Context",    icon: Layers,        desc: "Name your project, define its domain, and state your goals — this context shapes everything Claude generates in the steps that follow." },
-  { id: "identity",  label: "Identity",            icon: Target,        desc: "Choose a role for Claude to inhabit. The role defines its tone, depth of expertise, and default approach to every response in this project." },
-  { id: "knowledge", label: "Knowledge Base",      icon: Brain,         desc: "Answer a short quiz so Claude knows what you already understand — it calibrates explanation depth without over-explaining basics you already know." },
-  { id: "negative",  label: "Guardrails",          icon: ShieldOff,     desc: "Select behaviors Claude should never do in this project. These become hard limits baked into every response, regardless of how a message is phrased." },
-  { id: "modes",     label: "Behavior Modes",      icon: Sliders,       desc: "Define switchable work modes for different situations. You activate a mode by typing its trigger word at the start of any message." },
-  { id: "priority",  label: "Conflict Rules",      icon: ArrowUp,       desc: "Set which rule wins when two instructions compete. Claude reads this list top-to-bottom and stops at the first rule that applies." },
-  { id: "failure",   label: "Failure Preemption",  icon: AlertTriangle, desc: "Identify failure patterns common in your domain and give Claude explicit instructions to prevent each one before it happens." },
-  { id: "templates", label: "Output Templates",    icon: FileText,      desc: "Optional: define named response formats — such as a structured report or a decision table — that Claude can switch into on demand." },
-  { id: "examples",  label: "Concrete Examples",   icon: BookOpen,      desc: "Show Claude what a perfect response looks like. Concrete examples anchor abstract rules more reliably than written instructions alone." },
-  { id: "export",    label: "Review & Export",     icon: Download,      desc: "Copy two things into Claude project settings: the project description (Step 1) and the compiled custom instructions (Step 2)." },
+  { id: "context",   label: "Context",         icon: Layers,        desc: "Name your project, define its domain, and state your goals. This shapes everything Stanzix generates." },
+  { id: "identity",  label: "Role",            icon: Target,        desc: "Choose a role for Claude to inhabit. This defines its tone, expertise depth, and default approach." },
+  { id: "knowledge", label: "Expertise",       icon: Brain,         desc: "Answer a short quiz so Claude knows what you already understand. It calibrates depth without over-explaining." },
+  { id: "negative",  label: "Guardrails",      icon: ShieldOff,     desc: "Select behaviors Claude should never do. These become hard limits baked into every response." },
+  { id: "modes",     label: "Behavior",        icon: Sliders,       desc: "Define switchable work modes for different situations. Activate a mode by typing its trigger word." },
+  { id: "priority",  label: "Conflict",        icon: ArrowUp,       desc: "Set which rule wins when two instructions compete. Claude reads this list top-to-bottom." },
+  { id: "failure",   label: "Safety",          icon: AlertTriangle, desc: "Identify failure patterns in your domain and give Claude explicit instructions to prevent each one." },
+  { id: "templates", label: "Format",          icon: FileText,      desc: "Optional: define named response formats that Claude can switch into on demand." },
+  { id: "examples",  label: "Examples",        icon: BookOpen,      desc: "Show Claude what a perfect response looks like. Examples anchor rules better than instructions alone." },
+  { id: "export",    label: "Review & Export", icon: Download,      desc: "Copy two things into Claude project settings: the project description and the compiled instructions." },
 ];
 
 export const LOADING_PHRASES = [

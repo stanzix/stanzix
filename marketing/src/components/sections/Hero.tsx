@@ -9,13 +9,13 @@ import ScaffoldLine from "@/components/ui/ScaffoldLine";
 interface DemoState {
   label: string;
   levers: {
-    Tone: number;
-    Depth: number;
-    Format: number;
     Role: number;
-    Audience: number;
-    Output: number;
-    Constraints: number;
+    Expertise: number;
+    Guardrails: number;
+    Behavior: number;
+    Conflict: number;
+    Safety: number;
+    Format: number;
     Examples: number;
   };
   lines: { label: string; value: string }[];
@@ -25,82 +25,58 @@ const DEMO_STATES: DemoState[] = [
   {
     label: "Code Review Agent",
     levers: {
-      Tone: 30,
-      Depth: 85,
-      Format: 75,
-      Role: 90,
-      Audience: 60,
-      Output: 80,
-      Constraints: 70,
-      Examples: 65,
+      Role: 90, Expertise: 85, Guardrails: 70, Behavior: 60,
+      Conflict: 55, Safety: 75, Format: 80, Examples: 65,
     },
     lines: [
       { label: "ROLE", value: "Senior software engineer" },
-      { label: "AUDIENCE", value: "Junior developers" },
-      { label: "TONE", value: "Direct and educational" },
-      { label: "DEPTH", value: "Comprehensive" },
-      { label: "FORMAT", value: "Structured with severity levels" },
-      { label: "OUTPUT", value: "Markdown report" },
-      { label: "CONSTRAINTS", value: "Security and performance only" },
+      { label: "EXPERTISE", value: "Deep, expects industry context" },
+      { label: "GUARDRAILS", value: "No style opinions, security only" },
+      { label: "BEHAVIOR", value: "Review mode by default" },
+      { label: "FORMAT", value: "Structured report per file" },
       { label: "EXAMPLES", value: "Before/after code snippets" },
     ],
   },
   {
-    label: "Newsletter Intro",
+    label: "Newsletter Writer",
     levers: {
-      Tone: 70,
-      Depth: 45,
-      Format: 55,
-      Role: 50,
-      Audience: 75,
-      Output: 60,
-      Constraints: 50,
-      Examples: 80,
+      Role: 50, Expertise: 45, Guardrails: 50, Behavior: 40,
+      Conflict: 35, Safety: 30, Format: 55, Examples: 80,
     },
     lines: [
       { label: "ROLE", value: "Tech writer, startup beat" },
-      { label: "AUDIENCE", value: "Non-technical founders" },
-      { label: "TONE", value: "Conversational" },
-      { label: "DEPTH", value: "Overview with takeaways" },
+      { label: "EXPERTISE", value: "Founder-level, no jargon" },
+      { label: "GUARDRAILS", value: "No hype, no speculation" },
+      { label: "BEHAVIOR", value: "Draft mode" },
       { label: "FORMAT", value: "800-word article" },
-      { label: "OUTPUT", value: "Ready-to-publish draft" },
-      { label: "CONSTRAINTS", value: "No jargon, no hype" },
       { label: "EXAMPLES", value: "Real product comparisons" },
     ],
   },
   {
     label: "Executive Summary",
     levers: {
-      Tone: 20,
-      Depth: 70,
-      Format: 90,
-      Role: 85,
-      Audience: 35,
-      Output: 75,
-      Constraints: 85,
-      Examples: 45,
+      Role: 85, Expertise: 70, Guardrails: 85, Behavior: 45,
+      Conflict: 65, Safety: 80, Format: 90, Examples: 45,
     },
     lines: [
       { label: "ROLE", value: "Strategy consultant" },
-      { label: "AUDIENCE", value: "C-suite executives" },
-      { label: "TONE", value: "Formal, data-driven" },
-      { label: "DEPTH", value: "Executive summary" },
-      { label: "FORMAT", value: "Structured report" },
-      { label: "OUTPUT", value: "PDF-ready sections" },
-      { label: "CONSTRAINTS", value: "Lead with insights" },
+      { label: "EXPERTISE", value: "C-suite depth, data-driven" },
+      { label: "GUARDRAILS", value: "No filler, lead with insights" },
+      { label: "BEHAVIOR", value: "Analysis mode" },
+      { label: "FORMAT", value: "Board-ready report" },
       { label: "EXAMPLES", value: "Comparable companies" },
     ],
   },
 ];
 
 const LEVER_KEYS = [
-  "Tone",
-  "Depth",
-  "Format",
   "Role",
-  "Audience",
-  "Output",
-  "Constraints",
+  "Expertise",
+  "Guardrails",
+  "Behavior",
+  "Conflict",
+  "Safety",
+  "Format",
   "Examples",
 ] as const;
 

@@ -22,10 +22,10 @@ const TABS: Tab[] = [
       "Generate consistent project instructions, system prompts, and agent personas. Stop hand-crafting setup prompts for every new Claude project.",
     prompt: [
       { label: "ROLE", value: "Senior engineer" },
-      { label: "AUDIENCE", value: "Junior devs, React team" },
-      { label: "TONE", value: "Direct and specific" },
-      { label: "OUTPUT", value: "Structured feedback per file" },
-      { label: "CONSTRAINTS", value: "Security and perf issues only" },
+      { label: "EXPERTISE", value: "Team-level, React stack" },
+      { label: "GUARDRAILS", value: "Security and perf issues only" },
+      { label: "FORMAT", value: "Structured feedback per file" },
+      { label: "EXAMPLES", value: "Before/after code diffs" },
     ],
   },
   {
@@ -35,10 +35,10 @@ const TABS: Tab[] = [
       "Lock in your voice across every piece of AI-assisted content. Same prompt structure, consistent results, no more \"this doesn't sound like me.\"",
     prompt: [
       { label: "ROLE", value: "Tech founder, practitioner voice" },
-      { label: "AUDIENCE", value: "Early-stage founders" },
-      { label: "TONE", value: "Conversational, first-person" },
-      { label: "CONSTRAINTS", value: "Under 150 words, strong hook" },
-      { label: "OUTPUT", value: "Ready to publish" },
+      { label: "EXPERTISE", value: "Founder-level, no jargon" },
+      { label: "GUARDRAILS", value: "Under 150 words, strong hook" },
+      { label: "FORMAT", value: "Ready to publish, first-person" },
+      { label: "EXAMPLES", value: "Previous newsletter issues" },
     ],
   },
   {
@@ -48,9 +48,9 @@ const TABS: Tab[] = [
       "Build reusable prompts for client deliverables. Hand a Stanzix template to a junior, get senior-level output. Scale your judgment.",
     prompt: [
       { label: "ROLE", value: "Strategy consultant, SaaS expertise" },
-      { label: "AUDIENCE", value: "Series A CEO" },
-      { label: "FORMAT", value: "Executive summary" },
-      { label: "OUTPUT", value: "Board-ready, no fluff" },
+      { label: "EXPERTISE", value: "C-suite depth" },
+      { label: "FORMAT", value: "Executive summary, board-ready" },
+      { label: "GUARDRAILS", value: "No fluff, lead with data" },
       { label: "EXAMPLES", value: "Comparable exits" },
     ],
   },
@@ -61,10 +61,10 @@ const TABS: Tab[] = [
       "Reproducible prompts mean reproducible results. Run the same analysis prompt across different inputs and trust the output structure.",
     prompt: [
       { label: "ROLE", value: "Qualitative researcher" },
-      { label: "AUDIENCE", value: "Peer reviewers" },
-      { label: "FORMAT", value: "Structured findings" },
-      { label: "CONSTRAINTS", value: "Same format every run" },
-      { label: "OUTPUT", value: "Citable, section-referenced" },
+      { label: "EXPERTISE", value: "Peer-review depth" },
+      { label: "FORMAT", value: "Structured findings, citable" },
+      { label: "GUARDRAILS", value: "Same format every run" },
+      { label: "SAFETY", value: "Flag assumptions, cite sources" },
     ],
   },
 ];
@@ -74,7 +74,7 @@ export default function UseCases() {
   const active = TABS.find((t) => t.id === activeId) ?? TABS[0];
 
   return (
-    <section className="py-24 md:py-32 lg:py-40">
+    <section id="use-cases" className="py-24 md:py-32 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <p className="font-sans text-sm text-text-dim uppercase tracking-wider mb-4">
           Use Cases

@@ -15,9 +15,7 @@ Stanzix turns vague requests into structured prompts using an 8-lever architectu
 
 ## SOCIAL PROOF BAR
 
-Trusted by builders, writers, and consultants who use AI every day.
-
-*(Once you have real numbers, swap this for: "10,000+ structured prompts generated" or "500+ power users")*
+*(REMOVED from page — pending real data)*
 
 ---
 
@@ -42,7 +40,7 @@ Three steps. Sixty seconds. A prompt that works.
 Tell Stanzix what you want the AI to do, in plain language. No formatting required.
 
 **Step 2: Configure your 8 levers**
-Tone, depth, format, role, audience, output structure, constraints, examples. Each lever shapes the prompt for your exact use case.
+Role, expertise, guardrails, behavior, conflict resolution, safety, format, examples. Each lever shapes the prompt for your exact use case.
 
 **Step 3: Get a structured prompt**
 Stanzix builds a complete, structured prompt ready to paste into Claude, ChatGPT, Gemini, or any LLM.
@@ -52,7 +50,7 @@ Stanzix builds a complete, structured prompt ready to paste into Claude, ChatGPT
 ## FEATURES
 
 **8-Lever Architecture**
-Precision control over tone, depth, format, role, audience, output structure, constraints, and examples. The same levers that prompt engineers use, made accessible.
+Precision control over role, expertise, guardrails, behavior modes, conflict resolution, safety, format, and examples. The same levers that prompt engineers use, made accessible.
 
 **Save and Reuse**
 Your best prompts become templates. Build your own personal library of structured prompts you can deploy in seconds.
@@ -78,13 +76,13 @@ Claude, ChatGPT, Gemini, Llama, Mistral. Stanzix builds prompts. The prompts wor
 
 **With Stanzix:**
 A 300-word structured prompt that specifies:
-- Your role and expertise level
-- The target audience and their context
-- The exact format and length
-- The tone and voice
-- Constraints (what to avoid)
-- Examples of what good looks like
-- Output structure with headers and sections
+- Role: Senior technology writer, AI systems expertise
+- Expertise: Developer-level depth, practical focus
+- Guardrails: No buzzwords. No speculation. 2026 frameworks only.
+- Behavior: Analysis mode
+- Format: 1,200-word article with 4 sections
+- Safety: Flag unverified claims, cite sources
+- Examples: LangChain, AutoGen, CrewAI in production
 
 Same idea. Completely different output quality.
 
@@ -157,7 +155,7 @@ Prompt libraries give you pre-written prompts for common tasks. Stanzix builds c
 Stanzix generates prompts that work with Claude, ChatGPT, Gemini, Llama, Mistral, or any large language model. We don't connect to your AI directly. You copy the structured prompt and paste it wherever you use AI.
 
 **Do I need to know prompt engineering?**
-No. The 8-lever interface translates prompt engineering principles into simple choices. If you can answer "what tone should this be in?" you can use Stanzix.
+No. The 8 levers have plain-language labels: Role, Expertise, Guardrails, Behavior, Conflict, Safety, Format, Examples. If you can describe what you want Claude to do, you can use Stanzix.
 
 **Is my data private?**
 Yes. We don't train models on your prompts. We don't sell your data. Your saved templates are private to your account.
@@ -191,20 +189,16 @@ Build your first structured prompt in 60 seconds. Free, no credit card.
 Structured prompts for serious AI users.
 
 **Product**
-- Features
-- Pricing
-- Use Cases
-- Documentation
+- Features (#features)
+- Pricing (#pricing)
+- Use Cases (#use-cases)
 
 **Company**
-- About
-- Blog
-- Contact
+- Built by DeJuan Spencer (https://dejuanspencer.com)
 
 **Legal**
-- Privacy Policy
-- Terms of Service
-- Cookie Policy
+- Privacy Policy (/privacy)
+- Terms of Service (/terms)
 
 **Connect**
 - Twitter / X

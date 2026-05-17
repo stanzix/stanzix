@@ -42,7 +42,7 @@ const TIERS: PricingTier[] = [
       "All devices",
     ],
     cta: "Start Pro",
-    ctaHref: "https://app.stanzix.com/pro",
+    ctaHref: "https://app.stanzix.com",
     variant: "primary",
     highlighted: true,
   },
@@ -59,7 +59,7 @@ const TIERS: PricingTier[] = [
       "Usage analytics",
     ],
     cta: "Start Team",
-    ctaHref: "https://app.stanzix.com/team",
+    ctaHref: "https://app.stanzix.com",
     variant: "secondary",
     highlighted: false,
   },
@@ -67,7 +67,7 @@ const TIERS: PricingTier[] = [
 
 export default function Pricing() {
   return (
-    <section className="py-24 md:py-32 lg:py-40">
+    <section id="pricing" className="py-24 md:py-32 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <p className="font-sans text-sm text-text-dim uppercase tracking-wider mb-4">
           Pricing

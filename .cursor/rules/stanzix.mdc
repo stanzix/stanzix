@@ -7,7 +7,7 @@ alwaysApply: true
 
 ## What is Stanzix
 
-Stanzix is a structured prompt builder. Users describe what they need, configure 8 levers (Tone, Depth, Format, Role, Audience, Output, Constraints, Examples), and get a structured prompt ready to paste into any LLM.
+Stanzix is a structured prompt builder. Users describe what they need, configure 8 levers (Role, Expertise, Guardrails, Behavior, Conflict, Safety, Format, Examples), and get a structured prompt ready to paste into any LLM.
 
 This codebase is the MARKETING WEBSITE at stanzix.com. The product app lives separately at app.stanzix.com.
 
