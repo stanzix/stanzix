@@ -62,7 +62,17 @@ export async function POST(req: Request) {
       body: JSON.stringify(body),
     });
 
-    const data = await response.json();
+    let data: unknown;
+    try {
+      data = await response.json();
+    } catch {
+      const text = await response.text().catch(() => "");
+      console.error("Anthropic non-JSON response:", response.status, text);
+      return NextResponse.json(
+        { error: "upstream_error", message: text || `HTTP ${response.status}` },
+        { status: 502 }
+      );
+    }
 
     if (!response.ok) {
       console.error("Anthropic error:", data);

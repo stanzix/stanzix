@@ -300,7 +300,7 @@ export function useStanzix(user) {
         `You generate professional role identities for AI assistants based on project context. Return ONLY valid JSON array of 3 objects: [{"title":"...","description":"...","traits":["...","...","..."]}]`,
         `Project: ${name}\nDescription: ${desc}\nDomain: ${dm}\nGoals: ${gl}`,
         2048,
-        "claude-haiku-4-5"
+        "claude-3-5-haiku-20241022"
       );
       if (r && !r._error) setIdentityOptions(r);
     });
@@ -309,7 +309,7 @@ export function useStanzix(user) {
         `You identify counterproductive AI behaviors for a specific domain and project. Return ONLY valid JSON array: [{"behavior":"short name","instruction":"do not... directive","reason":"why this matters"}]`,
         `Project: ${name}\nDomain: ${dm}\nDescription: ${desc}`,
         2048,
-        "claude-haiku-4-5"
+        "claude-3-5-haiku-20241022"
       );
       if (r && !r._error) { setNegativeSuggestions(r); setSelectedNegatives(new Set(r.map((_, i) => i))); }
     });
@@ -332,7 +332,7 @@ export function useStanzix(user) {
 - goals: 1-3 concrete goals the user likely has. Make them measurable where possible.`,
         `User input: "${userInput}"`,
         1024,
-        "claude-haiku-4-5"
+        "claude-3-5-haiku-20241022"
       );
       if (r && !r._error && r.projectName) {
         const name = String(r.projectName || "");
