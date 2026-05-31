@@ -43,7 +43,7 @@ const TIERS: PricingTier[] = [
       "All devices",
     ],
     cta: "Start Pro",
-    ctaHref: "https://app.stanzix.com",
+    ctaHref: "https://app.stanzix.com/?plan=pro",
     variant: "primary",
     highlighted: true,
   },

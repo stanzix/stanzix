@@ -55,13 +55,14 @@ function StanzixInner() {
   const [checkoutError, setCheckoutError] = useState("");
   const [showPromptLibrary, setShowPromptLibrary] = useState(false);
 
-  // Detect checkout=success / canceled params on mount (Stripe redirect back)
+  // Detect checkout=success / canceled / plan=pro params on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const result = params.get("checkout");
     if (result === "success") { setIsPaid(true); setShowPaywall(false); }
     if (result === "canceled") setCheckoutError("Payment was canceled. Try again when you're ready.");
-    if (result) window.history.replaceState({}, "", window.location.pathname);
+    if (params.get("plan") === "pro") setShowPaywall(true);
+    if (result || params.get("plan")) window.history.replaceState({}, "", window.location.pathname);
   }, []);
 
   // Fetch subscription status from Supabase after auth
