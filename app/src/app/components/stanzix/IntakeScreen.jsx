@@ -12,15 +12,18 @@ const EXAMPLES = [
 export default function IntakeScreen({ onComplete, onSkip, isMobile }) {
   const [value, setValue] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const textareaRef = useRef(null);
 
   const handleSubmit = async () => {
     if (!value.trim() || submitting) return;
     setSubmitting(true);
+    setError("");
     const success = await onComplete(value.trim());
-    // On success the component unmounts (routing changes to builder).
-    // On failure we re-enable the button so the user can try again.
-    if (!success) setSubmitting(false);
+    if (!success) {
+      setSubmitting(false);
+      setError("Couldn't parse your description. Try adding more detail or start from scratch.");
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -97,6 +100,16 @@ export default function IntakeScreen({ onComplete, onSkip, isMobile }) {
             </>
           )}
         </button>
+
+        {error && (
+          <div role="alert" style={{
+            marginTop: "10px", padding: "10px 14px", borderRadius: "8px",
+            background: "rgba(220,80,80,0.08)", border: "1px solid rgba(220,80,80,0.25)",
+            fontSize: "13px", color: "rgba(220,150,150,0.9)", lineHeight: 1.5,
+          }}>
+            {error}
+          </div>
+        )}
 
         {/* Divider */}
         <div style={{ display: "flex", alignItems: "center", gap: "12px", margin: "24px 0 16px" }}>

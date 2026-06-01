@@ -96,11 +96,14 @@ export default function UseCases() {
         </h2>
 
         {/* Tab bar */}
-        <div className="flex border-b border-border">
+        <div role="tablist" className="flex border-b border-border">
           {TABS.map((tab) => (
             <button
               key={tab.id}
               type="button"
+              role="tab"
+              aria-selected={activeId === tab.id}
+              aria-controls={`tabpanel-${tab.id}`}
               onClick={() => setActiveId(tab.id)}
               className={`font-sans text-sm font-medium px-5 py-3 transition-colors border-b-2 -mb-px ${
                 activeId === tab.id
@@ -114,7 +117,7 @@ export default function UseCases() {
         </div>
 
         {/* Tab content */}
-        <div className="pt-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        <div id={`tabpanel-${activeId}`} role="tabpanel" className="pt-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
           <p className="font-sans text-base text-text-secondary leading-relaxed">
             {active.description}
           </p>

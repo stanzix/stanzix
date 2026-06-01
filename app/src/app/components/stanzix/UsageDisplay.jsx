@@ -17,24 +17,27 @@ async function getToken() {
   }
 }
 
-export default function UsageDisplay({ onUpgrade, isMobile }) {
-  const [usage, setUsage] = useState(null);
+export default function UsageDisplay({ onUpgrade, isMobile, usageData }) {
+  const [fetchedUsage, setFetchedUsage] = useState(null);
   const [portalLoading, setPortalLoading] = useState(false);
 
   const fetchUsage = useCallback(async () => {
+    if (usageData) return;
     const token = await getToken();
     if (!token) return;
     try {
       const res = await fetch("/api/usage", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (res.ok) setUsage(await res.json());
+      if (res.ok) setFetchedUsage(await res.json());
     } catch {}
-  }, []);
+  }, [usageData]);
 
   useEffect(() => {
     fetchUsage();
   }, [fetchUsage]);
+
+  const usage = usageData || fetchedUsage;
 
   const openPortal = async () => {
     const token = await getToken();

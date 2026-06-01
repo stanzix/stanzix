@@ -103,20 +103,34 @@ export default function Hero() {
   const current = DEMO_STATES[stateIndex];
 
   return (
-    <section className="py-24 md:py-32 lg:py-40">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+    <>
+      <nav className="sticky top-0 z-50 bg-background/90 backdrop-blur-sm border-b border-border">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <span className="font-serif text-lg font-medium text-text-primary">
+              Stanzix
+            </span>
+            <span className="text-accent text-lg leading-none" aria-hidden="true">
+              •
+            </span>
+          </div>
+          <div className="flex items-center gap-6">
+            <a href="#features" className="hidden sm:inline font-sans text-sm text-text-secondary hover:text-text-primary transition-colors">Features</a>
+            <a href="#use-cases" className="hidden sm:inline font-sans text-sm text-text-secondary hover:text-text-primary transition-colors">Use Cases</a>
+            <a href="#pricing" className="hidden sm:inline font-sans text-sm text-text-secondary hover:text-text-primary transition-colors">Pricing</a>
+            <Button href="https://app.stanzix.com" className="text-sm px-4 py-2">
+              Try Free
+            </Button>
+          </div>
+        </div>
+      </nav>
 
-          {/* Left column */}
-          <div className="lg:col-span-3">
-            <div className="flex items-center gap-1.5 mb-8">
-              <span className="font-serif text-xl font-medium text-text-primary">
-                Stanzix
-              </span>
-              <span className="text-accent text-xl leading-none" aria-hidden="true">
-                •
-              </span>
-            </div>
+      <section className="py-24 md:py-32 lg:py-40">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+
+            {/* Left column */}
+            <div className="lg:col-span-3">
 
             <h1 className="font-serif text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[1.05] text-text-primary">
               Stop rewriting the same prompt every time.
@@ -132,8 +146,8 @@ export default function Hero() {
               <Button href="https://app.stanzix.com">
                 Try Stanzix Free
               </Button>
-              <Button variant="secondary" href="#demo">
-                See a Demo
+              <Button variant="secondary" href="#how-it-works">
+                See How It Works
               </Button>
             </div>
           </div>
@@ -217,5 +231,6 @@ export default function Hero() {
         </div>
       </div>
     </section>
+    </>
   );
 }

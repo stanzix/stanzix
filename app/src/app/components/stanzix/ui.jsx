@@ -86,13 +86,17 @@ export const StepExample = ({ children, onDismiss }) => (
   </div>
 );
 
-export const Toast = ({ msg }) => (
+export const Toast = ({ msg, onDismiss }) => (
   <div role="alert" aria-live="assertive" style={{
     position: "fixed", bottom: "24px", left: "50%", transform: "translateX(-50%)",
     background: "#dc5050", color: "#fff", padding: "10px 18px",
     borderRadius: "8px", fontSize: "13px", fontWeight: 600, zIndex: 9999,
     boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
-  }}>{msg}</div>
+    display: "flex", alignItems: "center", gap: "10px",
+  }}>
+    <span>{msg}</span>
+    {onDismiss && <button onClick={onDismiss} aria-label="Dismiss" style={{ background: "none", border: "none", cursor: "pointer", color: "#fff", fontSize: "16px", lineHeight: 1, padding: "0 2px", opacity: 0.7 }}>×</button>}
+  </div>
 );
 
 export const LoadingIndicator = () => {
@@ -110,7 +114,7 @@ export const LoadingIndicator = () => {
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ fontSize: "14px", fontWeight: 600, color: "#d4a24e", fontFamily: "'DM Sans', sans-serif", marginBottom: "4px" }}>{LOADING_PHRASES[phraseIdx]}</div>
-        <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.5px" }}>claude-opus generating{dots}</div>
+        <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.5px" }}>generating{dots}</div>
       </div>
       <div style={{ width: "60px", height: "4px", borderRadius: "2px", background: "rgba(255,255,255,0.06)", overflow: "hidden", flexShrink: 0 }}>
         <div style={{ width: "40%", height: "100%", borderRadius: "2px", background: "linear-gradient(90deg, #d4a24e, #b8862e)", animation: "shimmerBar 1.5s ease-in-out infinite" }} />

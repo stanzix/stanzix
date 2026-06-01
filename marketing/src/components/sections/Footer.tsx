@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import ScaffoldLine from "@/components/ui/ScaffoldLine";
 
 const NAV_COLUMNS = [
@@ -69,15 +66,6 @@ function IconGitHub() {
 }
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit() {
-    if (email.trim()) {
-      setSubmitted(true);
-    }
-  }
-
   return (
     <footer>
       <ScaffoldLine />
@@ -95,22 +83,12 @@ export default function Footer() {
             <p className="font-sans text-sm text-text-secondary leading-relaxed">
               Structured prompts for serious AI users.
             </p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                className="flex-1 min-w-0 bg-background border border-border rounded px-3 py-2 font-sans text-sm text-text-primary placeholder:text-text-dim focus:outline-none focus:border-accent transition-colors"
-              />
-              <button
-                type="button"
-                onClick={handleSubmit}
-                className="bg-accent text-background font-medium px-4 py-2 rounded text-sm hover:bg-accent-hover transition-colors shrink-0"
-              >
-                {submitted ? "Sent" : "Subscribe"}
-              </button>
-            </div>
+            <a
+              href="https://app.stanzix.com"
+              className="inline-flex items-center justify-center bg-accent text-background font-medium px-4 py-2 rounded text-sm hover:bg-accent-hover transition-colors"
+            >
+              Try Stanzix Free
+            </a>
           </div>
 
           {/* Nav columns */}

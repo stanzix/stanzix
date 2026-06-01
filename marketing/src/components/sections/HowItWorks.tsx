@@ -21,7 +21,7 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-24 md:py-32 lg:py-40">
+    <section id="how-it-works" className="py-24 md:py-32 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <h2 className="font-serif text-4xl md:text-5xl font-medium tracking-tight text-text-primary mb-16">
           Three steps. Sixty seconds. A prompt that works.

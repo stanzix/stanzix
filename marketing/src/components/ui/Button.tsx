@@ -24,8 +24,13 @@ export default function Button({
   const classes = `${baseStyles} ${variantStyles[variant]} ${className}`;
 
   if (href) {
+    const isExternal = href.startsWith("http");
     return (
-      <a href={href} className={classes}>
+      <a
+        href={href}
+        className={classes}
+        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
         {children}
       </a>
     );

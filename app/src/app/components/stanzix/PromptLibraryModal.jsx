@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { X, Library, Copy, Check, Trash2, FileText, AlignLeft } from "lucide-react";
 import { Btn } from "./ui";
 
@@ -52,6 +52,7 @@ export default function PromptLibraryModal({
 }) {
   const [copiedId, setCopiedId] = useState(null);
   const [copiedKind, setCopiedKind] = useState(null);
+  const [deleteConfirmId, setDeleteConfirmId] = useState(null);
 
   const sorted = useMemo(() => [...history].sort((a, b) => String(b.savedAt).localeCompare(String(a.savedAt))), [history]);
 
@@ -196,12 +197,20 @@ export default function PromptLibraryModal({
                       </div>
                       <button
                         type="button"
-                        onClick={() => onDelete(entry.id)}
-                        aria-label="Remove from library"
-                        title="Remove"
+                        onClick={() => {
+                          if (deleteConfirmId === entry.id) {
+                            onDelete(entry.id);
+                            setDeleteConfirmId(null);
+                          } else {
+                            setDeleteConfirmId(entry.id);
+                          }
+                        }}
+                        onBlur={() => setTimeout(() => setDeleteConfirmId(null), 200)}
+                        aria-label={deleteConfirmId === entry.id ? "Confirm delete" : "Remove from library"}
+                        title={deleteConfirmId === entry.id ? "Click again to confirm" : "Remove"}
                         style={{
-                          background: "rgba(220,80,80,0.12)",
-                          border: "1px solid rgba(220,80,80,0.25)",
+                          background: deleteConfirmId === entry.id ? "rgba(220,80,80,0.25)" : "rgba(220,80,80,0.12)",
+                          border: `1px solid ${deleteConfirmId === entry.id ? "rgba(220,80,80,0.5)" : "rgba(220,80,80,0.25)"}`,
                           borderRadius: 8,
                           padding: "6px 8px",
                           cursor: "pointer",

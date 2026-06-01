@@ -145,6 +145,7 @@ export default function PaymentGate({
   isMobile,
   promptLibraryCount = 0,
   onOpenPromptLibrary,
+  onBack,
 }) {
   return (
     <div
@@ -159,8 +160,9 @@ export default function PaymentGate({
         overflow: "hidden",
       }}
     >
-      <a
-        href="/"
+      <button
+        type="button"
+        onClick={onBack}
         style={{
           position: "absolute",
           top: isMobile ? "16px" : "24px",
@@ -170,7 +172,9 @@ export default function PaymentGate({
           gap: "6px",
           color: "rgba(255,255,255,0.55)",
           fontSize: "13px",
-          textDecoration: "none",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
           fontFamily: "'DM Sans', sans-serif",
           transition: "color 0.2s",
           zIndex: 1,
@@ -178,8 +182,8 @@ export default function PaymentGate({
         onMouseEnter={e => (e.currentTarget.style.color = GOLD)}
         onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.55)")}
       >
-        <ChevronLeft size={16} /> stanzix.com
-      </a>
+        <ChevronLeft size={16} /> Back to dashboard
+      </button>
 
       {/* Background glow */}
       <div

@@ -517,6 +517,8 @@ export function useStanzix(user) {
   });
 
   const applyParsed = () => {
+    const hasExistingWork = step > 0 || projectName || projectDesc || domain || goals || identityOptions.length > 0;
+    if (hasExistingWork && !window.confirm("This will overwrite the selected sections of your current build. Continue?")) return;
     const r = parsedPreview;
     if (selectedSections.has("context")) {
       if (r.projectName) setProjectName(r.projectName);

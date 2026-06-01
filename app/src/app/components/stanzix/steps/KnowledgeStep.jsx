@@ -29,8 +29,8 @@ export function KnowledgeStep({ loading, quizQuestions, quizAnswers, setQuizAnsw
         ))}
       </div>
       {quizQuestions.length > 0 && Object.keys(quizAnswers).length > 0 && !knowledgeResult.length && (
-        <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.55)", textAlign: "center", padding: "8px" }}>
-          Click "Process" above to analyze your answers and build a knowledge baseline.
+        <div style={{ display: "flex", justifyContent: "center", padding: "8px" }}>
+          <Btn small primary onClick={processQuizAnswers} disabled={loading}>{loading ? <Loader2 size={14} className="spin" /> : <Zap size={14} />} Process Answers</Btn>
         </div>
       )}
       {knowledgeResult.length > 0 && (

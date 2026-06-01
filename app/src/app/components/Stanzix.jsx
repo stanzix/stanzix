@@ -168,22 +168,6 @@ function StanzixInner() {
     }
   }, [pe.step]);
 
-  // Auto-advance on Identity step after a selection is made
-  const [autoAdvancing, setAutoAdvancing] = useState(false);
-  useEffect(() => {
-    if (pe.step === 1 && pe.selectedIdentity !== null && pe.identityOptions.length > 0) {
-      setAutoAdvancing(true);
-      const timer = setTimeout(() => {
-        pe.setStep(2);
-        pe.trackActivity();
-        setAutoAdvancing(false);
-      }, 1500);
-      return () => { clearTimeout(timer); setAutoAdvancing(false); };
-    } else {
-      setAutoAdvancing(false);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pe.selectedIdentity, pe.step]);
 
   const stepProps = [
     { projectName: pe.projectName, setProjectName: pe.setProjectName, domain: pe.domain, setDomain: pe.setDomain, projectDesc: pe.projectDesc, setProjectDesc: pe.setProjectDesc, goals: pe.goals, setGoals: pe.setGoals, refineSuggestions: pe.refineSuggestions, generateLoading: pe.generateLoading, refineLoading: pe.refineLoading, generateField: pe.generateField, refineField: pe.refineField, acceptRefinement: pe.acceptRefinement, dismissRefinement: pe.dismissRefinement, trackActivity: pe.trackActivity },
@@ -235,7 +219,7 @@ function StanzixInner() {
         .stepper-node:hover .stepper-tooltip { opacity: 1; pointer-events: none; }
       `}</style>
 
-      {pe.error && <Toast msg={pe.error} />}
+      {pe.error && <Toast msg={pe.error} onDismiss={() => pe.showError(null)} />}
       {pe.showFireworks && <Fireworks />}
 
       {auth.loading || (auth.user && pe.hydrating) ? (
@@ -255,6 +239,7 @@ function StanzixInner() {
           isMobile={pe.isMobile}
           promptLibraryCount={pe.promptHistory.length}
           onOpenPromptLibrary={() => setShowPromptLibrary(true)}
+          onBack={() => { setShowPaywall(false); pe.setViewMode("dashboard"); }}
         />
       ) : pe.viewMode === "dashboard" ? (
         <Dashboard
@@ -369,11 +354,9 @@ function StanzixInner() {
                               )}
                               <button
                                 className="stepper-node"
-                                onClick={() => { if (stepIdx <= pe.step) { pe.setStep(stepIdx); pe.trackActivity(); } }}
-                                disabled={stepIdx > pe.step}
+                                onClick={() => { pe.setStep(stepIdx); pe.trackActivity(); }}
                                 aria-current={active ? "step" : undefined}
-                                title={stepIdx > pe.step ? "Complete the current step first" : undefined}
-                                style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", background: "none", border: "none", cursor: stepIdx > pe.step ? "not-allowed" : active ? "default" : "pointer", padding: "2px 5px", position: "relative", flexShrink: 0, opacity: stepIdx > pe.step ? 0.38 : 1, transition: "opacity 0.2s" }}
+                                style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", background: "none", border: "none", cursor: active ? "default" : "pointer", padding: "2px 5px", position: "relative", flexShrink: 0, opacity: 1, transition: "opacity 0.2s" }}
                               >
                                 <div style={{ width: "26px", height: "26px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: active ? "#d4a24e" : completed ? "rgba(212,162,78,0.12)" : "rgba(255,255,255,0.05)", border: active ? "none" : completed ? "1.5px solid rgba(212,162,78,0.55)" : "1.5px solid rgba(255,255,255,0.14)", transition: "all 0.2s", flexShrink: 0 }}>
                                   {isCascading
@@ -407,10 +390,9 @@ function StanzixInner() {
             <div style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", background: "rgba(0,0,0,0.1)", flexShrink: 0 }}>
               {/* Phase-relative progress bar */}
               {(() => {
-                const { phase, posInPhase } = getPhaseInfo(pe.step);
-                const pct = (posInPhase / phase.steps.length) * 100;
+                const pct = ((pe.step + 1) / STEPS.length) * 100;
                 return (
-                  <div style={{ height: "3px", background: "rgba(255,255,255,0.04)" }} role="progressbar" aria-valuenow={posInPhase} aria-valuemin={1} aria-valuemax={phase.steps.length} aria-label={`${phase.label}: step ${posInPhase} of ${phase.steps.length}`}>
+                  <div style={{ height: "3px", background: "rgba(255,255,255,0.04)" }} role="progressbar" aria-valuenow={pe.step + 1} aria-valuemin={1} aria-valuemax={STEPS.length} aria-label={`Step ${pe.step + 1} of ${STEPS.length}`}>
                     <div style={{ height: "100%", width: `${pct}%`, background: "linear-gradient(90deg, #d4a24e, #b8862e)", borderRadius: "0 2px 2px 0", transition: "width 0.3s ease" }} />
                   </div>
                 );
@@ -442,7 +424,7 @@ function StanzixInner() {
                   {STEPS.map((s, i) => {
                     const Icon = s.icon; const active = pe.step === i; const completed = i < pe.step;
                     return (
-                      <button key={s.id} onClick={() => { if (i <= pe.step) { pe.setStep(i); pe.setShowMobileNav(false); pe.trackActivity(); } }} disabled={i > pe.step} aria-current={active ? "step" : undefined} style={{ width: "100%", padding: "10px 16px", background: active ? "rgba(212,162,78,0.08)" : "transparent", border: "none", borderLeft: active ? "3px solid #d4a24e" : "3px solid transparent", cursor: i > pe.step ? "not-allowed" : "pointer", display: "flex", alignItems: "center", gap: "10px", textAlign: "left", opacity: i > pe.step ? 0.4 : 1 }}>
+                      <button key={s.id} onClick={() => { pe.setStep(i); pe.setShowMobileNav(false); pe.trackActivity(); }} aria-current={active ? "step" : undefined} style={{ width: "100%", padding: "10px 16px", background: active ? "rgba(212,162,78,0.08)" : "transparent", border: "none", borderLeft: active ? "3px solid #d4a24e" : "3px solid transparent", cursor: "pointer", display: "flex", alignItems: "center", gap: "10px", textAlign: "left", opacity: 1 }}>
                         <div style={{ position: "relative", flexShrink: 0 }}>
                           <Icon size={14} color={active ? "#d4a24e" : completed ? "#50b450" : "rgba(255,255,255,0.3)"} />
                           {completed && <CheckCircle2 size={8} color="#50b450" style={{ position: "absolute", top: -3, right: -3 }} />}
@@ -523,19 +505,7 @@ function StanzixInner() {
 
                   {/* Navigation */}
                   <div style={{ marginTop: "32px", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-                    {/* Auto-advance nudge on Identity step */}
-                    {autoAdvancing && (
-                      <div style={{ textAlign: "center", marginBottom: "12px", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
-                        <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", fontFamily: "'JetBrains Mono', monospace" }}>Advancing automatically...</span>
-                        <button
-                          onClick={() => { setAutoAdvancing(false); }}
-                          style={{ background: "none", border: "none", cursor: "pointer", fontSize: "11px", color: "rgba(255,255,255,0.3)", fontFamily: "'DM Sans', sans-serif", padding: "2px 6px", borderRadius: "4px", textDecoration: "underline" }}
-                        >
-                          Stay on this step
-                        </button>
-                      </div>
-                    )}
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
                       <Btn onClick={() => { pe.setStep(Math.max(0, pe.step - 1)); pe.trackActivity(); }} disabled={pe.step === 0}>
                         <ChevronLeft size={16} /> Previous
                       </Btn>
@@ -553,6 +523,11 @@ function StanzixInner() {
                           </Btn>
                       }
                     </div>
+                    {pe.step === 0 && !pe.canAdvance() && (
+                      <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)", fontFamily: "'JetBrains Mono', monospace", marginTop: "8px", textAlign: "right" }}>
+                        Add a project name or description to continue
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -564,7 +539,17 @@ function StanzixInner() {
               setShowPreview={pe.setShowPreview}
               compiledOutput={pe.compiledOutput}
               copied={pe.copied}
-              onCopy={pe.copyToClipboard}
+              onCopy={async () => {
+                try {
+                  await navigator.clipboard.writeText(pe.compiledOutput);
+                } catch {
+                  const ta = document.createElement("textarea");
+                  ta.value = pe.compiledOutput;
+                  Object.assign(ta.style, { position: "fixed", left: "-9999px", top: "-9999px", opacity: "0" });
+                  document.body.appendChild(ta); ta.focus(); ta.select();
+                  document.execCommand("copy"); document.body.removeChild(ta);
+                }
+              }}
               currentStep={pe.step}
             />
           </div>

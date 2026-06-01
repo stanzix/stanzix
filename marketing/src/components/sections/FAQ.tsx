@@ -43,7 +43,7 @@ const FAQS = [
   {
     question: "How do I get started?",
     answer:
-      'Click "Try Stanzix Free" above. No credit card required. You can build your first structured prompt in under 60 seconds.',
+      'Click the "Try Stanzix Free" button at the top of the page. No credit card required. You can build your first structured prompt in under 60 seconds.',
   },
 ];
 
@@ -69,6 +69,7 @@ export default function FAQ() {
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   aria-expanded={isOpen}
+                  aria-controls={`faq-panel-${i}`}
                   className="w-full flex items-center justify-between py-5 text-left gap-4"
                 >
                   <span className="font-serif text-xl md:text-2xl font-medium text-text-primary">
@@ -101,6 +102,7 @@ export default function FAQ() {
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
+                      id={`faq-panel-${i}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
