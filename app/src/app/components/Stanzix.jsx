@@ -52,6 +52,7 @@ function StanzixInner() {
   const [showPaywall, setShowPaywall] = useState(false);
   const [pendingPro, setPendingPro] = useState(false);
   const [pendingTeam, setPendingTeam] = useState(false);
+  const [teamWaitlistJoined, setTeamWaitlistJoined] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
   const [showPromptLibrary, setShowPromptLibrary] = useState(false);
 
@@ -123,6 +124,31 @@ function StanzixInner() {
     } catch {
       setCheckoutError("Failed to start checkout. Please try again.");
       setPending(false);
+    }
+  };
+
+  const joinTeamWaitlist = async () => {
+    if (!auth.user) return;
+    setPendingTeam(true);
+    setCheckoutError("");
+    try {
+      const supabase = getSupabaseClient();
+      const { error } = await supabase
+        .from("team_waitlist")
+        .insert({ email: auth.user.email, user_id: auth.user.id, source: "app" });
+      if (error) {
+        if (error.code === "23505") {
+          setTeamWaitlistJoined(true);
+        } else {
+          setCheckoutError("Something went wrong. Please try again.");
+        }
+      } else {
+        setTeamWaitlistJoined(true);
+      }
+    } catch {
+      setCheckoutError("Something went wrong. Please try again.");
+    } finally {
+      setPendingTeam(false);
     }
   };
 
@@ -232,9 +258,10 @@ function StanzixInner() {
         <PaymentGate
           email={auth.user.email}
           onCheckoutPro={() => initiateCheckout(process.env.NEXT_PUBLIC_STRIPE_PRO_PRICE_ID, setPendingPro)}
-          onCheckoutTeam={() => initiateCheckout(process.env.NEXT_PUBLIC_STRIPE_TEAM_PRICE_ID, setPendingTeam)}
+          onCheckoutTeam={joinTeamWaitlist}
           pendingPro={pendingPro}
           pendingTeam={pendingTeam}
+          teamWaitlistJoined={teamWaitlistJoined}
           error={checkoutError}
           isMobile={pe.isMobile}
           promptLibraryCount={pe.promptHistory.length}

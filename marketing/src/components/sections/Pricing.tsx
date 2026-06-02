@@ -1,4 +1,5 @@
 import Button from "@/components/ui/Button";
+import TeamWaitlistForm from "@/components/sections/TeamWaitlistForm";
 
 interface PricingTier {
   id: string;
@@ -124,13 +125,17 @@ export default function Pricing() {
               </ul>
 
               <div className="mt-auto pt-2">
-                <Button
-                  variant={tier.variant}
-                  href={tier.ctaHref}
-                  className="w-full"
-                >
-                  {tier.cta}
-                </Button>
+                {tier.comingSoon ? (
+                  <TeamWaitlistForm />
+                ) : (
+                  <Button
+                    variant={tier.variant}
+                    href={tier.ctaHref}
+                    className="w-full"
+                  >
+                    {tier.cta}
+                  </Button>
+                )}
               </div>
             </div>
           ))}

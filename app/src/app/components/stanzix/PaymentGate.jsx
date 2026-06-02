@@ -22,7 +22,7 @@ const FEATURES_TEAM = [
   { icon: Sparkles, label: "Priority support" },
 ];
 
-function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pending, pendingLabel, highlight }) {
+function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pending, pendingLabel, highlight, comingSoon, successMessage }) {
   return (
     <div
       style={{
@@ -56,6 +56,27 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
           }}
         >
           MOST POPULAR
+        </div>
+      )}
+      {comingSoon && (
+        <div
+          style={{
+            position: "absolute",
+            top: "-11px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "rgba(255,255,255,0.06)",
+            border: "1px solid rgba(255,255,255,0.15)",
+            color: "rgba(255,255,255,0.5)",
+            fontSize: "10px",
+            fontWeight: 700,
+            fontFamily: "'JetBrains Mono', monospace",
+            padding: "3px 10px",
+            borderRadius: "20px",
+            whiteSpace: "nowrap",
+          }}
+        >
+          COMING SOON
         </div>
       )}
 
@@ -92,45 +113,69 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
         ))}
       </ul>
 
-      <button
-        onClick={onCheckout}
-        disabled={pending}
-        style={{
-          marginTop: "auto",
-          width: "100%",
-          padding: "13px 16px",
-          borderRadius: "10px",
-          border: highlight ? "none" : `1px solid ${GOLD_BORDER}`,
-          cursor: pending ? "not-allowed" : "pointer",
-          background: highlight
-            ? pending
-              ? "rgba(212,162,78,0.4)"
-              : `linear-gradient(135deg, ${GOLD}, #b8862e)`
-            : GOLD_DIM,
-          color: highlight ? "#1a1a1a" : GOLD,
-          fontSize: "13px",
-          fontWeight: 700,
-          fontFamily: "'DM Sans', sans-serif",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "7px",
-          transition: "opacity 0.2s",
-          letterSpacing: "-0.1px",
-        }}
-      >
-        {pending ? (
-          <>
-            <Loader2 size={15} className="spin" />
-            {pendingLabel}
-          </>
-        ) : (
-          <>
-            <Zap size={15} />
-            {ctaLabel}
-          </>
-        )}
-      </button>
+      {successMessage ? (
+        <div
+          style={{
+            marginTop: "auto",
+            width: "100%",
+            padding: "13px 16px",
+            borderRadius: "10px",
+            background: "rgba(74,222,128,0.08)",
+            border: "1px solid rgba(74,222,128,0.25)",
+            color: "#4ade80",
+            fontSize: "13px",
+            fontWeight: 700,
+            fontFamily: "'DM Sans', sans-serif",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "7px",
+          }}
+        >
+          <Check size={15} />
+          {successMessage}
+        </div>
+      ) : (
+        <button
+          onClick={onCheckout}
+          disabled={pending}
+          style={{
+            marginTop: "auto",
+            width: "100%",
+            padding: "13px 16px",
+            borderRadius: "10px",
+            border: highlight ? "none" : `1px solid ${GOLD_BORDER}`,
+            cursor: pending ? "not-allowed" : "pointer",
+            background: highlight
+              ? pending
+                ? "rgba(212,162,78,0.4)"
+                : `linear-gradient(135deg, ${GOLD}, #b8862e)`
+              : GOLD_DIM,
+            color: highlight ? "#1a1a1a" : GOLD,
+            fontSize: "13px",
+            fontWeight: 700,
+            fontFamily: "'DM Sans', sans-serif",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "7px",
+            transition: "opacity 0.2s",
+            letterSpacing: "-0.1px",
+          }}
+        >
+          {pending ? (
+            <>
+              <Loader2 size={15} className="spin" />
+              {pendingLabel}
+            </>
+          ) : (
+            <>
+              <Zap size={15} />
+              {ctaLabel}
+            </>
+          )}
+        </button>
+      )}
     </div>
   );
 }
@@ -141,6 +186,7 @@ export default function PaymentGate({
   onCheckoutTeam,
   pendingPro,
   pendingTeam,
+  teamWaitlistJoined,
   error,
   isMobile,
   promptLibraryCount = 0,
@@ -287,11 +333,13 @@ export default function PaymentGate({
           price="39"
           period="user/mo"
           features={FEATURES_TEAM}
-          ctaLabel="Get Team"
-          pendingLabel="Redirecting..."
+          ctaLabel="Notify Me"
+          pendingLabel="Joining..."
           onCheckout={onCheckoutTeam}
           pending={pendingTeam}
           highlight={false}
+          comingSoon
+          successMessage={teamWaitlistJoined ? "You're on the list!" : null}
         />
       </div>
 
