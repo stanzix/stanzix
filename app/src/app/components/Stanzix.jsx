@@ -1,6 +1,6 @@
 "use client";
 import { Fragment, useState, useEffect, useRef } from "react";
-import { ChevronRight, ChevronLeft, Zap, PanelRightOpen, PanelRightClose, Home, Lightbulb, Wand2, Check, Copy, CheckCircle2, LogOut, Loader2 } from "lucide-react";
+import { ChevronRight, ChevronLeft, Zap, PanelRightOpen, PanelRightClose, Home, Lightbulb, Wand2, Check, Copy, CheckCircle2, LogOut, Loader2, Settings } from "lucide-react";
 import { useStanzix } from "../hooks/useStanzix";
 import { useAuth } from "../hooks/useAuth";
 import { STEPS, VERSION } from "../lib/outputBuilder";
@@ -23,9 +23,11 @@ import PaymentGate from "./stanzix/PaymentGate";
 import UsageDisplay from "./stanzix/UsageDisplay";
 import PromptLibraryModal from "./stanzix/PromptLibraryModal";
 import TemplateLibrary from "./stanzix/TemplateLibrary";
+import SettingsPanel from "./stanzix/SettingsPanel";
 import IntakeScreen from "./stanzix/IntakeScreen";
 import Dashboard from "./stanzix/Dashboard";
 import ErrorBoundary from "./ErrorBoundary";
+import { stripeProPriceId } from "../lib/stripeClient";
 
 const PHASES = [
   { label: "Describe",  steps: [0] },
@@ -58,6 +60,7 @@ function StanzixInner() {
   const [showPromptLibrary, setShowPromptLibrary] = useState(false);
   const [showTemplateLibrary, setShowTemplateLibrary] = useState(false);
   const [templateCategory, setTemplateCategory] = useState(null);
+  const [showSettings, setShowSettings] = useState(false);
 
   // Detect checkout=success / canceled / plan=pro params on mount
   useEffect(() => {
@@ -260,7 +263,7 @@ function StanzixInner() {
       ) : showPaywall && !isPaid ? (
         <PaymentGate
           email={auth.user.email}
-          onCheckoutPro={() => initiateCheckout(process.env.NEXT_PUBLIC_STRIPE_PRO_PRICE_ID, setPendingPro)}
+          onCheckoutPro={() => initiateCheckout(stripeProPriceId, setPendingPro)}
           onCheckoutTeam={joinTeamWaitlist}
           pendingPro={pendingPro}
           pendingTeam={pendingTeam}
@@ -301,6 +304,7 @@ function StanzixInner() {
           onSignOut={auth.signOut}
           onManageSubscription={initiatePortal}
           onBrowseTemplates={(catId) => { setTemplateCategory(catId || null); setShowTemplateLibrary(true); }}
+          onOpenSettings={() => setShowSettings(true)}
           isMobile={pe.isMobile}
         />
       ) : pe.viewMode === "intake" ? (
@@ -344,9 +348,9 @@ function StanzixInner() {
                 {!pe.isMobile && <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace" }}>Preview</span>}
               </button>
               <div style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.1)", margin: "0 2px" }} />
-              <button onClick={auth.signOut} title={`Sign out${auth.user?.email ? ` (${auth.user.email})` : ""}`} aria-label="Sign out" style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px" }}>
-                <LogOut size={16} color="rgba(255,255,255,0.55)" />
-                {!pe.isMobile && <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace" }}>Sign out</span>}
+              <button onClick={() => setShowSettings(true)} title="Settings" aria-label="Settings" style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px" }}>
+                <Settings size={16} color="rgba(255,255,255,0.55)" />
+                {!pe.isMobile && <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace" }}>Settings</span>}
               </button>
               <div style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.1)", margin: "0 2px" }} />
               <button onClick={() => pe.setViewMode("dashboard")} title="Back to dashboard" aria-label="Dashboard" style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px" }}>
@@ -607,14 +611,28 @@ function StanzixInner() {
       )}
 
       {auth.user && !auth.loading && !pe.hydrating && (
-        <TemplateLibrary
-          open={showTemplateLibrary}
-          onClose={() => setShowTemplateLibrary(false)}
-          onSelectTemplate={(t) => { pe.loadTemplate(t); setShowTemplateLibrary(false); }}
-          isPaid={isPaid}
-          onUpgrade={() => { setShowTemplateLibrary(false); setShowPaywall(true); }}
-          initialCategory={templateCategory}
-        />
+        <>
+          <TemplateLibrary
+            open={showTemplateLibrary}
+            onClose={() => setShowTemplateLibrary(false)}
+            onSelectTemplate={(t) => { pe.loadTemplate(t); setShowTemplateLibrary(false); }}
+            isPaid={isPaid}
+            onUpgrade={() => { setShowTemplateLibrary(false); setShowPaywall(true); }}
+            initialCategory={templateCategory}
+          />
+          <SettingsPanel
+            open={showSettings}
+            onClose={() => setShowSettings(false)}
+            email={auth.user?.email}
+            isPaid={isPaid}
+            usageCount={usageCount}
+            freeLimit={FREE_LIMIT}
+            onManageSubscription={initiatePortal}
+            onSignOut={auth.signOut}
+            onUpgrade={() => { setShowSettings(false); setShowPaywall(true); }}
+            isMobile={pe.isMobile}
+          />
+        </>
       )}
     </div>
   );

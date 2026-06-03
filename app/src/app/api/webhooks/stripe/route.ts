@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+import { stripe, stripeWebhookSecret, stripeTeamPriceId } from "@/app/lib/stripe";
 
 export const runtime = "nodejs";
 
@@ -13,12 +14,11 @@ function getSupabaseAdmin() {
 }
 
 function tierFromPriceId(priceId: string): "pro" | "team" {
-  if (priceId === process.env.STRIPE_TEAM_PRICE_ID) return "team";
+  if (priceId === stripeTeamPriceId) return "team";
   return "pro";
 }
 
 export async function POST(req: Request) {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const body = await req.text();
   const sig = req.headers.get("stripe-signature");
 
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     event = stripe.webhooks.constructEvent(
       body,
       sig,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      stripeWebhookSecret
     );
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Invalid signature";

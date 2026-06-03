@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Zap, LogOut, Copy, Trash2, Check, Plus, ArrowRight, Library } from "lucide-react";
+import { Zap, LogOut, Copy, Trash2, Check, Plus, ArrowRight, Library, Settings } from "lucide-react";
 import { CATEGORIES, TEMPLATES } from "../../lib/templateLibrary";
 
 function relativeDate(isoString) {
@@ -46,6 +46,7 @@ export default function Dashboard({
   onSignOut,
   onManageSubscription,
   onBrowseTemplates,
+  onOpenSettings,
   isMobile,
 }) {
   const isNewUser = promptHistory.length === 0 && !hasActiveSession;
@@ -171,14 +172,21 @@ export default function Dashboard({
             Paste existing instructions → Edit
           </button>
 
-          {/* Sign out */}
-          <div style={{ textAlign: "center", marginTop: "28px" }}>
+          {/* Settings + Sign out */}
+          <div style={{ textAlign: "center", marginTop: "28px", display: "flex", justifyContent: "center", gap: "16px" }}>
+            <button
+              onClick={onOpenSettings}
+              style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.3)", fontSize: "12px", fontFamily: "'DM Sans', sans-serif", display: "inline-flex", alignItems: "center", gap: "6px" }}
+            >
+              <Settings size={13} />
+              Settings
+            </button>
             <button
               onClick={onSignOut}
               style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.3)", fontSize: "12px", fontFamily: "'DM Sans', sans-serif", display: "inline-flex", alignItems: "center", gap: "6px" }}
             >
               <LogOut size={13} />
-              Sign out ({email})
+              Sign out
             </button>
           </div>
         </div>
@@ -207,23 +215,14 @@ export default function Dashboard({
               {usageCount} / {freeLimit} free
             </div>
           )}
-          {isPaid && typeof onManageSubscription === "function" && (
-            <button
-              onClick={onManageSubscription}
-              title="Manage subscription"
-              style={{ background: "none", border: "1px solid rgba(212,162,78,0.25)", borderRadius: "6px", cursor: "pointer", padding: "4px 10px", display: "flex", alignItems: "center", gap: "4px", color: "#d4a24e", fontSize: "11px", fontFamily: "'JetBrains Mono', monospace" }}
-            >
-              {!isMobile && "Manage subscription"}
-              {isMobile && "Billing"}
-            </button>
-          )}
           <button
-            onClick={onSignOut}
-            title={`Sign out (${email})`}
+            onClick={onOpenSettings}
+            title="Settings"
+            aria-label="Settings"
             style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px", color: "rgba(255,255,255,0.45)" }}
           >
-            <LogOut size={15} />
-            {!isMobile && <span style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace" }}>Sign out</span>}
+            <Settings size={15} />
+            {!isMobile && <span style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace" }}>Settings</span>}
           </button>
         </div>
       </header>

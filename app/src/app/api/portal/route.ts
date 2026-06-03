@@ -1,6 +1,6 @@
-import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+import { stripe } from "@/app/lib/stripe";
 
 function makeSupabaseClient(token: string) {
   return createClient(
@@ -14,7 +14,6 @@ function makeSupabaseClient(token: string) {
 }
 
 export async function POST(req: Request) {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   const authHeader = req.headers.get("authorization");
   const token = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : null;
