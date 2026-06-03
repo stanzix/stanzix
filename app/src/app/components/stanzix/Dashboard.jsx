@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { Zap, LogOut, Copy, Trash2, Check, Plus, ArrowRight } from "lucide-react";
+import { Zap, LogOut, Copy, Trash2, Check, Plus, ArrowRight, Library } from "lucide-react";
+import { CATEGORIES, TEMPLATES } from "../../lib/templateLibrary";
 
 function relativeDate(isoString) {
   if (!isoString) return null;
@@ -44,6 +45,7 @@ export default function Dashboard({
   onDeletePrompt,
   onSignOut,
   onManageSubscription,
+  onBrowseTemplates,
   isMobile,
 }) {
   const isNewUser = promptHistory.length === 0 && !hasActiveSession;
@@ -71,9 +73,11 @@ export default function Dashboard({
 
   // ── New User State ─────────────────────────────────────────────────────────
   if (isNewUser) {
+    const categoryCount = (catId) => TEMPLATES.filter((t) => t.category === catId).length;
+
     return (
       <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: isMobile ? "32px 20px" : "48px 24px", minHeight: "100%" }}>
-        <div style={{ width: "100%", maxWidth: "520px" }}>
+        <div style={{ width: "100%", maxWidth: "580px" }}>
 
           {/* Logo */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "40px" }}>
@@ -89,11 +93,11 @@ export default function Dashboard({
           </h1>
           <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.5)", textAlign: "center", marginBottom: "32px", lineHeight: 1.7, fontFamily: "'DM Sans', sans-serif" }}>
             Build structured prompts for Claude, ChatGPT, and every LLM.{isMobile ? " " : <br />}
-            Describe what you need, configure 8 levers, get a prompt that works.
+            Pick a starting point or describe what you need.
           </p>
 
           {/* Free tier badge */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "14px 18px", background: "rgba(212,162,78,0.06)", border: "1px solid rgba(212,162,78,0.15)", borderRadius: "10px", marginBottom: "28px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "14px 18px", background: "rgba(212,162,78,0.06)", border: "1px solid rgba(212,162,78,0.15)", borderRadius: "10px", marginBottom: "24px" }}>
             <Zap size={18} color="#d4a24e" style={{ flexShrink: 0 }} />
             <div>
               <div style={{ fontSize: "14px", fontWeight: 600, color: "#e0e0e0", fontFamily: "'DM Sans', sans-serif" }}>
@@ -105,14 +109,43 @@ export default function Dashboard({
             </div>
           </div>
 
-          {/* Primary CTA */}
-          <button
-            onClick={onNewPrompt}
-            style={{ width: "100%", padding: "14px 24px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #d4a24e, #b8862e)", color: "#1a1a1a", fontSize: "15px", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", fontFamily: "'DM Sans', sans-serif", marginBottom: "16px" }}
-          >
-            Build Your First Prompt
-            <ArrowRight size={18} />
-          </button>
+          {/* Template category grid */}
+          <div style={{ marginBottom: "24px" }}>
+            <div style={{ fontSize: "10px", fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "1.2px", marginBottom: "10px" }}>
+              Pick a starting point
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr", gap: "8px" }}>
+              {CATEGORIES.map((cat) => {
+                const Icon = cat.icon;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => onBrowseTemplates(cat.id)}
+                    style={{
+                      textAlign: "left",
+                      padding: "12px 14px",
+                      borderRadius: "9px",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      background: "rgba(255,255,255,0.03)",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      transition: "border-color 0.2s, background 0.2s",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(212,162,78,0.25)"; e.currentTarget.style.background = "rgba(212,162,78,0.06)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}
+                  >
+                    <Icon size={15} color="rgba(255,255,255,0.45)" />
+                    <div>
+                      <div style={{ fontSize: "13px", fontWeight: 600, color: "#e0e0e0", fontFamily: "'DM Sans', sans-serif" }}>{cat.name}</div>
+                      <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.3)", fontFamily: "'JetBrains Mono', monospace", marginTop: "2px" }}>{categoryCount(cat.id)} templates</div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
           {/* Divider */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px", margin: "4px 0 14px" }}>
@@ -121,16 +154,25 @@ export default function Dashboard({
             <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.07)" }} />
           </div>
 
+          {/* Custom prompt CTA */}
+          <button
+            onClick={onNewPrompt}
+            style={{ width: "100%", padding: "13px 24px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #d4a24e, #b8862e)", color: "#1a1a1a", fontSize: "14px", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", fontFamily: "'DM Sans', sans-serif", marginBottom: "10px" }}
+          >
+            Describe What You Need
+            <ArrowRight size={16} />
+          </button>
+
           {/* Edit existing */}
           <button
             onClick={onEditExisting}
-            style={{ width: "100%", padding: "12px 20px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.03)", color: "rgba(255,255,255,0.6)", fontSize: "14px", fontWeight: 500, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", fontFamily: "'DM Sans', sans-serif" }}
+            style={{ width: "100%", padding: "11px 20px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.03)", color: "rgba(255,255,255,0.6)", fontSize: "13px", fontWeight: 500, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", fontFamily: "'DM Sans', sans-serif" }}
           >
             Paste existing instructions → Edit
           </button>
 
           {/* Sign out */}
-          <div style={{ textAlign: "center", marginTop: "32px" }}>
+          <div style={{ textAlign: "center", marginTop: "28px" }}>
             <button
               onClick={onSignOut}
               style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.3)", fontSize: "12px", fontFamily: "'DM Sans', sans-serif", display: "inline-flex", alignItems: "center", gap: "6px" }}
@@ -220,6 +262,13 @@ export default function Dashboard({
                 style={{ padding: "10px 20px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.7)", fontSize: "13px", fontWeight: 500, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
               >
                 Start Fresh
+              </button>
+              <button
+                onClick={() => onBrowseTemplates()}
+                style={{ padding: "10px 20px", borderRadius: "8px", border: "1px solid rgba(212,162,78,0.2)", background: "rgba(212,162,78,0.06)", color: "#d4a24e", fontSize: "13px", fontWeight: 500, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", display: "flex", alignItems: "center", gap: "6px" }}
+              >
+                <Library size={14} />
+                Templates
               </button>
             </div>
           </div>

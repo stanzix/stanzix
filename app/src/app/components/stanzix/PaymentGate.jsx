@@ -1,5 +1,5 @@
 "use client";
-import { ChevronLeft, Zap, Loader2, Sparkles, Target, Brain, ShieldOff, Sliders, Check } from "lucide-react";
+import { ChevronLeft, Zap, Loader2, Sparkles, Target, Brain, ShieldOff, Sliders, Check, Library } from "lucide-react";
 import { VERSION } from "../../lib/outputBuilder";
 
 const GOLD = "#d4a24e";
@@ -7,11 +7,11 @@ const GOLD_DIM = "rgba(212,162,78,0.08)";
 const GOLD_BORDER = "rgba(212,162,78,0.25)";
 
 const FEATURES_PRO = [
+  { icon: Library, label: "30 ready-to-use templates" },
+  { icon: Sparkles, label: "Unlimited prompt generations" },
   { icon: Target, label: "AI-generated agent identity" },
-  { icon: Brain, label: "Knowledge base via guided quiz" },
-  { icon: ShieldOff, label: "Custom guardrails & negative space" },
-  { icon: Sliders, label: "Behavior modes + priority ranking" },
-  { icon: Sparkles, label: "Unlimited prompts per month" },
+  { icon: ShieldOff, label: "Custom guardrails & modes" },
+  { icon: Sliders, label: "Edit mode + drag-to-reorder" },
 ];
 
 const FEATURES_TEAM = [
@@ -322,7 +322,7 @@ export default function PaymentGate({
           price="15"
           period="mo"
           features={FEATURES_PRO}
-          ctaLabel="Get Pro"
+          ctaLabel="Get the Vault"
           pendingLabel="Redirecting..."
           onCheckout={onCheckoutPro}
           pending={pendingPro}
@@ -394,7 +394,7 @@ export default function PaymentGate({
           lineHeight: 1.6,
         }}
       >
-        Secure payment via Stripe · Cancel any time
+        Secure payment via Stripe · 7-day money-back guarantee · Cancel any time
       </p>
     </div>
   );

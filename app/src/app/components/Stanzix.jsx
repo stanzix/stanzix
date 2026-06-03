@@ -22,6 +22,7 @@ import SignInGate from "./stanzix/SignInGate";
 import PaymentGate from "./stanzix/PaymentGate";
 import UsageDisplay from "./stanzix/UsageDisplay";
 import PromptLibraryModal from "./stanzix/PromptLibraryModal";
+import TemplateLibrary from "./stanzix/TemplateLibrary";
 import IntakeScreen from "./stanzix/IntakeScreen";
 import Dashboard from "./stanzix/Dashboard";
 import ErrorBoundary from "./ErrorBoundary";
@@ -55,6 +56,8 @@ function StanzixInner() {
   const [teamWaitlistJoined, setTeamWaitlistJoined] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
   const [showPromptLibrary, setShowPromptLibrary] = useState(false);
+  const [showTemplateLibrary, setShowTemplateLibrary] = useState(false);
+  const [templateCategory, setTemplateCategory] = useState(null);
 
   // Detect checkout=success / canceled / plan=pro params on mount
   useEffect(() => {
@@ -297,6 +300,7 @@ function StanzixInner() {
           onDeletePrompt={pe.removePromptFromHistory}
           onSignOut={auth.signOut}
           onManageSubscription={initiatePortal}
+          onBrowseTemplates={(catId) => { setTemplateCategory(catId || null); setShowTemplateLibrary(true); }}
           isMobile={pe.isMobile}
         />
       ) : pe.viewMode === "intake" ? (
@@ -599,6 +603,17 @@ function StanzixInner() {
           showError={pe.showError}
           canSaveCurrent={pe.compiledOutput.trim().length >= 20}
           currentTitle={pe.projectName.trim() || pe.domain.trim() || "Untitled"}
+        />
+      )}
+
+      {auth.user && !auth.loading && !pe.hydrating && (
+        <TemplateLibrary
+          open={showTemplateLibrary}
+          onClose={() => setShowTemplateLibrary(false)}
+          onSelectTemplate={(t) => { pe.loadTemplate(t); setShowTemplateLibrary(false); }}
+          isPaid={isPaid}
+          onUpgrade={() => { setShowTemplateLibrary(false); setShowPaywall(true); }}
+          initialCategory={templateCategory}
         />
       )}
     </div>

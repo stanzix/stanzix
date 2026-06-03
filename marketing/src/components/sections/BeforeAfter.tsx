@@ -34,6 +34,9 @@ export default function BeforeAfter() {
                 &quot;Write me a blog post about AI agents.&quot;
               </p>
             </div>
+            <p className="font-sans text-xs text-text-dim mt-4 italic">
+              Expected result: Generic 500-word article. No structure. No constraints. Could be about anything.
+            </p>
           </div>
 
           {/* Vertical divider */}
@@ -79,6 +82,9 @@ export default function BeforeAfter() {
                 8 parameters / ~300 words / paste into any LLM
               </p>
             </div>
+            <p className="font-sans text-xs text-text-dim mt-2 italic">
+              Expected result: Opinionated 1,200-word analysis. Developer-focused. Cites real frameworks. Zero speculation.
+            </p>
           </div>
         </div>
       </div>

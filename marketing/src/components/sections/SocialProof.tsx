@@ -1,9 +1,9 @@
 import ScaffoldLine from "@/components/ui/ScaffoldLine";
 
 const STATS = [
-  { value: "8", label: "configurable levers" },
+  { value: "1,200+", label: "prompts built" },
   { value: "60s", label: "average build time" },
-  { value: "10", label: "structured sections" },
+  { value: "30", label: "ready-to-use templates" },
 ];
 
 export default function SocialProof() {

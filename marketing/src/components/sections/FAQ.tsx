@@ -36,6 +36,11 @@ const FAQS = [
       "Yes. Cancel from your account settings, no questions asked. Your free tier remains available forever.",
   },
   {
+    question: "What if I'm not satisfied?",
+    answer:
+      "If the output is not better than what you would get typing into ChatGPT directly, cancel within 7 days for a full refund. No questions asked.",
+  },
+  {
     question: "What if I need a custom prompt structure?",
     answer:
       "Pro and Team users can save custom templates and reuse them. If you have a structured prompt format you use repeatedly, save it as a template and regenerate variations with one click.",

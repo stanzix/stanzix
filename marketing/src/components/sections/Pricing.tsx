@@ -37,13 +37,13 @@ const TIERS: PricingTier[] = [
     price: "$15",
     period: "/month",
     features: [
-      "Unlimited prompts",
-      "Save and reuse templates",
-      "Edit mode",
-      "Drag-to-reorder",
+      "30 ready-to-use templates",
+      "Unlimited prompt generations",
+      "Edit mode + drag-to-reorder",
+      "Saved prompt library",
       "All devices",
     ],
-    cta: "Start Pro",
+    cta: "Get the Vault",
     ctaHref: "https://app.stanzix.com/?plan=pro",
     variant: "primary",
     highlighted: true,
@@ -139,6 +139,15 @@ export default function Pricing() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <p className="font-mono text-xs text-text-dim uppercase tracking-wider mb-2">
+            Risk-free guarantee
+          </p>
+          <p className="font-sans text-base text-text-secondary max-w-lg mx-auto leading-relaxed">
+            If the output is not better than what you would get typing into ChatGPT directly, cancel within 7 days for a full refund. No questions asked.
+          </p>
         </div>
       </div>
     </section>

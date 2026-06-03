@@ -287,6 +287,24 @@ export function useStanzix(user) {
     // promptHistory intentionally preserved
   }, []);
 
+  const loadTemplate = useCallback((template) => {
+    resetSession();
+    setProjectName(template.projectName || "");
+    setDomain(template.domain || "");
+    setProjectDesc(template.projectDesc || "");
+    setGoals(template.goals || "");
+    setIntakeComplete(true);
+    setViewMode("builder");
+    setTimeout(() => {
+      cascadeFromIntake(
+        template.projectName || "",
+        template.domain || "",
+        template.projectDesc || "",
+        template.goals || ""
+      );
+    }, 0);
+  }, [resetSession]);
+
   // Runs a generation fn under a named item-loading key (non-blocking cascade).
   const withItemLoading = async (key, fn) => {
     setItemLoading(p => ({ ...p, [key]: true }));
@@ -793,6 +811,7 @@ export function useStanzix(user) {
     parseIntake,
     triggerCascade,
     resetSession,
+    loadTemplate,
     exportLogged,
     logExport,
   };
