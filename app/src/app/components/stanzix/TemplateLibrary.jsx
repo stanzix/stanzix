@@ -10,11 +10,17 @@ const GOLD_BORDER = "rgba(192,122,86,0.25)";
 export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPaid, onUpgrade, initialCategory }) {
   const [activeCategory, setActiveCategory] = useState(initialCategory || null);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [tierFilter, setTierFilter] = useState(null);
 
   const filtered = useMemo(() => {
-    if (!activeCategory) return TEMPLATES;
-    return TEMPLATES.filter((t) => t.category === activeCategory);
-  }, [activeCategory]);
+    let result = TEMPLATES;
+    if (activeCategory) result = result.filter((t) => t.category === activeCategory);
+    if (tierFilter) result = result.filter((t) => t.tier === tierFilter);
+    return result;
+  }, [activeCategory, tierFilter]);
+
+  const proCount = TEMPLATES.filter((t) => t.tier === "pro").length;
+  const freeCount = TEMPLATES.filter((t) => t.tier === "free").length;
 
   if (!open) return null;
 
@@ -80,12 +86,34 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
           </button>
         </div>
 
+        {/* Tier filter */}
+        <div style={{ display: "flex", gap: "6px", padding: "10px 18px", borderBottom: "1px solid rgba(255,255,255,0.04)", flexShrink: 0 }}>
+          {[
+            { key: null, label: `All (${TEMPLATES.length})` },
+            { key: "free", label: `Free (${freeCount})` },
+            { key: "pro", label: `Pro Vault (${proCount})` },
+          ].map((f) => (
+            <button
+              key={f.key ?? "all"}
+              onClick={() => { setTierFilter(f.key); setSelectedTemplate(null); }}
+              style={{
+                padding: "4px 10px", borderRadius: "4px", border: "none", cursor: "pointer",
+                background: tierFilter === f.key ? GOLD : "rgba(255,255,255,0.05)",
+                color: tierFilter === f.key ? "#0C0B0A" : "rgba(255,255,255,0.5)",
+                fontSize: "11px", fontWeight: 600, fontFamily: "'Libre Franklin', sans-serif",
+              }}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+
         {/* Category filter pills */}
         <div
           style={{
             display: "flex",
             gap: "6px",
-            padding: "12px 18px",
+            padding: "10px 18px",
             borderBottom: "1px solid rgba(255,255,255,0.06)",
             overflowX: "auto",
             flexShrink: 0,
@@ -149,6 +177,9 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
                   <span style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: GOLD, background: GOLD_DIM, border: `1px solid ${GOLD_BORDER}`, borderRadius: "4px", padding: "2px 7px", textTransform: "uppercase" }}>
                     {CATEGORIES.find((c) => c.id === selectedTemplate.category)?.name}
                   </span>
+                  {selectedTemplate.tier === "pro" && (
+                    <span style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: "#0C0B0A", background: GOLD, borderRadius: "4px", padding: "2px 7px", fontWeight: 700, letterSpacing: "0.5px" }}>PRO</span>
+                  )}
                 </div>
                 <h3 style={{ fontSize: "17px", fontWeight: 700, color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif", margin: "8px 0 6px" }}>
                   {selectedTemplate.name}
@@ -176,7 +207,7 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
                 </div>
 
                 <div style={{ marginTop: "20px", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-                  {isPaid ? (
+                  {isPaid || selectedTemplate.tier === "free" ? (
                     <button
                       onClick={() => onSelectTemplate(selectedTemplate)}
                       style={{
@@ -221,10 +252,10 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
                         }}
                       >
                         <Lock size={15} />
-                        Upgrade to Use Templates
+                        Upgrade to Pro for Premium Templates
                       </button>
                       <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)", textAlign: "center", marginTop: "8px", fontFamily: "'Libre Franklin', sans-serif" }}>
-                        Templates are available on the Pro plan
+                        30 premium templates in the Pro Vault
                       </p>
                     </div>
                   )}
@@ -254,9 +285,14 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}
                 >
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ fontSize: "13px", fontWeight: 600, color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif" }}>
-                      {template.name}
-                    </span>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <span style={{ fontSize: "13px", fontWeight: 600, color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif" }}>
+                        {template.name}
+                      </span>
+                      {template.tier === "pro" && (
+                        <span style={{ fontSize: "9px", fontFamily: "'IBM Plex Mono', monospace", color: GOLD, background: GOLD_DIM, border: `1px solid ${GOLD_BORDER}`, borderRadius: "3px", padding: "1px 5px", fontWeight: 600, letterSpacing: "0.5px" }}>PRO</span>
+                      )}
+                    </div>
                     <ChevronRight size={14} color="rgba(255,255,255,0.3)" />
                   </div>
                   <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", fontFamily: "'Libre Franklin', sans-serif", lineHeight: 1.4 }}>
