@@ -38,8 +38,24 @@ export async function POST(req: Request) {
     .eq("id", user.id)
     .maybeSingle();
 
-  if (!profile?.stripe_customer_id) {
-    return NextResponse.json({ error: "no_subscription" }, { status: 400 });
+  let customerId = profile?.stripe_customer_id;
+
+  if (!customerId) {
+    try {
+      const customer = await stripe.customers.create({
+        email: user.email,
+        metadata: { supabase_uid: user.id },
+      });
+      customerId = customer.id;
+      await supabase
+        .from("profiles")
+        .update({ stripe_customer_id: customerId })
+        .eq("id", user.id);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to create customer";
+      console.error("Stripe customer creation error:", err);
+      return NextResponse.json({ error: msg }, { status: 500 });
+    }
   }
 
   try {
@@ -49,7 +65,7 @@ export async function POST(req: Request) {
       "https://app.stanzix.com";
 
     const portalSession = await stripe.billingPortal.sessions.create({
-      customer: profile.stripe_customer_id,
+      customer: customerId,
       return_url: appUrl,
     });
 
