@@ -339,6 +339,9 @@ function StanzixInner() {
                   {pe.showPreview ? <PanelRightClose size={16} color="#5E5850" /> : <PanelRightOpen size={16} color="#5E5850" />}
                 </button>
               )}
+              <button onClick={() => setShowSettings(true)} title="Settings" aria-label="Settings" style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center" }}>
+                <Settings size={16} color="#5E5850" />
+              </button>
               <button onClick={() => pe.setViewMode("dashboard")} title="Back to dashboard" aria-label="Dashboard" style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center" }}>
                 <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: "12px", color: "#5E5850" }}>Dashboard</span>
               </button>
