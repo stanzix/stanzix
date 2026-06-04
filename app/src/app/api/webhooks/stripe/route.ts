@@ -58,6 +58,7 @@ export async function POST(req: Request) {
       const priceId = subscription.items.data[0]?.price.id ?? "";
       const tier = tierFromPriceId(priceId);
 
+      const periodEnd = (subscription as any).current_period_end;
       await supabase
         .from("profiles")
         .update({
@@ -65,10 +66,7 @@ export async function POST(req: Request) {
           stripe_subscription_id: session.subscription as string,
           subscription_status: "active",
           subscription_tier: tier,
-          current_period_end: new Date(
-            (subscription as unknown as { current_period_end: number })
-              .current_period_end * 1000
-          ).toISOString(),
+          current_period_end: periodEnd ? new Date(periodEnd * 1000).toISOString() : null,
           updated_at: new Date().toISOString(),
         })
         .eq("id", userId);
@@ -87,15 +85,13 @@ export async function POST(req: Request) {
           ? "past_due"
           : "inactive";
 
+      const subPeriodEnd = (subscription as any).current_period_end;
       await supabase
         .from("profiles")
         .update({
           subscription_status: status,
           subscription_tier: status === "active" ? tierFromPriceId(priceId) : "free",
-          current_period_end: new Date(
-            (subscription as unknown as { current_period_end: number })
-              .current_period_end * 1000
-          ).toISOString(),
+          current_period_end: subPeriodEnd ? new Date(subPeriodEnd * 1000).toISOString() : null,
           updated_at: new Date().toISOString(),
         })
         .eq("stripe_customer_id", customerId);
