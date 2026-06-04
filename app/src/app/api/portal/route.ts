@@ -44,7 +44,7 @@ export async function POST(req: Request) {
     try {
       const customer = await stripe.customers.create({
         email: user.email,
-        metadata: { supabase_uid: user.id },
+        metadata: { supabase_user_id: user.id },
       });
       customerId = customer.id;
       await supabase
