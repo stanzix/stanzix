@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Loader2, Sparkles, RefreshCw, CheckCircle2, Circle } from "lucide-react";
 import { SectionLabel, Btn, Card } from "../ui";
 
-const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(212,162,78,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#e0e0e0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
+const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(192,122,86,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#F0EBE0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
 
 export function IdentityStep({ loading, itemLoading, identityOptions, selectedIdentity, setSelectedIdentity, generateIdentities, updateIdentityOption, trackActivity }) {
   const cascading = itemLoading?.identity_cascade;
@@ -51,7 +51,7 @@ export function IdentityStep({ loading, itemLoading, identityOptions, selectedId
 
       {/* Review banner — cascade generated content, awaiting selection */}
       {hasContent && selectedIdentity === null && (
-        <div style={{ background: "rgba(212,162,78,0.06)", border: "1px solid rgba(212,162,78,0.15)", borderRadius: "8px", padding: "10px 14px", fontSize: "13px", color: "rgba(212,162,78,0.85)" }}>
+        <div style={{ background: "rgba(192,122,86,0.06)", border: "1px solid rgba(192,122,86,0.15)", borderRadius: "8px", padding: "10px 14px", fontSize: "13px", color: "rgba(192,122,86,0.85)" }}>
           We generated 3 options based on your project. Pick one, or regenerate for different options.
         </div>
       )}
@@ -59,7 +59,7 @@ export function IdentityStep({ loading, itemLoading, identityOptions, selectedId
       {/* Cascade in-progress placeholder */}
       {!hasContent && cascading && (
         <div style={{ color: "rgba(255,255,255,0.45)", fontSize: "14px", display: "flex", alignItems: "center", gap: "8px" }}>
-          <Loader2 size={14} color="#d4a24e" className="spin" />
+          <Loader2 size={14} color="#C07A56" className="spin" />
           Generating identity options in the background...
         </div>
       )}
@@ -74,7 +74,7 @@ export function IdentityStep({ loading, itemLoading, identityOptions, selectedId
               onClick={() => { if (editKey === null) { setSelectedIdentity(i); trackActivity(); } }}
               onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedIdentity(i); trackActivity(); } }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-                {selectedIdentity === i ? <CheckCircle2 size={18} color="#d4a24e" /> : <Circle size={18} color="rgba(255,255,255,0.3)" />}
+                {selectedIdentity === i ? <CheckCircle2 size={18} color="#C07A56" /> : <Circle size={18} color="rgba(255,255,255,0.3)" />}
                 {editKey === `${i}.title` ? (
                   <input
                     type="text"
@@ -88,7 +88,7 @@ export function IdentityStep({ loading, itemLoading, identityOptions, selectedId
                   />
                 ) : (
                   <span
-                    style={{ fontWeight: 700, color: "#e0e0e0", fontSize: "15px", cursor: "text" }}
+                    style={{ fontWeight: 700, color: "#F0EBE0", fontSize: "15px", cursor: "text" }}
                     title="Click to edit"
                     onClick={e => startEdit(`${i}.title`, opt.title, e)}
                   >{opt.title}</span>
@@ -113,7 +113,7 @@ export function IdentityStep({ loading, itemLoading, identityOptions, selectedId
                 >{opt.description}</p>
               )}
               <div style={{ display: "flex", gap: "6px", marginLeft: "28px", flexWrap: "wrap" }}>
-                {opt.traits?.map((t, j) => <span key={j} style={{ fontSize: "11px", padding: "3px 8px", borderRadius: "4px", background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.6)", fontFamily: "'JetBrains Mono', monospace" }}>{t}</span>)}
+                {opt.traits?.map((t, j) => <span key={j} style={{ fontSize: "11px", padding: "3px 8px", borderRadius: "4px", background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.6)", fontFamily: "'IBM Plex Mono', monospace" }}>{t}</span>)}
               </div>
             </div>
           </Card>

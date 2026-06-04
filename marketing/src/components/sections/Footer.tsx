@@ -74,11 +74,11 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand + email */}
           <div className="col-span-2 md:col-span-1 space-y-4">
-            <div>
-              <span className="font-serif text-lg font-medium text-text-primary">
+            <div className="flex items-center gap-2">
+              <span className="font-serif text-lg font-semibold text-text-primary">
                 Stanzix
               </span>
-              <span className="text-accent ml-1" aria-hidden="true">•</span>
+              <span className="text-accent text-[6px]" aria-hidden="true">●</span>
             </div>
             <p className="font-sans text-sm text-text-secondary leading-relaxed">
               Structured prompts for serious AI users.
@@ -94,9 +94,9 @@ export default function Footer() {
           {/* Nav columns */}
           {NAV_COLUMNS.map((col) => (
             <div key={col.label} className="space-y-3">
-              <p className="font-mono text-xs text-text-dim uppercase tracking-wider">
+              <span className="font-serif text-[11px] italic text-text-dim uppercase tracking-widest block">
                 {col.label}
-              </p>
+              </span>
               <ul className="space-y-2">
                 {col.links.map((link) => (
                   <li key={link.text}>

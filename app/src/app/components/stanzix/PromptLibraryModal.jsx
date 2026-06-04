@@ -100,7 +100,7 @@ export default function PromptLibraryModal({
           maxWidth: 560,
           maxHeight: "min(88vh, 720px)",
           background: "#161618",
-          border: "1px solid rgba(212,162,78,0.2)",
+          border: "1px solid rgba(192,122,86,0.2)",
           borderRadius: 14,
           display: "flex",
           flexDirection: "column",
@@ -119,14 +119,14 @@ export default function PromptLibraryModal({
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <Library size={20} color="#d4a24e" />
+            <Library size={20} color="#C07A56" />
             <h2 id="prompt-library-title" style={{ margin: 0, fontSize: 17, fontWeight: 700 }}>
               Prompt library
             </h2>
             <span
               style={{
                 fontSize: 11,
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "'IBM Plex Mono', monospace",
                 color: "rgba(255,255,255,0.45)",
                 background: "rgba(255,255,255,0.06)",
                 padding: "2px 8px",
@@ -157,7 +157,7 @@ export default function PromptLibraryModal({
         {canSaveCurrent && (
           <div style={{ padding: "12px 18px", borderBottom: "1px solid rgba(255,255,255,0.06)", flexShrink: 0 }}>
             <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", marginBottom: 8 }}>
-              Save the instructions you have now (with name: <strong style={{ color: "#e0e0e0" }}>{currentTitle || "Untitled"}</strong>)
+              Save the instructions you have now (with name: <strong style={{ color: "#F0EBE0" }}>{currentTitle || "Untitled"}</strong>)
             </div>
             <Btn primary small onClick={onSaveCurrent}>
               <FileText size={14} /> Save current to library
@@ -191,7 +191,7 @@ export default function PromptLibraryModal({
                         <div style={{ fontWeight: 600, fontSize: 14, color: "#e8e8e8", lineHeight: 1.3 }}>
                           {entry.projectName || "Untitled"}
                         </div>
-                        <div style={{ fontSize: 11, fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.4)", marginTop: 2 }}>
+                        <div style={{ fontSize: 11, fontFamily: "'IBM Plex Mono', monospace", color: "rgba(255,255,255,0.4)", marginTop: 2 }}>
                           {formatSavedAt(entry.savedAt)}
                         </div>
                       </div>
@@ -209,8 +209,8 @@ export default function PromptLibraryModal({
                         aria-label={deleteConfirmId === entry.id ? "Confirm delete" : "Remove from library"}
                         title={deleteConfirmId === entry.id ? "Click again to confirm" : "Remove"}
                         style={{
-                          background: deleteConfirmId === entry.id ? "rgba(220,80,80,0.25)" : "rgba(220,80,80,0.12)",
-                          border: `1px solid ${deleteConfirmId === entry.id ? "rgba(220,80,80,0.5)" : "rgba(220,80,80,0.25)"}`,
+                          background: deleteConfirmId === entry.id ? "rgba(208,80,80,0.25)" : "rgba(208,80,80,0.12)",
+                          border: `1px solid ${deleteConfirmId === entry.id ? "rgba(208,80,80,0.5)" : "rgba(208,80,80,0.25)"}`,
                           borderRadius: 8,
                           padding: "6px 8px",
                           cursor: "pointer",
@@ -226,7 +226,7 @@ export default function PromptLibraryModal({
                       style={{
                         margin: "0 0 10px",
                         fontSize: 11,
-                        fontFamily: "'JetBrains Mono', monospace",
+                        fontFamily: "'IBM Plex Mono', monospace",
                         color: "rgba(255,255,255,0.55)",
                         whiteSpace: "pre-wrap",
                         lineHeight: 1.45,

@@ -43,17 +43,17 @@ export default function IntakeScreen({ onComplete, onSkip, isMobile }) {
 
         {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "44px" }}>
-          <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "linear-gradient(135deg, #d4a24e, #b8862e)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "linear-gradient(135deg, #C07A56, #A96A49)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <Zap size={22} color="#1a1a1a" />
           </div>
-          <span style={{ fontSize: "22px", fontWeight: 700, letterSpacing: "-0.5px", fontFamily: "'DM Sans', sans-serif" }}>Stanzix</span>
+          <span style={{ fontSize: "22px", fontWeight: 700, letterSpacing: "-0.5px", fontFamily: "'Libre Franklin', sans-serif" }}>Stanzix</span>
         </div>
 
         {/* Headline */}
-        <h1 style={{ fontSize: isMobile ? "22px" : "27px", fontWeight: 700, letterSpacing: "-0.5px", textAlign: "center", marginBottom: "10px", fontFamily: "'DM Sans', sans-serif", color: "#e0e0e0" }}>
+        <h1 style={{ fontSize: isMobile ? "22px" : "27px", fontWeight: 700, letterSpacing: "-0.5px", textAlign: "center", marginBottom: "10px", fontFamily: "'Libre Franklin', sans-serif", color: "#F0EBE0" }}>
           What are you building this for?
         </h1>
-        <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.45)", textAlign: "center", marginBottom: "28px", lineHeight: 1.6, fontFamily: "'DM Sans', sans-serif" }}>
+        <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.45)", textAlign: "center", marginBottom: "28px", lineHeight: 1.6, fontFamily: "'Libre Franklin', sans-serif" }}>
           Describe it in plain language — one sentence is enough.
         </p>
 
@@ -68,8 +68,8 @@ export default function IntakeScreen({ onComplete, onSkip, isMobile }) {
           autoFocus
           style={{
             width: "100%", background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.12)",
-            borderRadius: "10px", padding: "14px 16px", color: "#e0e0e0", fontSize: "15px",
-            fontFamily: "'DM Sans', sans-serif", resize: "none", outline: "none",
+            borderRadius: "10px", padding: "14px 16px", color: "#F0EBE0", fontSize: "15px",
+            fontFamily: "'Libre Franklin', sans-serif", resize: "none", outline: "none",
             lineHeight: 1.6, boxSizing: "border-box", marginBottom: "14px",
             transition: "border-color 0.2s",
           }}
@@ -81,11 +81,11 @@ export default function IntakeScreen({ onComplete, onSkip, isMobile }) {
           disabled={!value.trim() || submitting}
           style={{
             width: "100%", padding: "14px 24px", borderRadius: "10px", border: "none",
-            background: !value.trim() || submitting ? "rgba(212,162,78,0.3)" : "linear-gradient(135deg, #d4a24e, #b8862e)",
+            background: !value.trim() || submitting ? "rgba(192,122,86,0.3)" : "linear-gradient(135deg, #C07A56, #A96A49)",
             color: !value.trim() || submitting ? "rgba(255,255,255,0.35)" : "#1a1a1a",
             fontSize: "15px", fontWeight: 700, cursor: !value.trim() || submitting ? "not-allowed" : "pointer",
             display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
-            fontFamily: "'DM Sans', sans-serif", transition: "all 0.2s",
+            fontFamily: "'Libre Franklin', sans-serif", transition: "all 0.2s",
           }}
         >
           {submitting ? (
@@ -104,7 +104,7 @@ export default function IntakeScreen({ onComplete, onSkip, isMobile }) {
         {error && (
           <div role="alert" style={{
             marginTop: "10px", padding: "10px 14px", borderRadius: "8px",
-            background: "rgba(220,80,80,0.08)", border: "1px solid rgba(220,80,80,0.25)",
+            background: "rgba(208,80,80,0.08)", border: "1px solid rgba(208,80,80,0.25)",
             fontSize: "13px", color: "rgba(220,150,150,0.9)", lineHeight: 1.5,
           }}>
             {error}
@@ -114,7 +114,7 @@ export default function IntakeScreen({ onComplete, onSkip, isMobile }) {
         {/* Divider */}
         <div style={{ display: "flex", alignItems: "center", gap: "12px", margin: "24px 0 16px" }}>
           <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.08)" }} />
-          <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "1px" }}>EXAMPLES</span>
+          <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: "1px" }}>EXAMPLES</span>
           <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.08)" }} />
         </div>
 
@@ -128,11 +128,11 @@ export default function IntakeScreen({ onComplete, onSkip, isMobile }) {
                 background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)",
                 borderRadius: "8px", padding: "10px 14px", color: "rgba(255,255,255,0.55)",
                 fontSize: "13px", cursor: "pointer", textAlign: "left",
-                fontFamily: "'DM Sans', sans-serif", transition: "all 0.15s",
+                fontFamily: "'Libre Franklin', sans-serif", transition: "all 0.15s",
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = "rgba(212,162,78,0.06)";
-                e.currentTarget.style.borderColor = "rgba(212,162,78,0.2)";
+                e.currentTarget.style.background = "rgba(192,122,86,0.06)";
+                e.currentTarget.style.borderColor = "rgba(192,122,86,0.2)";
                 e.currentTarget.style.color = "rgba(255,255,255,0.8)";
               }}
               onMouseLeave={e => {
@@ -153,7 +153,7 @@ export default function IntakeScreen({ onComplete, onSkip, isMobile }) {
             style={{
               background: "none", border: "none", cursor: "pointer",
               color: "rgba(255,255,255,0.35)", fontSize: "13px",
-              fontFamily: "'DM Sans', sans-serif", display: "inline-flex", alignItems: "center", gap: "4px",
+              fontFamily: "'Libre Franklin', sans-serif", display: "inline-flex", alignItems: "center", gap: "4px",
             }}
           >
             or: Start from scratch →

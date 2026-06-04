@@ -221,13 +221,13 @@ function StanzixInner() {
   const usageHit = !isPaid && usageCount !== null && usageCount >= FREE_LIMIT;
 
   return (
-    <div style={{ minHeight: "100vh", background: "#111113", color: "#e0e0e0", fontFamily: "'DM Sans', sans-serif", display: "flex", flexDirection: "column" }}>
+    <div style={{ minHeight: "100vh", background: "#0C0B0A", color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif", display: "flex", flexDirection: "column" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Franklin:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes glow { 0%,100% { box-shadow: 0 0 8px rgba(212,162,78,0.1); } 50% { box-shadow: 0 0 20px rgba(212,162,78,0.3); } }
+        @keyframes glow { 0%,100% { box-shadow: 0 0 8px rgba(192,122,86,0.1); } 50% { box-shadow: 0 0 20px rgba(192,122,86,0.3); } }
         @keyframes shimmerBar { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
         @keyframes fadeInScale { 0% { opacity:0; transform:scale(0.5); } 50% { opacity:1; transform:scale(1.1); } 100% { opacity:1; transform:scale(1); } }
         @keyframes gateFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -238,8 +238,8 @@ function StanzixInner() {
         .gate-fade-2 { animation: gateFade 0.6s 0.15s ease forwards; opacity: 0; }
         .gate-fade-3 { animation: gateFade 0.6s 0.3s ease forwards; opacity: 0; }
         .step-enter { animation: stepEnter 0.22s ease-out both; }
-        textarea:focus, input:focus { border-color: rgba(212,162,78,0.4) !important; }
-        button:focus-visible, [tabindex]:focus-visible, a:focus-visible { outline: 2px solid #d4a24e; outline-offset: 2px; }
+        textarea:focus, input:focus { border-color: rgba(192,122,86,0.4) !important; }
+        button:focus-visible, [tabindex]:focus-visible, a:focus-visible { outline: 2px solid #C07A56; outline-offset: 2px; }
         button:hover:not(:disabled) { opacity: 0.85; }
         .flip-card { perspective: 800px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
@@ -248,7 +248,6 @@ function StanzixInner() {
         .flip-card-front, .flip-card-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 12px; box-sizing: border-box; overflow: hidden; }
         .flip-card-back { transform: rotateY(180deg); }
         @media (max-width: 767px) { textarea, input { font-size: 16px !important; } }
-        .stepper-node:hover .stepper-tooltip { opacity: 1; pointer-events: none; }
       `}</style>
 
       {pe.error && <Toast msg={pe.error} onDismiss={() => pe.showError(null)} />}
@@ -256,7 +255,7 @@ function StanzixInner() {
 
       {auth.loading || (auth.user && pe.hydrating) ? (
         <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Loader2 size={32} color="#d4a24e" className="spin" />
+          <Loader2 size={32} color="#C07A56" className="spin" />
         </div>
       ) : !auth.user ? (
         <SignInGate isMobile={pe.isMobile} signInWithMagicLink={auth.signInWithMagicLink} />
@@ -320,155 +319,75 @@ function StanzixInner() {
       ) : (
         <>
           {/* ── Header ─────────────────────────────────────────────────────── */}
-          <header style={{ padding: pe.isMobile ? "12px 16px" : "14px 24px", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between", alignItems: "center", background: "rgba(0,0,0,0.2)", flexWrap: "wrap", gap: "8px", flexShrink: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: pe.isMobile ? "10px" : "14px" }}>
-              <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: "linear-gradient(135deg, #d4a24e, #b8862e)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}><Zap size={18} color="#1a1a1a" /></div>
-              <div>
-                <h1 style={{ fontSize: pe.isMobile ? "14px" : "16px", fontWeight: 700, letterSpacing: "-0.3px", margin: 0 }}>Stanzix</h1>
-                {!pe.isMobile && <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace" }}>Project Instructions Builder · {VERSION}</div>}
-              </div>
+          <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: pe.isMobile ? "0 16px" : "0 28px", height: "56px", borderBottom: "1px solid #2C2824", flexShrink: 0, background: "#0C0B0A" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 600, fontSize: "18px", color: "#F0EBE0" }}>Stanzix</span>
+              <span style={{ color: "#C07A56", fontSize: "6px", marginTop: "2px" }}>●</span>
+              {!pe.isMobile && <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: "11px", color: "#5E5850", marginLeft: "8px" }}>Builder</span>}
             </div>
-
-            <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
-              {/* Usage counter (free tier only, header pill) */}
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               {!isPaid && usageCount !== null && !pe.isMobile && (
-                <div
-                  title={usageHit ? "Monthly limit reached — upgrade for unlimited" : `${FREE_LIMIT - usageCount} prompts remaining this month`}
-                  style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace", color: usageHit ? "#dc5050" : usageAtRisk ? "#d4a24e" : "rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.04)", border: `1px solid ${usageHit ? "rgba(220,80,80,0.3)" : usageAtRisk ? "rgba(212,162,78,0.25)" : "rgba(255,255,255,0.08)"}`, borderRadius: "6px", padding: "4px 10px", cursor: "default", transition: "all 0.2s" }}
-                >
-                  {usageCount} / {FREE_LIMIT}
-                </div>
+                <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "11px", color: "#5E5850", padding: "4px 10px", border: "1px solid #2C2824", borderRadius: "4px" }}>
+                  {usageCount} / {FREE_LIMIT} free
+                </span>
               )}
-
               <Badge active={pe.appMode === "create"} onClick={() => { pe.setAppMode("create"); pe.setParsedPreview(null); }}>Create</Badge>
               <Badge active={pe.appMode === "edit"} onClick={() => pe.setAppMode("edit")}>Edit</Badge>
-              {!pe.isMobile && <div style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.1)", margin: "0 4px" }} />}
-              <button onClick={() => pe.setShowPreview(!pe.showPreview)} aria-label={pe.showPreview ? "Hide preview panel" : "Show preview panel"} style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px" }}>
-                {pe.showPreview ? <PanelRightClose size={18} color="rgba(255,255,255,0.6)" /> : <PanelRightOpen size={18} color="rgba(255,255,255,0.6)" />}
-                {!pe.isMobile && <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace" }}>Preview</span>}
-              </button>
-              <div style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.1)", margin: "0 2px" }} />
-              <button onClick={() => setShowSettings(true)} title="Settings" aria-label="Settings" style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px" }}>
-                <Settings size={16} color="rgba(255,255,255,0.55)" />
-                {!pe.isMobile && <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace" }}>Settings</span>}
-              </button>
-              <div style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.1)", margin: "0 2px" }} />
-              <button onClick={() => pe.setViewMode("dashboard")} title="Back to dashboard" aria-label="Dashboard" style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px" }}>
-                <Home size={16} color="rgba(255,255,255,0.55)" />
-                {!pe.isMobile && <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace" }}>Dashboard</span>}
+              {!pe.isMobile && <div style={{ width: "1px", height: "20px", background: "#2C2824", margin: "0 8px" }} />}
+              {!pe.isMobile && (
+                <button onClick={() => pe.setShowPreview(!pe.showPreview)} aria-label={pe.showPreview ? "Hide preview panel" : "Show preview panel"} style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px" }}>
+                  {pe.showPreview ? <PanelRightClose size={16} color="#5E5850" /> : <PanelRightOpen size={16} color="#5E5850" />}
+                </button>
+              )}
+              <button onClick={() => pe.setViewMode("dashboard")} title="Back to dashboard" aria-label="Dashboard" style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center" }}>
+                <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: "12px", color: "#5E5850" }}>Dashboard</span>
               </button>
             </div>
           </header>
 
-          {/* ── Phase-grouped stepper (desktop, create mode) ───────────────── */}
-          {!pe.isMobile && pe.appMode === "create" && (
-            <div role="navigation" aria-label="Steps" style={{ display: "flex", alignItems: "center", padding: "0 20px", borderBottom: "1px solid rgba(255,255,255,0.06)", background: "rgba(0,0,0,0.12)", height: "60px", flexShrink: 0, overflowX: "auto", gap: "0" }}>
-              {PHASES.map((phase, pi) => {
-                const isActivePhase = phase.steps.includes(pe.step);
-                return (
-                  <Fragment key={phase.label}>
-                    {pi > 0 && (
-                      <div style={{ width: "1px", height: "40px", background: "rgba(255,255,255,0.08)", flexShrink: 0, margin: "0 10px" }} />
-                    )}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-start", flexShrink: 0 }}>
-                      {/* Phase label */}
-                      <div style={{ fontSize: "9px", fontFamily: "'JetBrains Mono', monospace", color: isActivePhase ? "#d4a24e" : "rgba(255,255,255,0.22)", textTransform: "uppercase", letterSpacing: "1.2px", fontWeight: isActivePhase ? 700 : 400, paddingLeft: "7px", transition: "color 0.2s" }}>
-                        {phase.label}
-                      </div>
-                      {/* Step nodes row */}
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        {phase.steps.map((stepIdx, si) => {
-                          const s = STEPS[stepIdx];
-                          const active = pe.step === stepIdx;
-                          const completed = stepIdx < pe.step;
-                          const isCascading = pe.itemLoading[`${s.id}_cascade`];
-                          return (
-                            <Fragment key={s.id}>
-                              {si > 0 && (
-                                <div style={{ width: "14px", height: "1px", background: completed ? "rgba(212,162,78,0.45)" : "rgba(255,255,255,0.08)", flexShrink: 0, transition: "background 0.3s" }} />
-                              )}
-                              <button
-                                className="stepper-node"
-                                onClick={() => { pe.setStep(stepIdx); pe.trackActivity(); }}
-                                aria-current={active ? "step" : undefined}
-                                style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", background: "none", border: "none", cursor: active ? "default" : "pointer", padding: "2px 5px", position: "relative", flexShrink: 0, opacity: 1, transition: "opacity 0.2s" }}
-                              >
-                                <div style={{ width: "26px", height: "26px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: active ? "#d4a24e" : completed ? "rgba(212,162,78,0.12)" : "rgba(255,255,255,0.05)", border: active ? "none" : completed ? "1.5px solid rgba(212,162,78,0.55)" : "1.5px solid rgba(255,255,255,0.14)", transition: "all 0.2s", flexShrink: 0 }}>
-                                  {isCascading
-                                    ? <Loader2 size={11} color="rgba(212,162,78,0.8)" className="spin" />
-                                    : completed
-                                      ? <Check size={12} color="#d4a24e" />
-                                      : <span style={{ fontSize: "11px", fontWeight: 700, fontFamily: "'JetBrains Mono', monospace", color: active ? "#1a1a1a" : "rgba(255,255,255,0.3)", lineHeight: 1 }}>{stepIdx + 1}</span>
-                                  }
-                                </div>
-                                <span style={{ fontSize: "9px", fontFamily: "'JetBrains Mono', monospace", color: active ? "#d4a24e" : completed ? "rgba(212,162,78,0.5)" : "rgba(255,255,255,0.25)", fontWeight: active ? 600 : 400, letterSpacing: "0.2px", whiteSpace: "nowrap", lineHeight: 1 }}>
-                                  {s.label.split(" ")[0]}
-                                </span>
-                                <div className="stepper-tooltip" style={{ position: "absolute", bottom: "calc(100% + 8px)", left: "50%", transform: "translateX(-50%)", background: "rgba(30,30,34,0.96)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", padding: "5px 9px", fontSize: "11px", color: "#e0e0e0", whiteSpace: "nowrap", opacity: 0, transition: "opacity 0.15s", pointerEvents: "none", zIndex: 10, fontFamily: "'DM Sans', sans-serif" }}>
-                                  {s.label}
-                                  <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.45)", marginTop: "1px" }}>{s.desc}</div>
-                                </div>
-                              </button>
-                            </Fragment>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </Fragment>
-                );
-              })}
+          {/* ── Progress bar ──────────────────────────────────────────────── */}
+          {pe.appMode === "create" && (
+            <div style={{ height: "3px", background: "#2C2824", flexShrink: 0 }}>
+              <div style={{ width: `${((pe.step + 1) / STEPS.length) * 100}%`, height: "100%", background: "linear-gradient(90deg, #7D5038, #C07A56)", borderRadius: "0 2px 2px 0", transition: "width 0.3s ease" }} />
             </div>
           )}
 
           {/* ── Mobile nav ──────────────────────────────────────────────────── */}
           {pe.isMobile && pe.appMode === "create" && (
-            <div style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", background: "rgba(0,0,0,0.1)", flexShrink: 0 }}>
-              {/* Phase-relative progress bar */}
-              {(() => {
-                const pct = ((pe.step + 1) / STEPS.length) * 100;
-                return (
-                  <div style={{ height: "3px", background: "rgba(255,255,255,0.04)" }} role="progressbar" aria-valuenow={pe.step + 1} aria-valuemin={1} aria-valuemax={STEPS.length} aria-label={`Step ${pe.step + 1} of ${STEPS.length}`}>
-                    <div style={{ height: "100%", width: `${pct}%`, background: "linear-gradient(90deg, #d4a24e, #b8862e)", borderRadius: "0 2px 2px 0", transition: "width 0.3s ease" }} />
-                  </div>
-                );
-              })()}
+            <div style={{ borderBottom: "1px solid #2C2824", background: "rgba(0,0,0,0.1)", flexShrink: 0 }}>
               <button onClick={() => pe.setShowMobileNav(!pe.showMobileNav)} aria-expanded={pe.showMobileNav} aria-label="Toggle step navigation" style={{ width: "100%", padding: "12px 16px", background: "none", border: "none", display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: 1 }}>
-                  {(() => { const Icon = STEPS[pe.step].icon; return <Icon size={14} color="#d4a24e" />; })()}
+                  {(() => { const Icon = STEPS[pe.step].icon; return <Icon size={14} color="#C07A56" />; })()}
                   <div style={{ textAlign: "left" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                      {/* Phase label in amber, step name in white */}
-                      <span style={{ fontSize: "10px", fontFamily: "'JetBrains Mono', monospace", color: "#d4a24e", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.8px" }}>
+                      <span style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: "#C07A56", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.8px" }}>
                         {getPhaseInfo(pe.step).phase.label}
                       </span>
-                      <span style={{ fontSize: "13px", fontWeight: 600, color: "#e0e0e0" }}>{STEPS[pe.step].label}</span>
-                      <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace" }}>
-                        {(() => { const { phase, posInPhase } = getPhaseInfo(pe.step); return phase.steps.length > 1 ? `${posInPhase}/${phase.steps.length}` : ""; })()}
-                      </span>
+                      <span style={{ fontSize: "13px", fontWeight: 600, color: "#F0EBE0" }}>{STEPS[pe.step].label}</span>
                     </div>
-                    <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", marginTop: "2px" }}>{STEPS[pe.step].desc}</div>
+                    <div style={{ fontSize: "11px", color: "#5E5850", marginTop: "2px" }}>{STEPS[pe.step].desc}</div>
                   </div>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <span style={{ fontSize: "11px", color: "#d4a24e", fontFamily: "'JetBrains Mono', monospace", fontWeight: 600, padding: "4px 10px", borderRadius: "6px", background: "rgba(212,162,78,0.1)", border: "1px solid rgba(212,162,78,0.25)" }}>All Steps</span>
-                  <ChevronRight size={14} color="#d4a24e" style={{ transform: pe.showMobileNav ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
+                  <span style={{ fontSize: "11px", color: "#C07A56", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, padding: "4px 10px", borderRadius: "6px", background: "rgba(192,122,86,0.08)", border: "1px solid rgba(192,122,86,0.25)" }}>All Steps</span>
+                  <ChevronRight size={14} color="#C07A56" style={{ transform: pe.showMobileNav ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
                 </div>
               </button>
               {pe.showMobileNav && (
-                <nav aria-label="Steps" style={{ padding: "0 0 8px", maxHeight: "300px", overflowY: "auto", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+                <nav aria-label="Steps" style={{ padding: "0 0 8px", maxHeight: "300px", overflowY: "auto", borderTop: "1px solid #2C2824" }}>
                   {STEPS.map((s, i) => {
                     const Icon = s.icon; const active = pe.step === i; const completed = i < pe.step;
                     return (
-                      <button key={s.id} onClick={() => { pe.setStep(i); pe.setShowMobileNav(false); pe.trackActivity(); }} aria-current={active ? "step" : undefined} style={{ width: "100%", padding: "10px 16px", background: active ? "rgba(212,162,78,0.08)" : "transparent", border: "none", borderLeft: active ? "3px solid #d4a24e" : "3px solid transparent", cursor: "pointer", display: "flex", alignItems: "center", gap: "10px", textAlign: "left", opacity: 1 }}>
+                      <button key={s.id} onClick={() => { pe.setStep(i); pe.setShowMobileNav(false); pe.trackActivity(); }} aria-current={active ? "step" : undefined} style={{ width: "100%", padding: "10px 16px", background: active ? "rgba(192,122,86,0.08)" : "transparent", border: "none", borderLeft: active ? "3px solid #C07A56" : "3px solid transparent", cursor: "pointer", display: "flex", alignItems: "center", gap: "10px", textAlign: "left", opacity: 1 }}>
                         <div style={{ position: "relative", flexShrink: 0 }}>
-                          <Icon size={14} color={active ? "#d4a24e" : completed ? "#50b450" : "rgba(255,255,255,0.3)"} />
-                          {completed && <CheckCircle2 size={8} color="#50b450" style={{ position: "absolute", top: -3, right: -3 }} />}
+                          <Icon size={14} color={active ? "#C07A56" : completed ? "#7DB86A" : "rgba(255,255,255,0.3)"} />
+                          {completed && <CheckCircle2 size={8} color="#7DB86A" style={{ position: "absolute", top: -3, right: -3 }} />}
                         </div>
                         <div style={{ flex: 1 }}>
-                          <div style={{ fontSize: "13px", fontWeight: active ? 600 : 400, color: active ? "#e0e0e0" : "rgba(255,255,255,0.6)" }}>{s.label}</div>
-                          <div style={{ fontSize: "10px", color: active ? "rgba(212,162,78,0.7)" : "rgba(255,255,255,0.45)", fontFamily: "'JetBrains Mono', monospace", marginTop: "1px" }}>{s.desc}</div>
+                          <div style={{ fontSize: "13px", fontWeight: active ? 600 : 400, color: active ? "#F0EBE0" : "#948C7E" }}>{s.label}</div>
+                          <div style={{ fontSize: "10px", color: active ? "rgba(192,122,86,0.7)" : "#5E5850", fontFamily: "'IBM Plex Mono', monospace", marginTop: "1px" }}>{s.desc}</div>
                         </div>
-                        {active && <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#d4a24e", flexShrink: 0 }} />}
+                        {active && <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#C07A56", flexShrink: 0 }} />}
                       </button>
                     );
                   })}
@@ -479,6 +398,21 @@ function StanzixInner() {
 
           {/* ── Body ───────────────────────────────────────────────────────── */}
           <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
+            {/* Sidebar nav (desktop, create mode) */}
+            {!pe.isMobile && pe.appMode === "create" && (
+              <nav style={{ width: "200px", minWidth: "200px", borderRight: "1px solid #2C2824", padding: "16px 0", flexShrink: 0, overflowY: "auto", display: "flex", flexDirection: "column", gap: "2px" }}>
+                {STEPS.map((s, i) => {
+                  const active = pe.step === i;
+                  const completed = i < pe.step;
+                  return (
+                    <button key={s.id} onClick={() => { pe.setStep(i); pe.trackActivity(); }} aria-current={active ? "step" : undefined} style={{ width: "100%", padding: "9px 20px", background: active ? "rgba(192,122,86,0.08)" : "transparent", borderRight: active ? "2px solid #C07A56" : "2px solid transparent", borderLeft: "none", borderTop: "none", borderBottom: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: "10px", textAlign: "left" }}>
+                      <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "12px", color: completed ? "#C07A56" : active ? "#F0EBE0" : "#5E5850", fontWeight: active ? 600 : 400, width: "16px" }}>{completed ? "✓" : String(i + 1).padStart(2, "0")}</span>
+                      <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: "13px", color: active ? "#F0EBE0" : completed ? "#948C7E" : "#5E5850", fontWeight: active ? 500 : 400 }}>{s.label}</span>
+                    </button>
+                  );
+                })}
+              </nav>
+            )}
             <main style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column" }}>
               {pe.appMode === "edit" ? (
                 <EditMode
@@ -494,25 +428,18 @@ function StanzixInner() {
                   onCancel={() => pe.setParsedPreview(null)}
                 />
               ) : (
-                <div style={{ padding: pe.isMobile ? "16px" : "32px 40px", flex: 1, maxWidth: "680px", width: "100%", margin: "0 auto" }}>
+                <div style={{ padding: pe.isMobile ? "16px" : "36px 48px", flex: 1, maxWidth: "600px", width: "100%", margin: "0 auto" }}>
                   {/* Step header */}
-                  <div style={{ marginBottom: "24px" }}>
-                    <span style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.4)" }}>
-                      {(() => {
-                        const { phase, posInPhase } = getPhaseInfo(pe.step);
-                        return phase.steps.length > 1
-                          ? `${phase.label.toUpperCase()} · ${posInPhase} / ${phase.steps.length}`
-                          : phase.label.toUpperCase();
-                      })()}
-                    </span>
-                    <h2 style={{ fontSize: "22px", fontWeight: 700, letterSpacing: "-0.5px", marginTop: "4px" }}>{STEPS[pe.step].label}</h2>
-                    <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.45)", marginTop: "6px", lineHeight: 1.6, fontFamily: "'DM Sans', sans-serif" }}>{STEPS[pe.step].desc}</p>
+                  <div style={{ marginBottom: "28px" }}>
+                    <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "12px", color: "#C07A56", fontStyle: "italic", marginBottom: "8px", letterSpacing: "0.5px" }}>Step {pe.step + 1} of {STEPS.length}</div>
+                    <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "28px", fontWeight: 500, letterSpacing: "-0.3px", marginBottom: "8px", color: "#F0EBE0" }}>{STEPS[pe.step].label}</h2>
+                    <p style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: "14px", color: "#948C7E", lineHeight: 1.7 }}>{STEPS[pe.step].desc}</p>
                   </div>
 
                   {/* Idle assist nudge — suppress on step 0 when context is pre-filled */}
                   {pe.showAssist && pe.step < 9 && !(pe.step === 0 && pe.projectName && pe.domain && pe.projectDesc && pe.goals) && (
-                    <div style={{ background: "rgba(212,162,78,0.08)", border: "1px solid rgba(212,162,78,0.25)", borderRadius: "10px", padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
-                      <Lightbulb size={18} color="#d4a24e" />
+                    <div style={{ background: "rgba(192,122,86,0.08)", border: "1px solid rgba(192,122,86,0.25)", borderRadius: "10px", padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+                      <Lightbulb size={18} color="#C07A56" />
                       <span style={{ flex: 1, fontSize: "13px", color: "rgba(255,255,255,0.7)" }}>Looks like you might be stuck. Want me to auto-generate this section?</span>
                       <Btn small primary onClick={pe.autoFillCurrent}><Wand2 size={14} /> Auto-fill</Btn>
                     </div>
@@ -520,13 +447,13 @@ function StanzixInner() {
 
                   {/* Usage warning banner */}
                   {usageAtRisk && !usageHit && (
-                    <div style={{ background: "rgba(212,162,78,0.06)", border: "1px solid rgba(212,162,78,0.2)", borderRadius: "8px", padding: "10px 14px", display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px", fontSize: "12px", color: "rgba(212,162,78,0.85)" }}>
-                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 600 }}>{FREE_LIMIT - usageCount} prompt{FREE_LIMIT - usageCount === 1 ? "" : "s"} left</span>
-                      <span style={{ color: "rgba(255,255,255,0.5)" }}>this month on the free plan.</span>
+                    <div style={{ background: "rgba(192,122,86,0.06)", border: "1px solid rgba(192,122,86,0.2)", borderRadius: "8px", padding: "10px 14px", display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px", fontSize: "12px", color: "rgba(192,122,86,0.85)" }}>
+                      <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600 }}>{FREE_LIMIT - usageCount} prompt{FREE_LIMIT - usageCount === 1 ? "" : "s"} left</span>
+                      <span style={{ color: "#948C7E" }}>this month on the free plan.</span>
                     </div>
                   )}
                   {usageHit && (
-                    <div style={{ background: "rgba(220,80,80,0.06)", border: "1px solid rgba(220,80,80,0.25)", borderRadius: "8px", padding: "10px 14px", marginBottom: "16px", fontSize: "12px", color: "rgba(220,150,150,0.9)" }}>
+                    <div style={{ background: "rgba(208,80,80,0.06)", border: "1px solid rgba(208,80,80,0.25)", borderRadius: "8px", padding: "10px 14px", marginBottom: "16px", fontSize: "12px", color: "rgba(208,120,120,0.9)" }}>
                       Monthly limit reached. Upgrade to Pro for unlimited prompts.
                     </div>
                   )}
@@ -539,7 +466,7 @@ function StanzixInner() {
                   </div>
 
                   {/* Navigation */}
-                  <div style={{ marginTop: "32px", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                  <div style={{ marginTop: "36px", paddingTop: "20px", borderTop: "1px solid #2C2824" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
                       <Btn onClick={() => { pe.setStep(Math.max(0, pe.step - 1)); pe.trackActivity(); }} disabled={pe.step === 0}>
                         <ChevronLeft size={16} /> Previous
@@ -559,7 +486,7 @@ function StanzixInner() {
                       }
                     </div>
                     {pe.step === 0 && !pe.canAdvance() && (
-                      <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)", fontFamily: "'JetBrains Mono', monospace", marginTop: "8px", textAlign: "right" }}>
+                      <div style={{ fontSize: "11px", color: "#5E5850", fontFamily: "'IBM Plex Mono', monospace", marginTop: "8px", textAlign: "right" }}>
                         Add a project name or description to continue
                       </div>
                     )}

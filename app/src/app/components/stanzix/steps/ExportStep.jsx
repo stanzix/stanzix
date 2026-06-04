@@ -9,21 +9,21 @@ export function ExportStep({ projectBlurb, compiledOutput, customInjection, setC
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "10px" }}>
           <div>
             <SectionLabel>Step 1: Project Description</SectionLabel>
-            <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.6)", fontFamily: "'DM Sans', sans-serif", marginTop: "-10px", marginBottom: "6px" }}>Paste into <strong style={{ color: "rgba(255,255,255,0.8)" }}>"What are you trying to achieve?"</strong> in Claude project settings.</div>
-            <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)", fontFamily: "'JetBrains Mono', monospace", marginBottom: "10px" }}>Go to claude.ai → Projects → New project → Settings</div>
+            <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.6)", fontFamily: "'Libre Franklin', sans-serif", marginTop: "-10px", marginBottom: "6px" }}>Paste into <strong style={{ color: "rgba(255,255,255,0.8)" }}>"What are you trying to achieve?"</strong> in Claude project settings.</div>
+            <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)", fontFamily: "'IBM Plex Mono', monospace", marginBottom: "10px" }}>Go to claude.ai → Projects → New project → Settings</div>
           </div>
           <Btn small primary onClick={() => { onCopyBlurb(); onExportLogged?.(); }}>{copiedBlurb ? <><Check size={14} /> Copied!</> : <><Copy size={14} /> Copy</>}</Btn>
         </div>
         <div style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "16px 18px" }}>
-          <p style={{ color: "#e0e0e0", fontSize: "14px", lineHeight: 1.7, margin: 0 }}>{projectBlurb || "Fill in Project Context to generate this."}</p>
+          <p style={{ color: "#F0EBE0", fontSize: "14px", lineHeight: 1.7, margin: 0 }}>{projectBlurb || "Fill in Project Context to generate this."}</p>
         </div>
       </div>
       <div>
         <SectionLabel>Additional Instructions</SectionLabel>
-        <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace", marginTop: "-10px", marginBottom: "10px" }}>Anything the generator didn't cover</div>
+        <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", fontFamily: "'IBM Plex Mono', monospace", marginTop: "-10px", marginBottom: "10px" }}>Anything the generator didn't cover</div>
         {!customInjection && compiledOutput.length > 100 && (
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 16px", background: "rgba(80,180,80,0.06)", border: "1px solid rgba(80,180,80,0.15)", borderRadius: "8px", marginBottom: "10px" }}>
-            <CheckCircle2 size={16} color="#50b450" style={{ flexShrink: 0 }} />
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 16px", background: "rgba(125,184,106,0.06)", border: "1px solid rgba(125,184,106,0.15)", borderRadius: "8px", marginBottom: "10px" }}>
+            <CheckCircle2 size={16} color="#7DB86A" style={{ flexShrink: 0 }} />
             <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.55)" }}>Looking good. Add anything specific below, or leave empty if the engine captured everything.</span>
           </div>
         )}
@@ -33,7 +33,7 @@ export function ExportStep({ projectBlurb, compiledOutput, customInjection, setC
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "10px" }}>
           <div>
             <SectionLabel>Step 2: Project Instructions</SectionLabel>
-            <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.6)", fontFamily: "'DM Sans', sans-serif", marginTop: "-10px", marginBottom: "10px" }}>Paste into <strong style={{ color: "rgba(255,255,255,0.8)" }}>Custom Instructions</strong> in the same project settings page.</div>
+            <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.6)", fontFamily: "'Libre Franklin', sans-serif", marginTop: "-10px", marginBottom: "10px" }}>Paste into <strong style={{ color: "rgba(255,255,255,0.8)" }}>Custom Instructions</strong> in the same project settings page.</div>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center" }}>
             <Btn small primary onClick={() => { onCopy(); onExportLogged?.(); }}>{copied ? <><Check size={14} /> Copied!</> : <><Copy size={14} /> Copy</>}</Btn>
@@ -53,17 +53,17 @@ export function ExportStep({ projectBlurb, compiledOutput, customInjection, setC
           </div>
         </div>
         <div style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px", maxHeight: "420px", overflowY: "auto" }}>
-          <pre style={{ color: "#e0e0e0", fontSize: "13px", fontFamily: "'JetBrains Mono', monospace", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.7 }}>{compiledOutput}</pre>
+          <pre style={{ color: "#F0EBE0", fontSize: "13px", fontFamily: "'IBM Plex Mono', monospace", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.7 }}>{compiledOutput}</pre>
         </div>
       </div>
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "24px" }}>
         <SectionLabel>Feedback</SectionLabel>
-        <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", fontFamily: "'JetBrains Mono', monospace", marginTop: "-10px", marginBottom: "10px" }}>How was your experience? What would make this better?</div>
+        <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", fontFamily: "'IBM Plex Mono', monospace", marginTop: "-10px", marginBottom: "10px" }}>How was your experience? What would make this better?</div>
         {feedbackSubmitted ? (
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "16px 20px", background: "rgba(80,180,80,0.06)", border: "1px solid rgba(80,180,80,0.2)", borderRadius: "10px" }}>
-            <CheckCircle2 size={18} color="#50b450" />
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "16px 20px", background: "rgba(125,184,106,0.06)", border: "1px solid rgba(125,184,106,0.2)", borderRadius: "10px" }}>
+            <CheckCircle2 size={18} color="#7DB86A" />
             <div>
-              <div style={{ fontSize: "14px", fontWeight: 600, color: "#e0e0e0" }}>Thank you for your feedback!</div>
+              <div style={{ fontSize: "14px", fontWeight: 600, color: "#F0EBE0" }}>Thank you for your feedback!</div>
               <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", marginTop: "2px" }}>Your input helps shape the future of Stanzix.</div>
             </div>
           </div>

@@ -58,14 +58,12 @@ export default function FAQ() {
   return (
     <section className="py-24 md:py-32 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <p className="font-sans text-sm text-text-dim uppercase tracking-wider mb-4">
-          FAQ
-        </p>
-        <h2 className="font-serif text-4xl md:text-5xl font-medium tracking-tight text-text-primary mb-12">
+        <span className="font-serif text-sm italic text-accent tracking-normal mb-2.5 block">FAQ</span>
+        <h2 className="font-serif text-4xl md:text-5xl font-medium tracking-tight leading-[1.15] text-text-primary mb-8">
           Common questions.
         </h2>
 
-        <div className="max-w-3xl">
+        <div className="max-w-[700px]">
           {FAQS.map((faq, i) => {
             const isOpen = openIndex === i;
             return (
@@ -77,31 +75,16 @@ export default function FAQ() {
                   aria-controls={`faq-panel-${i}`}
                   className="w-full flex items-center justify-between py-5 text-left gap-4"
                 >
-                  <span className="font-serif text-xl md:text-2xl font-medium text-text-primary">
+                  <span className="font-serif text-[19px] font-medium text-text-primary">
                     {faq.question}
                   </span>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    aria-hidden="true"
-                    className={`shrink-0 text-text-dim transition-transform duration-250 ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
-                  >
-                    <path
-                      d="M2 5L8 11L14 5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <span className={`shrink-0 text-text-dim text-sm transition-transform duration-250 ${isOpen ? "rotate-45" : ""}`}>
+                    +
+                  </span>
                 </button>
 
                 {isOpen && (
-                  <ScaffoldLine className="w-12 mb-1" />
+                  <div className="w-6 h-px bg-accent mb-2" />
                 )}
 
                 <AnimatePresence initial={false}>

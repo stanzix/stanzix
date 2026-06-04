@@ -23,15 +23,16 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" className="py-24 md:py-32 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <h2 className="font-serif text-4xl md:text-5xl font-medium tracking-tight text-text-primary mb-16">
-          Three steps. Sixty seconds. A prompt that works.
+        <span className="font-serif text-sm italic text-accent tracking-normal mb-2.5 block">How it works</span>
+        <h2 className="font-serif text-4xl md:text-5xl font-medium tracking-tight leading-[1.15] text-text-primary mb-12">
+          Three steps. Sixty seconds.
         </h2>
 
         <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-0">
           {STEPS.map((step, i) => (
             <Fragment key={step.number}>
               <div className="flex-1 space-y-4">
-                <span className="font-mono text-sm text-accent">{step.number}</span>
+                <span className="font-serif text-[32px] font-normal italic text-accent">{step.number}</span>
                 <h3 className="font-serif text-2xl md:text-3xl font-medium text-text-primary">
                   {step.title}
                 </h3>

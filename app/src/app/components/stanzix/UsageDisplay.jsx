@@ -3,9 +3,9 @@ import { useState, useEffect, useCallback } from "react";
 import { Zap, Infinity, ExternalLink, Loader2 } from "lucide-react";
 import { getSupabaseClient } from "../../lib/supabase/client";
 
-const GOLD = "#d4a24e";
-const GOLD_DIM = "rgba(212,162,78,0.15)";
-const GOLD_BORDER = "rgba(212,162,78,0.25)";
+const GOLD = "#C07A56";
+const GOLD_DIM = "rgba(192,122,86,0.15)";
+const GOLD_BORDER = "rgba(192,122,86,0.25)";
 
 async function getToken() {
   try {
@@ -61,7 +61,7 @@ export default function UsageDisplay({ onUpgrade, isMobile, usageData }) {
   const atRisk = !isPaid && usage.used >= usage.limit - 1;
   const hitLimit = !isPaid && usage.used >= usage.limit;
   const barColor = hitLimit
-    ? "#dc5050"
+    ? "#D05050"
     : atRisk
     ? "#e0a020"
     : GOLD;
@@ -80,7 +80,7 @@ export default function UsageDisplay({ onUpgrade, isMobile, usageData }) {
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <Zap size={12} color={GOLD} />
-          <span style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.5)" }}>
+          <span style={{ fontSize: "11px", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(255,255,255,0.5)" }}>
             Usage
           </span>
         </div>
@@ -88,12 +88,12 @@ export default function UsageDisplay({ onUpgrade, isMobile, usageData }) {
         {isPaid ? (
           <div style={{ display: "flex", alignItems: "center", gap: "5px", background: GOLD_DIM, border: `1px solid ${GOLD_BORDER}`, borderRadius: "6px", padding: "2px 8px" }}>
             <Infinity size={11} color={GOLD} />
-            <span style={{ fontSize: "10px", fontFamily: "'JetBrains Mono', monospace", color: GOLD, fontWeight: 600 }}>
+            <span style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: GOLD, fontWeight: 600 }}>
               {usage.tier === "team" ? "Team" : "Pro"}
             </span>
           </div>
         ) : (
-          <span style={{ fontSize: "10px", fontFamily: "'JetBrains Mono', monospace", color: hitLimit ? "#dc5050" : "rgba(255,255,255,0.4)" }}>
+          <span style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: hitLimit ? "#D05050" : "rgba(255,255,255,0.4)" }}>
             {usage.used}/{usage.limit}
           </span>
         )}
@@ -106,7 +106,7 @@ export default function UsageDisplay({ onUpgrade, isMobile, usageData }) {
             height: "100%",
             width: `${pct}%`,
             background: isPaid
-              ? `linear-gradient(90deg, ${GOLD}, #b8862e)`
+              ? `linear-gradient(90deg, ${GOLD}, #A96A49)`
               : barColor,
             borderRadius: "2px",
             transition: "width 0.4s ease",
@@ -124,11 +124,11 @@ export default function UsageDisplay({ onUpgrade, isMobile, usageData }) {
             padding: "7px 10px",
             borderRadius: "8px",
             border: `1px solid ${GOLD_BORDER}`,
-            background: hitLimit ? "rgba(212,162,78,0.12)" : "transparent",
+            background: hitLimit ? "rgba(192,122,86,0.12)" : "transparent",
             color: GOLD,
             fontSize: "11px",
             fontWeight: 600,
-            fontFamily: "'DM Sans', sans-serif",
+            fontFamily: "'Libre Franklin', sans-serif",
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
@@ -136,8 +136,8 @@ export default function UsageDisplay({ onUpgrade, isMobile, usageData }) {
             gap: "5px",
             transition: "background 0.2s",
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = "rgba(212,162,78,0.12)")}
-          onMouseLeave={e => (e.currentTarget.style.background = hitLimit ? "rgba(212,162,78,0.12)" : "transparent")}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(192,122,86,0.12)")}
+          onMouseLeave={e => (e.currentTarget.style.background = hitLimit ? "rgba(192,122,86,0.12)" : "transparent")}
         >
           <Zap size={11} />
           {hitLimit ? "Limit reached — Upgrade to Pro" : "Upgrade to Pro — $15/mo"}
@@ -155,7 +155,7 @@ export default function UsageDisplay({ onUpgrade, isMobile, usageData }) {
             background: "transparent",
             color: "rgba(255,255,255,0.4)",
             fontSize: "11px",
-            fontFamily: "'DM Sans', sans-serif",
+            fontFamily: "'Libre Franklin', sans-serif",
             cursor: portalLoading ? "not-allowed" : "pointer",
             display: "flex",
             alignItems: "center",

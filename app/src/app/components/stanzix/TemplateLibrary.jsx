@@ -3,9 +3,9 @@ import { useState, useMemo } from "react";
 import { X, Zap, ChevronRight, Lock } from "lucide-react";
 import { CATEGORIES, TEMPLATES } from "../../lib/templateLibrary";
 
-const GOLD = "#d4a24e";
-const GOLD_DIM = "rgba(212,162,78,0.08)";
-const GOLD_BORDER = "rgba(212,162,78,0.25)";
+const GOLD = "#C07A56";
+const GOLD_DIM = "rgba(192,122,86,0.08)";
+const GOLD_BORDER = "rgba(192,122,86,0.25)";
 
 export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPaid, onUpgrade, initialCategory }) {
   const [activeCategory, setActiveCategory] = useState(initialCategory || null);
@@ -64,10 +64,10 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
         >
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <Zap size={18} color={GOLD} />
-            <h2 id="template-library-title" style={{ fontSize: "15px", fontWeight: 700, color: "#e0e0e0", fontFamily: "'DM Sans', sans-serif", margin: 0 }}>
+            <h2 id="template-library-title" style={{ fontSize: "15px", fontWeight: 700, color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif", margin: 0 }}>
               Template Library
             </h2>
-            <span style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "6px", padding: "2px 8px" }}>
+            <span style={{ fontSize: "11px", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "6px", padding: "2px 8px" }}>
               {TEMPLATES.length} templates
             </span>
           </div>
@@ -101,7 +101,7 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
               color: !activeCategory ? GOLD : "rgba(255,255,255,0.55)",
               fontSize: "12px",
               fontWeight: 600,
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "'Libre Franklin', sans-serif",
               cursor: "pointer",
               whiteSpace: "nowrap",
               flexShrink: 0,
@@ -121,7 +121,7 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
                 color: activeCategory === cat.id ? GOLD : "rgba(255,255,255,0.55)",
                 fontSize: "12px",
                 fontWeight: 600,
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "'Libre Franklin', sans-serif",
                 cursor: "pointer",
                 whiteSpace: "nowrap",
                 flexShrink: 0,
@@ -139,21 +139,21 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
             <div>
               <button
                 onClick={() => setSelectedTemplate(null)}
-                style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.5)", fontSize: "12px", fontFamily: "'DM Sans', sans-serif", marginBottom: "12px", display: "flex", alignItems: "center", gap: "4px" }}
+                style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.5)", fontSize: "12px", fontFamily: "'Libre Franklin', sans-serif", marginBottom: "12px", display: "flex", alignItems: "center", gap: "4px" }}
               >
                 ← Back to templates
               </button>
 
               <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
-                  <span style={{ fontSize: "10px", fontFamily: "'JetBrains Mono', monospace", color: GOLD, background: GOLD_DIM, border: `1px solid ${GOLD_BORDER}`, borderRadius: "4px", padding: "2px 7px", textTransform: "uppercase" }}>
+                  <span style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: GOLD, background: GOLD_DIM, border: `1px solid ${GOLD_BORDER}`, borderRadius: "4px", padding: "2px 7px", textTransform: "uppercase" }}>
                     {CATEGORIES.find((c) => c.id === selectedTemplate.category)?.name}
                   </span>
                 </div>
-                <h3 style={{ fontSize: "17px", fontWeight: 700, color: "#e0e0e0", fontFamily: "'DM Sans', sans-serif", margin: "8px 0 6px" }}>
+                <h3 style={{ fontSize: "17px", fontWeight: 700, color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif", margin: "8px 0 6px" }}>
                   {selectedTemplate.name}
                 </h3>
-                <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)", lineHeight: 1.6, marginBottom: "18px", fontFamily: "'DM Sans', sans-serif" }}>
+                <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)", lineHeight: 1.6, marginBottom: "18px", fontFamily: "'Libre Franklin', sans-serif" }}>
                   {selectedTemplate.description}
                 </p>
 
@@ -165,10 +165,10 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
                     { label: "Goals", value: selectedTemplate.goals },
                   ].map((field) => (
                     <div key={field.label}>
-                      <div style={{ fontSize: "10px", fontFamily: "'JetBrains Mono', monospace", color: GOLD, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "3px" }}>
+                      <div style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: GOLD, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "3px" }}>
                         {field.label}
                       </div>
-                      <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.7)", lineHeight: 1.5, fontFamily: "'DM Sans', sans-serif" }}>
+                      <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.7)", lineHeight: 1.5, fontFamily: "'Libre Franklin', sans-serif" }}>
                         {field.value}
                       </div>
                     </div>
@@ -184,12 +184,12 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
                         padding: "12px 16px",
                         borderRadius: "10px",
                         border: "none",
-                        background: `linear-gradient(135deg, ${GOLD}, #b8862e)`,
+                        background: `linear-gradient(135deg, ${GOLD}, #A96A49)`,
                         color: "#1a1a1a",
                         fontSize: "14px",
                         fontWeight: 700,
                         cursor: "pointer",
-                        fontFamily: "'DM Sans', sans-serif",
+                        fontFamily: "'Libre Franklin', sans-serif",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -213,7 +213,7 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
                           fontSize: "14px",
                           fontWeight: 700,
                           cursor: "pointer",
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "'Libre Franklin', sans-serif",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
@@ -223,7 +223,7 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
                         <Lock size={15} />
                         Upgrade to Use Templates
                       </button>
-                      <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)", textAlign: "center", marginTop: "8px", fontFamily: "'DM Sans', sans-serif" }}>
+                      <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)", textAlign: "center", marginTop: "8px", fontFamily: "'Libre Franklin', sans-serif" }}>
                         Templates are available on the Pro plan
                       </p>
                     </div>
@@ -254,16 +254,16 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}
                 >
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ fontSize: "13px", fontWeight: 600, color: "#e0e0e0", fontFamily: "'DM Sans', sans-serif" }}>
+                    <span style={{ fontSize: "13px", fontWeight: 600, color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif" }}>
                       {template.name}
                     </span>
                     <ChevronRight size={14} color="rgba(255,255,255,0.3)" />
                   </div>
-                  <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", fontFamily: "'DM Sans', sans-serif", lineHeight: 1.4 }}>
+                  <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", fontFamily: "'Libre Franklin', sans-serif", lineHeight: 1.4 }}>
                     {template.description}
                   </span>
                   {!activeCategory && (
-                    <span style={{ fontSize: "9px", fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.5px", marginTop: "2px" }}>
+                    <span style={{ fontSize: "9px", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "0.5px", marginTop: "2px" }}>
                       {CATEGORIES.find((c) => c.id === template.category)?.name}
                     </span>
                   )}

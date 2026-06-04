@@ -82,29 +82,29 @@ export default function Dashboard({
 
           {/* Logo */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "40px" }}>
-            <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "linear-gradient(135deg, #d4a24e, #b8862e)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "linear-gradient(135deg, #C07A56, #A96A49)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               <Zap size={22} color="#1a1a1a" />
             </div>
-            <span style={{ fontSize: "22px", fontWeight: 700, letterSpacing: "-0.5px", fontFamily: "'DM Sans', sans-serif" }}>Stanzix</span>
+            <span style={{ fontSize: "22px", fontWeight: 700, letterSpacing: "-0.5px", fontFamily: "'Libre Franklin', sans-serif" }}>Stanzix</span>
           </div>
 
           {/* Headline */}
-          <h1 style={{ fontSize: isMobile ? "24px" : "30px", fontWeight: 700, letterSpacing: "-0.8px", textAlign: "center", marginBottom: "14px", fontFamily: "'DM Sans', sans-serif", color: "#e0e0e0", lineHeight: 1.2 }}>
+          <h1 style={{ fontSize: isMobile ? "24px" : "30px", fontWeight: 700, letterSpacing: "-0.8px", textAlign: "center", marginBottom: "14px", fontFamily: "'Libre Franklin', sans-serif", color: "#F0EBE0", lineHeight: 1.2 }}>
             Welcome to Stanzix
           </h1>
-          <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.5)", textAlign: "center", marginBottom: "32px", lineHeight: 1.7, fontFamily: "'DM Sans', sans-serif" }}>
+          <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.5)", textAlign: "center", marginBottom: "32px", lineHeight: 1.7, fontFamily: "'Libre Franklin', sans-serif" }}>
             Build structured prompts for Claude, ChatGPT, and every LLM.{isMobile ? " " : <br />}
             Pick a starting point or describe what you need.
           </p>
 
           {/* Free tier badge */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "14px 18px", background: "rgba(212,162,78,0.06)", border: "1px solid rgba(212,162,78,0.15)", borderRadius: "10px", marginBottom: "24px" }}>
-            <Zap size={18} color="#d4a24e" style={{ flexShrink: 0 }} />
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "14px 18px", background: "rgba(192,122,86,0.06)", border: "1px solid rgba(192,122,86,0.15)", borderRadius: "10px", marginBottom: "24px" }}>
+            <Zap size={18} color="#C07A56" style={{ flexShrink: 0 }} />
             <div>
-              <div style={{ fontSize: "14px", fontWeight: 600, color: "#e0e0e0", fontFamily: "'DM Sans', sans-serif" }}>
+              <div style={{ fontSize: "14px", fontWeight: 600, color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif" }}>
                 5 free prompts to start
               </div>
-              <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.45)", marginTop: "2px", fontFamily: "'DM Sans', sans-serif" }}>
+              <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.45)", marginTop: "2px", fontFamily: "'Libre Franklin', sans-serif" }}>
                 No credit card required. Upgrade anytime for unlimited.
               </div>
             </div>
@@ -112,7 +112,7 @@ export default function Dashboard({
 
           {/* Template category grid */}
           <div style={{ marginBottom: "24px" }}>
-            <div style={{ fontSize: "10px", fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "1.2px", marginBottom: "10px" }}>
+            <div style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "1.2px", marginBottom: "10px" }}>
               Pick a starting point
             </div>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr", gap: "8px" }}>
@@ -134,13 +134,13 @@ export default function Dashboard({
                       gap: "10px",
                       transition: "border-color 0.2s, background 0.2s",
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(212,162,78,0.25)"; e.currentTarget.style.background = "rgba(212,162,78,0.06)"; }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(192,122,86,0.25)"; e.currentTarget.style.background = "rgba(192,122,86,0.06)"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}
                   >
                     <Icon size={15} color="rgba(255,255,255,0.45)" />
                     <div>
-                      <div style={{ fontSize: "13px", fontWeight: 600, color: "#e0e0e0", fontFamily: "'DM Sans', sans-serif" }}>{cat.name}</div>
-                      <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.3)", fontFamily: "'JetBrains Mono', monospace", marginTop: "2px" }}>{categoryCount(cat.id)} templates</div>
+                      <div style={{ fontSize: "13px", fontWeight: 600, color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif" }}>{cat.name}</div>
+                      <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.3)", fontFamily: "'IBM Plex Mono', monospace", marginTop: "2px" }}>{categoryCount(cat.id)} templates</div>
                     </div>
                   </button>
                 );
@@ -151,14 +151,14 @@ export default function Dashboard({
           {/* Divider */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px", margin: "4px 0 14px" }}>
             <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.07)" }} />
-            <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.25)", fontFamily: "'JetBrains Mono', monospace" }}>or</span>
+            <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.25)", fontFamily: "'IBM Plex Mono', monospace" }}>or</span>
             <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.07)" }} />
           </div>
 
           {/* Custom prompt CTA */}
           <button
             onClick={onNewPrompt}
-            style={{ width: "100%", padding: "13px 24px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #d4a24e, #b8862e)", color: "#1a1a1a", fontSize: "14px", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", fontFamily: "'DM Sans', sans-serif", marginBottom: "10px" }}
+            style={{ width: "100%", padding: "13px 24px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #C07A56, #A96A49)", color: "#1a1a1a", fontSize: "14px", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", fontFamily: "'Libre Franklin', sans-serif", marginBottom: "10px" }}
           >
             Describe What You Need
             <ArrowRight size={16} />
@@ -167,7 +167,7 @@ export default function Dashboard({
           {/* Edit existing */}
           <button
             onClick={onEditExisting}
-            style={{ width: "100%", padding: "11px 20px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.03)", color: "rgba(255,255,255,0.6)", fontSize: "13px", fontWeight: 500, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", fontFamily: "'DM Sans', sans-serif" }}
+            style={{ width: "100%", padding: "11px 20px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.03)", color: "rgba(255,255,255,0.6)", fontSize: "13px", fontWeight: 500, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", fontFamily: "'Libre Franklin', sans-serif" }}
           >
             Paste existing instructions → Edit
           </button>
@@ -176,14 +176,14 @@ export default function Dashboard({
           <div style={{ textAlign: "center", marginTop: "28px", display: "flex", justifyContent: "center", gap: "16px" }}>
             <button
               onClick={onOpenSettings}
-              style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.3)", fontSize: "12px", fontFamily: "'DM Sans', sans-serif", display: "inline-flex", alignItems: "center", gap: "6px" }}
+              style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.3)", fontSize: "12px", fontFamily: "'Libre Franklin', sans-serif", display: "inline-flex", alignItems: "center", gap: "6px" }}
             >
               <Settings size={13} />
               Settings
             </button>
             <button
               onClick={onSignOut}
-              style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.3)", fontSize: "12px", fontFamily: "'DM Sans', sans-serif", display: "inline-flex", alignItems: "center", gap: "6px" }}
+              style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.3)", fontSize: "12px", fontFamily: "'Libre Franklin', sans-serif", display: "inline-flex", alignItems: "center", gap: "6px" }}
             >
               <LogOut size={13} />
               Sign out
@@ -201,16 +201,16 @@ export default function Dashboard({
       {/* Compact header */}
       <header style={{ padding: isMobile ? "12px 16px" : "14px 24px", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between", alignItems: "center", background: "rgba(0,0,0,0.2)", flexShrink: 0 }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <div style={{ width: "28px", height: "28px", borderRadius: "7px", background: "linear-gradient(135deg, #d4a24e, #b8862e)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <div style={{ width: "28px", height: "28px", borderRadius: "7px", background: "linear-gradient(135deg, #C07A56, #A96A49)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <Zap size={15} color="#1a1a1a" />
           </div>
-          <span style={{ fontSize: "15px", fontWeight: 700, letterSpacing: "-0.3px", fontFamily: "'DM Sans', sans-serif" }}>Stanzix</span>
+          <span style={{ fontSize: "15px", fontWeight: 700, letterSpacing: "-0.3px", fontFamily: "'Libre Franklin', sans-serif" }}>Stanzix</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           {!isPaid && usageCount !== null && (
             <div
               title={usageHit ? "Monthly limit reached" : `${freeLimit - usageCount} prompts remaining this month`}
-              style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace", color: usageHit ? "#dc5050" : usageAtRisk ? "#d4a24e" : "rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.04)", border: `1px solid ${usageHit ? "rgba(220,80,80,0.3)" : usageAtRisk ? "rgba(212,162,78,0.25)" : "rgba(255,255,255,0.08)"}`, borderRadius: "6px", padding: "4px 10px", cursor: "default" }}
+              style={{ fontSize: "11px", fontFamily: "'IBM Plex Mono', monospace", color: usageHit ? "#D05050" : usageAtRisk ? "#C07A56" : "rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.04)", border: `1px solid ${usageHit ? "rgba(208,80,80,0.3)" : usageAtRisk ? "rgba(192,122,86,0.25)" : "rgba(255,255,255,0.08)"}`, borderRadius: "6px", padding: "4px 10px", cursor: "default" }}
             >
               {usageCount} / {freeLimit} free
             </div>
@@ -222,7 +222,7 @@ export default function Dashboard({
             style={{ background: "none", border: "none", cursor: "pointer", padding: "6px", display: "flex", alignItems: "center", gap: "4px", color: "rgba(255,255,255,0.45)" }}
           >
             <Settings size={15} />
-            {!isMobile && <span style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace" }}>Settings</span>}
+            {!isMobile && <span style={{ fontSize: "11px", fontFamily: "'IBM Plex Mono', monospace" }}>Settings</span>}
           </button>
         </div>
       </header>
@@ -232,39 +232,39 @@ export default function Dashboard({
 
         {/* Active session card */}
         {hasActiveSession && (
-          <div style={{ background: "rgba(212,162,78,0.04)", border: "1px solid rgba(212,162,78,0.18)", borderLeft: "3px solid #d4a24e", borderRadius: "10px", padding: isMobile ? "16px 18px" : "20px 24px", marginBottom: "32px" }}>
-            <div style={{ fontSize: "10px", fontFamily: "'JetBrains Mono', monospace", color: "#d4a24e", textTransform: "uppercase", letterSpacing: "1.2px", marginBottom: "10px" }}>
+          <div style={{ background: "rgba(192,122,86,0.04)", border: "1px solid rgba(192,122,86,0.18)", borderLeft: "3px solid #C07A56", borderRadius: "10px", padding: isMobile ? "16px 18px" : "20px 24px", marginBottom: "32px" }}>
+            <div style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: "#C07A56", textTransform: "uppercase", letterSpacing: "1.2px", marginBottom: "10px" }}>
               ▶ Active Session
             </div>
-            <div style={{ fontSize: isMobile ? "16px" : "18px", fontWeight: 700, color: "#e0e0e0", fontFamily: "'DM Sans', sans-serif", marginBottom: activeDomain ? "4px" : "12px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            <div style={{ fontSize: isMobile ? "16px" : "18px", fontWeight: 700, color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif", marginBottom: activeDomain ? "4px" : "12px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
               {activeProjectName || "Untitled Project"}
             </div>
             {activeDomain && (
-              <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif", marginBottom: "12px" }}>
+              <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)", fontFamily: "'Libre Franklin', sans-serif", marginBottom: "12px" }}>
                 {activeDomain}
               </div>
             )}
             {activeLastEdited && (
-              <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", fontFamily: "'JetBrains Mono', monospace", marginBottom: "6px" }}>
+              <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", fontFamily: "'IBM Plex Mono', monospace", marginBottom: "6px" }}>
                 Edited {relativeDate(activeLastEdited)}
               </div>
             )}
             <div style={{ display: "flex", gap: "10px", marginTop: "16px", flexWrap: "wrap" }}>
               <button
                 onClick={onContinue}
-                style={{ padding: "10px 20px", borderRadius: "8px", border: "none", background: "linear-gradient(135deg, #d4a24e, #b8862e)", color: "#1a1a1a", fontSize: "13px", fontWeight: 700, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
+                style={{ padding: "10px 20px", borderRadius: "8px", border: "none", background: "linear-gradient(135deg, #C07A56, #A96A49)", color: "#1a1a1a", fontSize: "13px", fontWeight: 700, cursor: "pointer", fontFamily: "'Libre Franklin', sans-serif" }}
               >
                 Continue Editing
               </button>
               <button
                 onClick={onNewPrompt}
-                style={{ padding: "10px 20px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.7)", fontSize: "13px", fontWeight: 500, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
+                style={{ padding: "10px 20px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.7)", fontSize: "13px", fontWeight: 500, cursor: "pointer", fontFamily: "'Libre Franklin', sans-serif" }}
               >
                 Start Fresh
               </button>
               <button
                 onClick={() => onBrowseTemplates()}
-                style={{ padding: "10px 20px", borderRadius: "8px", border: "1px solid rgba(212,162,78,0.2)", background: "rgba(212,162,78,0.06)", color: "#d4a24e", fontSize: "13px", fontWeight: 500, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", display: "flex", alignItems: "center", gap: "6px" }}
+                style={{ padding: "10px 20px", borderRadius: "8px", border: "1px solid rgba(192,122,86,0.2)", background: "rgba(192,122,86,0.06)", color: "#C07A56", fontSize: "13px", fontWeight: 500, cursor: "pointer", fontFamily: "'Libre Franklin', sans-serif", display: "flex", alignItems: "center", gap: "6px" }}
               >
                 <Library size={14} />
                 Templates
@@ -275,11 +275,11 @@ export default function Dashboard({
 
         {/* Library section header */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" }}>
-          <div style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "1.5px" }}>
+          <div style={{ fontSize: "11px", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "1.5px" }}>
             Your Prompts
           </div>
           {promptHistory.length > 0 && (
-            <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", fontFamily: "'JetBrains Mono', monospace" }}>
+            <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", fontFamily: "'IBM Plex Mono', monospace" }}>
               {promptHistory.length} saved
             </div>
           )}
@@ -288,7 +288,7 @@ export default function Dashboard({
         {/* Library entries */}
         {promptHistory.length === 0 ? (
           <div style={{ padding: "28px 0 32px", textAlign: "center" }}>
-            <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.35)", fontFamily: "'DM Sans', sans-serif", fontStyle: "italic" }}>
+            <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.35)", fontFamily: "'Libre Franklin', sans-serif", fontStyle: "italic" }}>
               Prompts you export will appear here.
             </p>
           </div>
@@ -296,21 +296,21 @@ export default function Dashboard({
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "12px", marginBottom: "28px" }}>
             {promptHistory.map((entry) => (
               <div key={entry.id} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "10px", padding: "16px", display: "flex", flexDirection: "column" }}>
-                <div style={{ fontWeight: 700, fontSize: "14px", color: "#e0e0e0", fontFamily: "'DM Sans', sans-serif", marginBottom: "4px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                <div style={{ fontWeight: 700, fontSize: "14px", color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif", marginBottom: "4px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                   {entry.projectName || "Untitled"}
                 </div>
-                <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)", fontFamily: "'JetBrains Mono', monospace", marginBottom: "8px" }}>
+                <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)", fontFamily: "'IBM Plex Mono', monospace", marginBottom: "8px" }}>
                   {formatDate(entry.savedAt)}
                 </div>
                 {entry.instructions && (
-                  <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", fontFamily: "'DM Sans', sans-serif", lineHeight: 1.5, marginBottom: "12px", flex: 1, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
+                  <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", fontFamily: "'Libre Franklin', sans-serif", lineHeight: 1.5, marginBottom: "12px", flex: 1, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
                     {entry.instructions.slice(0, 140)}
                   </div>
                 )}
                 <div style={{ display: "flex", gap: "8px", alignItems: "center", marginTop: "auto" }}>
                   <button
                     onClick={() => handleCopy(entry)}
-                    style={{ display: "flex", alignItems: "center", gap: "5px", padding: "6px 12px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: copiedId === entry.id ? "#50b450" : "rgba(255,255,255,0.65)", fontSize: "12px", cursor: "pointer", fontFamily: "'DM Sans', sans-serif", transition: "color 0.15s", fontWeight: 500 }}
+                    style={{ display: "flex", alignItems: "center", gap: "5px", padding: "6px 12px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: copiedId === entry.id ? "#7DB86A" : "rgba(255,255,255,0.65)", fontSize: "12px", cursor: "pointer", fontFamily: "'Libre Franklin', sans-serif", transition: "color 0.15s", fontWeight: 500 }}
                   >
                     {copiedId === entry.id ? <Check size={13} /> : <Copy size={13} />}
                     {copiedId === entry.id ? "Copied!" : "Copy"}
@@ -318,7 +318,7 @@ export default function Dashboard({
                   <button
                     onClick={() => handleDelete(entry.id)}
                     title={deleteConfirmId === entry.id ? "Click again to confirm" : "Delete"}
-                    style={{ display: "flex", alignItems: "center", gap: "5px", padding: "6px 10px", borderRadius: "6px", border: `1px solid ${deleteConfirmId === entry.id ? "rgba(220,80,80,0.4)" : "rgba(255,255,255,0.08)"}`, background: deleteConfirmId === entry.id ? "rgba(220,80,80,0.08)" : "transparent", color: deleteConfirmId === entry.id ? "#dc5050" : "rgba(255,255,255,0.3)", fontSize: "12px", cursor: "pointer", fontFamily: "'DM Sans', sans-serif", transition: "all 0.15s" }}
+                    style={{ display: "flex", alignItems: "center", gap: "5px", padding: "6px 10px", borderRadius: "6px", border: `1px solid ${deleteConfirmId === entry.id ? "rgba(208,80,80,0.4)" : "rgba(255,255,255,0.08)"}`, background: deleteConfirmId === entry.id ? "rgba(208,80,80,0.08)" : "transparent", color: deleteConfirmId === entry.id ? "#D05050" : "rgba(255,255,255,0.3)", fontSize: "12px", cursor: "pointer", fontFamily: "'Libre Franklin', sans-serif", transition: "all 0.15s" }}
                   >
                     <Trash2 size={13} />
                     {deleteConfirmId === entry.id && <span>Delete?</span>}
@@ -333,7 +333,7 @@ export default function Dashboard({
         <div style={{ textAlign: "center", paddingTop: "8px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
           <button
             onClick={onNewPrompt}
-            style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "12px 28px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #d4a24e, #b8862e)", color: "#1a1a1a", fontSize: "14px", fontWeight: 700, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
+            style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "12px 28px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #C07A56, #A96A49)", color: "#1a1a1a", fontSize: "14px", fontWeight: 700, cursor: "pointer", fontFamily: "'Libre Franklin', sans-serif" }}
           >
             <Plus size={16} />
             New Prompt

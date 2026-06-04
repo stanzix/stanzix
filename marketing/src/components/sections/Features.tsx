@@ -31,10 +31,8 @@ export default function Features() {
   return (
     <section id="features" className="py-24 md:py-32 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <p className="font-sans text-sm text-text-dim uppercase tracking-wider mb-4">
-          What&apos;s inside
-        </p>
-        <h2 className="font-serif text-4xl md:text-5xl font-medium tracking-tight text-text-primary mb-12">
+        <span className="font-serif text-sm italic text-accent tracking-normal mb-2.5 block">Features</span>
+        <h2 className="font-serif text-4xl md:text-5xl font-medium tracking-tight leading-[1.15] text-text-primary mb-10">
           Everything you need. Nothing you don&apos;t.
         </h2>
 
@@ -47,7 +45,7 @@ export default function Features() {
               <h3 className="font-serif text-xl font-medium text-text-primary">
                 <Bracket>{feature.title}</Bracket>
               </h3>
-              <p className="font-sans text-sm text-text-secondary leading-relaxed">
+              <p className="font-sans text-[13px] text-text-secondary leading-relaxed">
                 {feature.body}
               </p>
             </div>

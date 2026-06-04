@@ -7,18 +7,18 @@ import { Btn } from "./ui";
 function FormattedPreview({ text }) {
   const lines = text.split("\n");
   return (
-    <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "11.5px", lineHeight: 1.75, color: "rgba(255,255,255,0.65)" }}>
+    <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "11.5px", lineHeight: 1.75, color: "rgba(255,255,255,0.65)" }}>
       {lines.map((line, i) => {
         if (line.startsWith("## ")) {
           return (
-            <div key={i} style={{ color: "#d4a24e", fontWeight: 600, fontSize: "12px", marginTop: i === 0 ? 0 : "14px", marginBottom: "2px", letterSpacing: "0.2px" }}>
+            <div key={i} style={{ color: "#C07A56", fontWeight: 600, fontSize: "12px", marginTop: i === 0 ? 0 : "14px", marginBottom: "2px", letterSpacing: "0.2px" }}>
               {line.replace(/^## /, "")}
             </div>
           );
         }
         if (line.startsWith("### ")) {
           return (
-            <div key={i} style={{ color: "rgba(212,162,78,0.75)", fontWeight: 600, fontSize: "11px", marginTop: "10px", marginBottom: "1px" }}>
+            <div key={i} style={{ color: "rgba(192,122,86,0.75)", fontWeight: 600, fontSize: "11px", marginTop: "10px", marginBottom: "1px" }}>
               {line.replace(/^### /, "")}
             </div>
           );
@@ -82,16 +82,16 @@ export default function PreviewPanel({ isMobile, showPreview, setShowPreview, co
           {/* Panel header */}
           <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between", alignItems: "center", flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <div style={{ fontSize: "11px", fontFamily: "'JetBrains Mono', monospace", color: "#d4a24e", textTransform: "uppercase", letterSpacing: "1.5px", fontWeight: 600 }}>Live Preview</div>
+              <div style={{ fontSize: "11px", fontFamily: "'IBM Plex Mono', monospace", color: "#C07A56", textTransform: "uppercase", letterSpacing: "1.5px", fontWeight: 600 }}>Live Preview</div>
               {showSample && (
-                <div style={{ fontSize: "9px", fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "4px", padding: "2px 6px" }}>sample</div>
+                <div style={{ fontSize: "9px", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "4px", padding: "2px 6px" }}>sample</div>
               )}
               {!showSample && (
-                <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#50b450", boxShadow: "0 0 6px rgba(80,180,80,0.5)", animation: "glow 2s ease-in-out infinite" }} title="Auto-updating" />
+                <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#7DB86A", boxShadow: "0 0 6px rgba(80,180,80,0.5)", animation: "glow 2s ease-in-out infinite" }} title="Auto-updating" />
               )}
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              {!showSample && <div style={{ fontSize: "10px", fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.35)" }}>auto-updates</div>}
+              {!showSample && <div style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(255,255,255,0.35)" }}>auto-updates</div>}
               {isMobile && <button onClick={() => setShowPreview(false)} aria-label="Close preview" style={{ background: "none", border: "none", cursor: "pointer", padding: "10px", minWidth: "44px", minHeight: "44px", display: "flex", alignItems: "center", justifyContent: "center" }}><X size={20} color="rgba(255,255,255,0.6)" /></button>}
             </div>
           </div>
@@ -100,7 +100,7 @@ export default function PreviewPanel({ isMobile, showPreview, setShowPreview, co
           <div style={{ flex: 1, overflowY: "auto", padding: "16px" }}>
             {showSample ? (
               <div>
-                <div style={{ fontSize: "10px", fontFamily: "'JetBrains Mono', monospace", color: "rgba(255,255,255,0.3)", marginBottom: "12px", fontStyle: "italic" }}>
+                <div style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(255,255,255,0.3)", marginBottom: "12px", fontStyle: "italic" }}>
                   Example output — yours builds here as you fill each step.
                 </div>
                 <FormattedPreview text={SAMPLE_PREVIEW} />

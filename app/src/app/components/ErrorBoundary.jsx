@@ -28,11 +28,11 @@ export default class ErrorBoundary extends Component {
             justifyContent: "center",
             padding: "40px 24px",
             gap: "20px",
-            fontFamily: "'DM Sans', sans-serif",
+            fontFamily: "'Libre Franklin', sans-serif",
           }}
         >
           <div style={{ fontSize: "32px" }}>⚠️</div>
-          <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#e0e0e0", margin: 0 }}>
+          <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#F0EBE0", margin: 0 }}>
             Something went wrong
           </h2>
           <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.5)", textAlign: "center", maxWidth: "360px", margin: 0, lineHeight: 1.6 }}>
@@ -46,13 +46,13 @@ export default class ErrorBoundary extends Component {
               gap: "8px",
               padding: "10px 20px",
               borderRadius: "8px",
-              border: "1px solid rgba(212,162,78,0.3)",
-              background: "rgba(212,162,78,0.08)",
-              color: "#d4a24e",
+              border: "1px solid rgba(192,122,86,0.3)",
+              background: "rgba(192,122,86,0.08)",
+              color: "#C07A56",
               fontSize: "14px",
               fontWeight: 600,
               cursor: "pointer",
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: "'Libre Franklin', sans-serif",
             }}
           >
             <RefreshCw size={15} />

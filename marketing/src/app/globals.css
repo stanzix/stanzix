@@ -1,20 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0A0A0A;
-  --color-surface: #141414;
-  --color-text-primary: #F5F1E8;
-  --color-text-secondary: #8B8579;
-  --color-text-dim: #5C564D;
-  --color-accent: #D4A04C;
-  --color-accent-hover: #C49340;
-  --color-accent-dim: #8B6B30;
-  --color-border: #2A2620;
+  --color-background: #0C0B0A;
+  --color-surface: #161514;
+  --color-surface-hover: #1E1D1B;
+  --color-text-primary: #F0EBE0;
+  --color-text-secondary: #948C7E;
+  --color-text-dim: #5E5850;
+  --color-accent: #C07A56;
+  --color-accent-hover: #A96A49;
+  --color-accent-dim: #7D5038;
+  --color-accent-glow: rgba(192,122,86,0.08);
+  --color-border: #2C2824;
+  --color-border-light: #3A3530;
   --color-success: #7DB86A;
+  --color-error: #D05050;
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "Cascadia Code", monospace;
+  --font-sans: var(--font-libre-franklin), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, "Cascadia Code", monospace;
 }
 
 @layer base {
@@ -23,7 +27,7 @@
   }
 
   html {
-    background-color: #0A0A0A;
+    background-color: #0C0B0A;
   }
 
   body {

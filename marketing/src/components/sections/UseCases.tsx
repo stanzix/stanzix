@@ -88,10 +88,8 @@ export default function UseCases() {
   return (
     <section id="use-cases" className="py-16 md:py-24 lg:py-28">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <p className="font-sans text-sm text-text-dim uppercase tracking-wider mb-4">
-          Use Cases
-        </p>
-        <h2 className="font-serif text-4xl md:text-5xl font-medium tracking-tight text-text-primary mb-10">
+        <span className="font-serif text-sm italic text-accent tracking-normal mb-2.5 block">Use cases</span>
+        <h2 className="font-serif text-4xl md:text-5xl font-medium tracking-tight leading-[1.15] text-text-primary mb-7">
           Built for your workflow.
         </h2>
 
@@ -105,10 +103,10 @@ export default function UseCases() {
               aria-selected={activeId === tab.id}
               aria-controls={`tabpanel-${tab.id}`}
               onClick={() => setActiveId(tab.id)}
-              className={`font-sans text-sm font-medium px-5 py-3 transition-colors border-b-2 -mb-px ${
+              className={`font-sans text-[13px] px-5 py-2.5 transition-colors border-b-2 -mb-px ${
                 activeId === tab.id
-                  ? "text-text-primary border-accent"
-                  : "text-text-dim border-transparent hover:text-text-secondary"
+                  ? "text-text-primary font-semibold border-accent"
+                  : "text-text-dim font-normal border-transparent hover:text-text-secondary"
               }`}
             >
               {tab.label}

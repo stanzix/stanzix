@@ -5,9 +5,12 @@ export default function Problem() {
     <section className="pt-24 md:pt-32 lg:pt-40 pb-12 md:pb-16 lg:pb-20">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] gap-8 md:gap-16 items-start">
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-text-primary">
-            Your prompts work. Sometimes.
-          </h2>
+          <div>
+            <span className="font-serif text-sm italic text-accent tracking-normal mb-2.5 block">The problem</span>
+            <h2 className="font-serif text-4xl md:text-5xl font-medium tracking-tight leading-[1.15] text-text-primary">
+              Your prompts work. Sometimes.
+            </h2>
+          </div>
 
           <ScaffoldLine orientation="vertical" className="hidden md:block self-stretch" />
 
@@ -18,7 +21,7 @@ export default function Problem() {
               scratch every time. Your team can&apos;t reproduce what you do. Your AI
               workflow is a series of one-off conversations instead of a system.
             </p>
-            <p className="font-sans text-base text-text-primary font-medium leading-relaxed">
+            <p className="font-serif text-lg text-text-primary font-medium italic leading-relaxed">
               The problem isn&apos;t AI. It&apos;s the prompts.
             </p>
           </div>

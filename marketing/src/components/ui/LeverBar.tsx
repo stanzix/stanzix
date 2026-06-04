@@ -14,7 +14,7 @@ export default function LeverBar({ label, value, className = "" }: LeverBarProps
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
       <div className="flex items-center justify-between">
-        <span className="font-mono text-xs text-text-dim uppercase tracking-wider">
+        <span className="font-serif text-sm italic text-accent">
           {label}
         </span>
         <span className="font-mono text-xs text-accent">{clamped}</span>

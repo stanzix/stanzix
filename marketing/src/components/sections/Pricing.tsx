@@ -72,10 +72,8 @@ export default function Pricing() {
   return (
     <section id="pricing" className="py-24 md:py-32 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <p className="font-sans text-sm text-text-dim uppercase tracking-wider mb-4">
-          Pricing
-        </p>
-        <h2 className="font-serif text-4xl md:text-5xl font-medium tracking-tight text-text-primary mb-12">
+        <span className="font-serif text-sm italic text-accent tracking-normal mb-2.5 block">Pricing</span>
+        <h2 className="font-serif text-4xl md:text-5xl font-medium tracking-tight leading-[1.15] text-text-primary mb-10">
           Simple pricing. No surprises.
         </h2>
 
@@ -89,20 +87,20 @@ export default function Pricing() {
             >
               <div className="space-y-2">
                 {tier.highlighted && (
-                  <span className="font-mono text-xs bg-accent text-background px-2 py-0.5 rounded self-start inline-block">
-                    Most Popular
+                  <span className="font-serif text-[11px] italic text-accent mb-1 block">
+                    Most popular
                   </span>
                 )}
                 {tier.comingSoon && (
-                  <span className="font-mono text-xs border border-border text-text-dim px-2 py-0.5 rounded self-start inline-block">
-                    Coming Soon
+                  <span className="font-sans text-[10px] border border-border text-text-dim px-2 py-0.5 rounded self-start inline-block mb-1">
+                    Coming soon
                   </span>
                 )}
-                <p className="font-mono text-xs text-text-dim uppercase tracking-wider">
+                <p className="font-serif text-sm italic text-text-dim">
                   {tier.name}
                 </p>
                 <div className="flex items-baseline gap-1">
-                  <span className="font-serif text-4xl font-medium text-text-primary">
+                  <span className="font-serif text-[40px] font-medium text-text-primary">
                     {tier.price}
                   </span>
                   <span className="font-sans text-base text-text-secondary">
@@ -114,8 +112,8 @@ export default function Pricing() {
               <ul className="space-y-2 flex-1">
                 {tier.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2">
-                    <span className="text-accent mt-0.5 shrink-0" aria-hidden="true">
-                      •
+                    <span className="text-accent text-[8px] mt-1.5 shrink-0" aria-hidden="true">
+                      ●
                     </span>
                     <span className="font-sans text-sm text-text-secondary">
                       {feature}
@@ -142,9 +140,9 @@ export default function Pricing() {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="font-mono text-xs text-text-dim uppercase tracking-wider mb-2">
+          <span className="font-serif text-sm italic text-accent tracking-normal mb-2 block">
             Risk-free guarantee
-          </p>
+          </span>
           <p className="font-sans text-base text-text-secondary max-w-lg mx-auto leading-relaxed">
             If the output is not better than what you would get typing into ChatGPT directly, cancel within 7 days for a full refund. No questions asked.
           </p>

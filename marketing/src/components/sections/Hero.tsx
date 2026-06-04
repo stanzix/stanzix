@@ -3,31 +3,15 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Button from "@/components/ui/Button";
-import LeverBar from "@/components/ui/LeverBar";
-import ScaffoldLine from "@/components/ui/ScaffoldLine";
 
 interface DemoState {
   label: string;
-  levers: {
-    Role: number;
-    Expertise: number;
-    Guardrails: number;
-    Behavior: number;
-    Priority: number;
-    Safety: number;
-    Format: number;
-    Examples: number;
-  };
   lines: { label: string; value: string }[];
 }
 
 const DEMO_STATES: DemoState[] = [
   {
     label: "Code Review Agent",
-    levers: {
-      Role: 90, Expertise: 85, Guardrails: 70, Behavior: 60,
-      Priority: 55, Safety: 75, Format: 80, Examples: 65,
-    },
     lines: [
       { label: "ROLE", value: "Senior software engineer" },
       { label: "EXPERTISE", value: "Deep, expects industry context" },
@@ -41,10 +25,6 @@ const DEMO_STATES: DemoState[] = [
   },
   {
     label: "Newsletter Writer",
-    levers: {
-      Role: 50, Expertise: 45, Guardrails: 50, Behavior: 40,
-      Priority: 35, Safety: 30, Format: 55, Examples: 80,
-    },
     lines: [
       { label: "ROLE", value: "Tech writer, startup beat" },
       { label: "EXPERTISE", value: "Founder-level, no jargon" },
@@ -58,10 +38,6 @@ const DEMO_STATES: DemoState[] = [
   },
   {
     label: "Executive Summary",
-    levers: {
-      Role: 85, Expertise: 70, Guardrails: 85, Behavior: 45,
-      Priority: 65, Safety: 80, Format: 90, Examples: 45,
-    },
     lines: [
       { label: "ROLE", value: "Strategy consultant" },
       { label: "EXPERTISE", value: "C-suite depth, data-driven" },
@@ -75,16 +51,6 @@ const DEMO_STATES: DemoState[] = [
   },
 ];
 
-const LEVER_KEYS = [
-  "Role",
-  "Expertise",
-  "Guardrails",
-  "Behavior",
-  "Priority",
-  "Safety",
-  "Format",
-  "Examples",
-] as const;
 
 export default function Hero() {
   const [stateIndex, setStateIndex] = useState(0);
@@ -105,21 +71,21 @@ export default function Hero() {
   return (
     <>
       <nav className="sticky top-0 z-50 bg-background/90 backdrop-blur-sm border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <span className="font-serif text-lg font-medium text-text-primary">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <span className="font-serif text-[22px] font-semibold tracking-tight text-text-primary">
               Stanzix
             </span>
-            <span className="text-accent text-lg leading-none" aria-hidden="true">
-              •
+            <span className="text-accent text-[8px] mt-0.5" aria-hidden="true">
+              ●
             </span>
           </div>
-          <div className="flex items-center gap-6">
-            <a href="#features" className="hidden sm:inline font-sans text-sm text-text-secondary hover:text-text-primary transition-colors">Features</a>
-            <a href="#use-cases" className="hidden sm:inline font-sans text-sm text-text-secondary hover:text-text-primary transition-colors">Use Cases</a>
-            <a href="#pricing" className="hidden sm:inline font-sans text-sm text-text-secondary hover:text-text-primary transition-colors">Pricing</a>
-            <Button href="https://app.stanzix.com" className="text-sm px-4 py-2">
-              Try Free
+          <div className="flex items-center gap-9">
+            <a href="#how-it-works" className="hidden sm:inline font-sans text-[13px] text-text-secondary hover:text-text-primary transition-colors tracking-wide">How it works</a>
+            <a href="#features" className="hidden sm:inline font-sans text-[13px] text-text-secondary hover:text-text-primary transition-colors tracking-wide">Features</a>
+            <a href="#pricing" className="hidden sm:inline font-sans text-[13px] text-text-secondary hover:text-text-primary transition-colors tracking-wide">Pricing</a>
+            <Button href="https://app.stanzix.com" className="text-[13px] px-6 py-2">
+              Get started
             </Button>
           </div>
         </div>
@@ -132,37 +98,35 @@ export default function Hero() {
             {/* Left column */}
             <div className="lg:col-span-3">
 
-            <h1 className="font-serif text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[1.05] text-text-primary">
-              Stop rewriting the same prompt every time.
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-[60px] font-medium tracking-tight leading-[1.1] text-text-primary">
+              The architecture<br className="hidden md:block" /> behind every{" "}
+              <span className="text-accent italic">great prompt</span>
             </h1>
 
-            <p className="font-sans text-lg md:text-xl text-text-secondary leading-relaxed mt-6 max-w-xl">
-              Stanzix turns vague requests into structured prompts using an
-              8-lever architecture. Built for people who treat AI like a serious
-              tool, not a toy.
+            <p className="font-sans text-[15px] text-text-secondary leading-relaxed mt-6 max-w-[420px]">
+              Stanzix gives your AI instructions the structure they&apos;ve been
+              missing. Eight levers. Sixty seconds. Prompts that perform.
             </p>
 
-            <div className="flex gap-4 mt-10 flex-wrap">
+            <div className="flex gap-3.5 mt-9 items-center flex-wrap">
               <Button href="https://app.stanzix.com">
-                Try Stanzix Free
+                Build your first prompt
               </Button>
-              <Button variant="secondary" href="#how-it-works">
-                See How It Works
-              </Button>
+              <span className="text-[13px] text-text-dim">Free. No credit card.</span>
             </div>
           </div>
 
           {/* Right column: demo card */}
           <div className="lg:col-span-2" id="demo">
-            <div className="bg-surface border border-border rounded-lg p-6 space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-xs text-text-dim uppercase tracking-wider">
-                  Live Demo
+            <div className="bg-surface border border-border rounded-lg overflow-hidden">
+              <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+                <span className="font-serif text-base font-semibold text-text-primary">
+                  Structured Output
                 </span>
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={stateIndex}
-                    className="font-mono text-xs text-accent"
+                    className="text-[11px] text-accent font-medium tracking-wide"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -173,20 +137,7 @@ export default function Hero() {
                 </AnimatePresence>
               </div>
 
-              <div className="space-y-3">
-                {LEVER_KEYS.map((key) => (
-                  <LeverBar
-                    key={key}
-                    label={key}
-                    value={current.levers[key]}
-                  />
-                ))}
-              </div>
-
-              <ScaffoldLine />
-
-              {/* Code window */}
-              <div className="bg-background border border-border rounded p-4">
+              <div className="px-6 py-5">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={stateIndex}
@@ -194,13 +145,16 @@ export default function Hero() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.25, ease: "easeOut" }}
-                    className="space-y-1"
                   >
-                    {current.lines.map((line) => (
-                      <div key={line.label} className="font-mono text-sm">
-                        <span className="text-accent">{line.label}:</span>
-                        <span className="text-text-secondary">
-                          {"        ".slice(line.label.length)}
+                    {current.lines.map((line, i) => (
+                      <div
+                        key={line.label}
+                        className={`flex items-baseline py-2 ${i < current.lines.length - 1 ? "border-b border-border/50" : ""}`}
+                      >
+                        <span className="font-serif text-[13px] text-accent font-semibold italic w-20 shrink-0">
+                          {line.label.charAt(0) + line.label.slice(1).toLowerCase()}
+                        </span>
+                        <span className="text-[13px] text-text-secondary leading-snug">
                           {line.value}
                         </span>
                       </div>
@@ -209,8 +163,14 @@ export default function Hero() {
                 </AnimatePresence>
               </div>
 
+              <div className="px-6 py-3.5 border-t border-border bg-accent-glow">
+                <span className="text-xs text-text-dim italic">
+                  8 levers configured · ~300 words · paste into any LLM
+                </span>
+              </div>
+
               {/* State indicator dots */}
-              <div className="flex items-center justify-center gap-2 pt-1">
+              <div className="flex items-center justify-center gap-2 py-3 bg-surface">
                 {DEMO_STATES.map((_, i) => (
                   <button
                     key={i}

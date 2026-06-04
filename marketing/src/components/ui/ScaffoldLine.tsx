@@ -12,7 +12,7 @@ export default function ScaffoldLine({
       <div
         className={`w-px h-full ${className}`}
         style={{
-          background: "linear-gradient(180deg, transparent, #D4A04C, transparent)",
+          background: "linear-gradient(180deg, transparent, #C07A56, transparent)",
         }}
         aria-hidden="true"
       />
@@ -23,7 +23,7 @@ export default function ScaffoldLine({
     <div
       className={`h-px w-full ${className}`}
       style={{
-        background: "linear-gradient(90deg, transparent, #D4A04C, transparent)",
+        background: "linear-gradient(90deg, transparent, #C07A56, transparent)",
       }}
       aria-hidden="true"
     />

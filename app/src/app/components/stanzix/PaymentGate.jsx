@@ -2,9 +2,9 @@
 import { ChevronLeft, Zap, Loader2, Sparkles, Target, Brain, ShieldOff, Sliders, Check, Library } from "lucide-react";
 import { VERSION } from "../../lib/outputBuilder";
 
-const GOLD = "#d4a24e";
-const GOLD_DIM = "rgba(212,162,78,0.08)";
-const GOLD_BORDER = "rgba(212,162,78,0.25)";
+const GOLD = "#C07A56";
+const GOLD_DIM = "rgba(192,122,86,0.08)";
+const GOLD_BORDER = "rgba(192,122,86,0.25)";
 
 const FEATURES_PRO = [
   { icon: Library, label: "30 ready-to-use templates" },
@@ -45,11 +45,11 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
             top: "-11px",
             left: "50%",
             transform: "translateX(-50%)",
-            background: `linear-gradient(90deg, ${GOLD}, #b8862e)`,
+            background: `linear-gradient(90deg, ${GOLD}, #A96A49)`,
             color: "#1a1a1a",
             fontSize: "10px",
             fontWeight: 700,
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: "'IBM Plex Mono', monospace",
             padding: "3px 10px",
             borderRadius: "20px",
             whiteSpace: "nowrap",
@@ -70,7 +70,7 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
             color: "rgba(255,255,255,0.5)",
             fontSize: "10px",
             fontWeight: 700,
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: "'IBM Plex Mono', monospace",
             padding: "3px 10px",
             borderRadius: "20px",
             whiteSpace: "nowrap",
@@ -81,9 +81,9 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
       )}
 
       <div>
-        <div style={{ fontSize: "15px", fontWeight: 700, color: "#e0e0e0" }}>{title}</div>
+        <div style={{ fontSize: "15px", fontWeight: 700, color: "#F0EBE0" }}>{title}</div>
         <div style={{ marginTop: "6px", display: "flex", alignItems: "baseline", gap: "4px" }}>
-          <span style={{ fontSize: "28px", fontWeight: 700, color: highlight ? GOLD : "#e0e0e0" }}>
+          <span style={{ fontSize: "28px", fontWeight: 700, color: highlight ? GOLD : "#F0EBE0" }}>
             ${price}
           </span>
           <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)" }}>/{period}</span>
@@ -98,8 +98,8 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
                 width: "20px",
                 height: "20px",
                 borderRadius: "5px",
-                background: "rgba(212,162,78,0.1)",
-                border: "1px solid rgba(212,162,78,0.2)",
+                background: "rgba(192,122,86,0.1)",
+                border: "1px solid rgba(192,122,86,0.2)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -125,7 +125,7 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
             color: "#4ade80",
             fontSize: "13px",
             fontWeight: 700,
-            fontFamily: "'DM Sans', sans-serif",
+            fontFamily: "'Libre Franklin', sans-serif",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -148,13 +148,13 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
             cursor: pending ? "not-allowed" : "pointer",
             background: highlight
               ? pending
-                ? "rgba(212,162,78,0.4)"
-                : `linear-gradient(135deg, ${GOLD}, #b8862e)`
+                ? "rgba(192,122,86,0.4)"
+                : `linear-gradient(135deg, ${GOLD}, #A96A49)`
               : GOLD_DIM,
             color: highlight ? "#1a1a1a" : GOLD,
             fontSize: "13px",
             fontWeight: 700,
-            fontFamily: "'DM Sans', sans-serif",
+            fontFamily: "'Libre Franklin', sans-serif",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -221,7 +221,7 @@ export default function PaymentGate({
           background: "none",
           border: "none",
           cursor: "pointer",
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: "'Libre Franklin', sans-serif",
           transition: "color 0.2s",
           zIndex: 1,
         }}
@@ -241,7 +241,7 @@ export default function PaymentGate({
           width: "600px",
           height: "400px",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(212,162,78,0.05) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(192,122,86,0.05) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -253,7 +253,7 @@ export default function PaymentGate({
             width: "44px",
             height: "44px",
             borderRadius: "13px",
-            background: `linear-gradient(135deg, ${GOLD}, #b8862e)`,
+            background: `linear-gradient(135deg, ${GOLD}, #A96A49)`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -265,7 +265,7 @@ export default function PaymentGate({
           <h1 style={{ fontSize: isMobile ? "20px" : "26px", fontWeight: 700, letterSpacing: "-0.5px", margin: 0 }}>
             Unlock Stanzix
           </h1>
-          <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.45)", fontFamily: "'JetBrains Mono', monospace" }}>
+          <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.45)", fontFamily: "'IBM Plex Mono', monospace" }}>
             Project Instructions Builder · {VERSION}
           </div>
         </div>
@@ -291,7 +291,7 @@ export default function PaymentGate({
         style={{
           fontSize: "11px",
           color: "rgba(255,255,255,0.4)",
-          fontFamily: "'JetBrains Mono', monospace",
+          fontFamily: "'IBM Plex Mono', monospace",
           background: "rgba(255,255,255,0.04)",
           border: "1px solid rgba(255,255,255,0.08)",
           borderRadius: "8px",
@@ -350,9 +350,9 @@ export default function PaymentGate({
           style={{
             marginTop: "16px",
             fontSize: "13px",
-            color: "#dc5050",
-            background: "rgba(220,80,80,0.08)",
-            border: "1px solid rgba(220,80,80,0.25)",
+            color: "#D05050",
+            background: "rgba(208,80,80,0.08)",
+            border: "1px solid rgba(208,80,80,0.25)",
             borderRadius: "8px",
             padding: "10px 16px",
             maxWidth: "560px",
@@ -373,7 +373,7 @@ export default function PaymentGate({
             border: "none",
             cursor: "pointer",
             fontSize: "13px",
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: "'IBM Plex Mono', monospace",
             color: GOLD,
             textDecoration: "underline",
             textUnderlineOffset: "3px",

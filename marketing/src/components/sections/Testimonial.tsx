@@ -28,10 +28,7 @@ export default function Testimonial() {
   return (
     <section className="py-24 md:py-32 lg:py-40">
       <div className="max-w-3xl mx-auto px-6 md:px-12">
-        <p className="font-mono text-xs text-accent uppercase tracking-wider mb-6">
-          From the builder
-        </p>
-        <ScaffoldLine className="w-16 mb-6" />
+        <span className="font-serif text-sm italic text-accent tracking-normal mb-5 block">From the builder</span>
         <p className="font-sans text-lg md:text-xl text-text-secondary leading-relaxed">
           I was rewriting the same Claude project instructions every week. Same structure, different project. So I built the tool I wanted: describe what you need, configure the levers, get structured output in 60 seconds. Stanzix is the difference between hoping AI gets it right and knowing it will.
         </p>
@@ -53,7 +50,7 @@ export default function Testimonial() {
               key={t.name}
               className="bg-surface border border-border rounded-lg p-6 space-y-4"
             >
-              <p className="font-sans text-sm text-text-secondary leading-relaxed">
+              <p className="font-serif text-base italic text-text-secondary leading-relaxed">
                 &ldquo;{t.quote}&rdquo;
               </p>
               <div className="flex items-center gap-3">
