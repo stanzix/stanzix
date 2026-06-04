@@ -99,13 +99,14 @@ export default function Hero() {
             <div className="lg:col-span-3">
 
             <h1 className="font-serif text-5xl md:text-6xl lg:text-[60px] font-medium tracking-tight leading-[1.1] text-text-primary">
-              The architecture<br className="hidden md:block" /> behind every{" "}
-              <span className="text-accent italic">great prompt</span>
+              Turn any AI request into a{" "}
+              <span className="text-accent italic">structured prompt</span>
+              {" "}in 60 seconds
             </h1>
 
-            <p className="font-sans text-[15px] text-text-secondary leading-relaxed mt-6 max-w-[420px]">
-              Stanzix gives your AI instructions the structure they&apos;ve been
-              missing. Eight levers. Sixty seconds. Prompts that perform.
+            <p className="font-sans text-[15px] text-text-secondary leading-relaxed mt-6 max-w-[460px]">
+              Describe what you need. Configure 8 levers. Get a prompt that works
+              in Claude, ChatGPT, or any LLM. Free to start.
             </p>
 
             <div className="flex gap-3.5 mt-9 items-center flex-wrap">

@@ -109,6 +109,23 @@ export default function Pricing() {
                 </div>
               </div>
 
+              {tier.id === "pro" && (
+                <div className="bg-accent-glow border border-accent/15 rounded-md p-4 space-y-2.5">
+                  <p className="font-sans text-[13px] text-text-primary leading-relaxed">
+                    30 templates built by a prompt engineer (hours of work, already done).
+                  </p>
+                  <p className="font-sans text-[13px] text-text-primary leading-relaxed">
+                    Unlimited generations (no more rewriting from scratch).
+                  </p>
+                  <p className="font-sans text-[13px] text-text-primary leading-relaxed">
+                    Saved library (your best prompts, always ready).
+                  </p>
+                  <p className="font-sans text-[13px] text-text-primary leading-relaxed">
+                    One tool, every LLM.
+                  </p>
+                </div>
+              )}
+
               <ul className="space-y-2 flex-1">
                 {tier.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2">
@@ -134,18 +151,14 @@ export default function Pricing() {
                     {tier.cta}
                   </Button>
                 )}
+                {tier.id === "pro" && (
+                  <p className="font-sans text-xs text-text-dim mt-3 leading-relaxed text-center">
+                    If the output is not better than what you would get typing into ChatGPT directly, cancel within 7 days for a full refund. No questions asked.
+                  </p>
+                )}
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="mt-12 text-center">
-          <span className="font-serif text-sm italic text-accent tracking-normal mb-2 block">
-            Risk-free guarantee
-          </span>
-          <p className="font-sans text-base text-text-secondary max-w-lg mx-auto leading-relaxed">
-            If the output is not better than what you would get typing into ChatGPT directly, cancel within 7 days for a full refund. No questions asked.
-          </p>
         </div>
       </div>
     </section>
