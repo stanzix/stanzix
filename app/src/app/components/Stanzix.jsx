@@ -103,8 +103,14 @@ function StanzixInner() {
       const data = await res.json();
       if (data.url) {
         window.location.href = data.url;
+      } else if (data.error === "no_subscription") {
+        pe.showError("Your subscription is managed outside Stripe. Contact support to make changes.");
+      } else {
+        pe.showError(data.error || "Could not open billing portal. Please try again.");
       }
-    } catch {}
+    } catch {
+      pe.showError("Could not open billing portal. Please try again.");
+    }
   };
 
   const initiateCheckout = async (priceId, setPending) => {
