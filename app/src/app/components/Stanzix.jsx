@@ -564,6 +564,17 @@ function StanzixInner() {
             usageCount={usageCount}
             freeLimit={FREE_LIMIT}
             onManageSubscription={initiatePortal}
+            onCancelSubscription={async () => {
+              if (!auth.user) return;
+              try {
+                const supabase = getSupabaseClient();
+                await supabase.from("profiles").update({ subscription_tier: "free", subscription_status: "canceled" }).eq("id", auth.user.id);
+                setIsPaid(false);
+                setShowSettings(false);
+              } catch {
+                pe.showError("Failed to cancel subscription. Please try again.");
+              }
+            }}
             onSignOut={auth.signOut}
             onUpgrade={() => { setShowSettings(false); setShowPaywall(true); }}
             isMobile={pe.isMobile}

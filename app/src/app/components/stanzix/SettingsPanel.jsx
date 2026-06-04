@@ -30,6 +30,7 @@ export default function SettingsPanel({
   usageCount,
   freeLimit,
   onManageSubscription,
+  onCancelSubscription,
   onSignOut,
   onUpgrade,
   isMobile,
@@ -202,28 +203,48 @@ export default function SettingsPanel({
           )}
 
           {isPaid ? (
-            <button
-              onClick={onManageSubscription}
-              style={{
-                width: "100%",
-                padding: "10px 14px",
-                borderRadius: "8px",
-                border: "1px solid rgba(192,122,86,0.25)",
-                background: "rgba(192,122,86,0.06)",
-                color: "#C07A56",
-                fontSize: "13px",
-                fontWeight: 500,
-                fontFamily: "'Libre Franklin', sans-serif",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-              }}
-            >
-              Manage subscription
-              <ExternalLink size={13} />
-            </button>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <button
+                onClick={onManageSubscription}
+                style={{
+                  width: "100%",
+                  padding: "10px 14px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(192,122,86,0.25)",
+                  background: "rgba(192,122,86,0.06)",
+                  color: "#C07A56",
+                  fontSize: "13px",
+                  fontWeight: 500,
+                  fontFamily: "'Libre Franklin', sans-serif",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                }}
+              >
+                Manage subscription
+                <ExternalLink size={13} />
+              </button>
+              <button
+                onClick={() => { if (window.confirm("Cancel your Pro subscription? You'll revert to the free plan.")) onCancelSubscription(); }}
+                style={{
+                  width: "100%",
+                  padding: "8px 14px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(208,80,80,0.2)",
+                  background: "transparent",
+                  color: "#D05050",
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  fontFamily: "'Libre Franklin', sans-serif",
+                  cursor: "pointer",
+                  textAlign: "center",
+                }}
+              >
+                Cancel subscription
+              </button>
+            </div>
           ) : (
             <button
               onClick={() => { onUpgrade(); onClose(); }}
