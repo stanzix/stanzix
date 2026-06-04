@@ -43,7 +43,7 @@ export default function IntakeScreen({ onComplete, onSkip, isMobile }) {
 
         {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "44px" }}>
-          <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "linear-gradient(135deg, #C07A56, #A96A49)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "linear-gradient(135deg, #B8864E, #A07442)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <Zap size={22} color="#1a1a1a" />
           </div>
           <span style={{ fontSize: "22px", fontWeight: 700, letterSpacing: "-0.5px", fontFamily: "'Libre Franklin', sans-serif" }}>Stanzix</span>
@@ -81,7 +81,7 @@ export default function IntakeScreen({ onComplete, onSkip, isMobile }) {
           disabled={!value.trim() || submitting}
           style={{
             width: "100%", padding: "14px 24px", borderRadius: "10px", border: "none",
-            background: !value.trim() || submitting ? "rgba(192,122,86,0.3)" : "linear-gradient(135deg, #C07A56, #A96A49)",
+            background: !value.trim() || submitting ? "rgba(184,134,78,0.3)" : "linear-gradient(135deg, #B8864E, #A07442)",
             color: !value.trim() || submitting ? "rgba(255,255,255,0.35)" : "#1a1a1a",
             fontSize: "15px", fontWeight: 700, cursor: !value.trim() || submitting ? "not-allowed" : "pointer",
             display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
@@ -131,8 +131,8 @@ export default function IntakeScreen({ onComplete, onSkip, isMobile }) {
                 fontFamily: "'Libre Franklin', sans-serif", transition: "all 0.15s",
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = "rgba(192,122,86,0.06)";
-                e.currentTarget.style.borderColor = "rgba(192,122,86,0.2)";
+                e.currentTarget.style.background = "rgba(184,134,78,0.06)";
+                e.currentTarget.style.borderColor = "rgba(184,134,78,0.2)";
                 e.currentTarget.style.color = "rgba(255,255,255,0.8)";
               }}
               onMouseLeave={e => {

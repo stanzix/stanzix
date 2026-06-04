@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Loader2, Sparkles, RefreshCw, CheckCircle2, Circle } from "lucide-react";
 import { SectionLabel, Btn, Card, StepExample } from "../ui";
 
-const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(192,122,86,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#F0EBE0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
+const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(184,134,78,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#F0EBE0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
 
 export function NegativeSpaceStep({ loading, itemLoading, negativeSuggestions, selectedNegatives, setSelectedNegatives, generateNegativeSpace, updateNegative, trackActivity }) {
   const cascading = itemLoading?.negative_cascade;
@@ -58,7 +58,7 @@ export function NegativeSpaceStep({ loading, itemLoading, negativeSuggestions, s
       </div>
       {!negativeSuggestions.length && cascading && (
         <div style={{ color: "rgba(255,255,255,0.45)", fontSize: "14px", display: "flex", alignItems: "center", gap: "8px" }}>
-          <Loader2 size={14} color="#C07A56" className="spin" />
+          <Loader2 size={14} color="#B8864E" className="spin" />
           Generating guardrails in the background...
         </div>
       )}
@@ -81,7 +81,7 @@ export function NegativeSpaceStep({ loading, itemLoading, negativeSuggestions, s
               onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSelect(i); } }}
             >
               <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
-                {selectedNegatives.has(i) ? <CheckCircle2 size={16} color="#C07A56" style={{ marginTop: "2px", flexShrink: 0 }} /> : <Circle size={16} color="rgba(255,255,255,0.3)" style={{ marginTop: "2px", flexShrink: 0 }} />}
+                {selectedNegatives.has(i) ? <CheckCircle2 size={16} color="#B8864E" style={{ marginTop: "2px", flexShrink: 0 }} /> : <Circle size={16} color="rgba(255,255,255,0.3)" style={{ marginTop: "2px", flexShrink: 0 }} />}
                 <div style={{ flex: 1, minWidth: 0 }}>
                   {editKey === `${i}.behavior` ? (
                     <input

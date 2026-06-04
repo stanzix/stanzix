@@ -233,7 +233,7 @@ function StanzixInner() {
         * { box-sizing: border-box; margin: 0; padding: 0; }
         ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes glow { 0%,100% { box-shadow: 0 0 8px rgba(192,122,86,0.1); } 50% { box-shadow: 0 0 20px rgba(192,122,86,0.3); } }
+        @keyframes glow { 0%,100% { box-shadow: 0 0 8px rgba(184,134,78,0.1); } 50% { box-shadow: 0 0 20px rgba(184,134,78,0.3); } }
         @keyframes shimmerBar { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
         @keyframes fadeInScale { 0% { opacity:0; transform:scale(0.5); } 50% { opacity:1; transform:scale(1.1); } 100% { opacity:1; transform:scale(1); } }
         @keyframes gateFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -244,8 +244,8 @@ function StanzixInner() {
         .gate-fade-2 { animation: gateFade 0.6s 0.15s ease forwards; opacity: 0; }
         .gate-fade-3 { animation: gateFade 0.6s 0.3s ease forwards; opacity: 0; }
         .step-enter { animation: stepEnter 0.22s ease-out both; }
-        textarea:focus, input:focus { border-color: rgba(192,122,86,0.4) !important; }
-        button:focus-visible, [tabindex]:focus-visible, a:focus-visible { outline: 2px solid #C07A56; outline-offset: 2px; }
+        textarea:focus, input:focus { border-color: rgba(184,134,78,0.4) !important; }
+        button:focus-visible, [tabindex]:focus-visible, a:focus-visible { outline: 2px solid #B8864E; outline-offset: 2px; }
         button:hover:not(:disabled) { opacity: 0.85; }
         .flip-card { perspective: 800px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
@@ -261,7 +261,7 @@ function StanzixInner() {
 
       {auth.loading || (auth.user && pe.hydrating) ? (
         <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Loader2 size={32} color="#C07A56" className="spin" />
+          <Loader2 size={32} color="#B8864E" className="spin" />
         </div>
       ) : !auth.user ? (
         <SignInGate isMobile={pe.isMobile} signInWithMagicLink={auth.signInWithMagicLink} />
@@ -328,7 +328,7 @@ function StanzixInner() {
           <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: pe.isMobile ? "0 16px" : "0 28px", height: "56px", borderBottom: "1px solid #2C2824", flexShrink: 0, background: "#0C0B0A" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 600, fontSize: "18px", color: "#F0EBE0" }}>Stanzix</span>
-              <span style={{ color: "#C07A56", fontSize: "6px", marginTop: "2px" }}>●</span>
+              <span style={{ color: "#B8864E", fontSize: "6px", marginTop: "2px" }}>●</span>
               {!pe.isMobile && <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: "11px", color: "#5E5850", marginLeft: "8px" }}>Builder</span>}
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -357,7 +357,7 @@ function StanzixInner() {
           {/* ── Progress bar ──────────────────────────────────────────────── */}
           {pe.appMode === "create" && (
             <div style={{ height: "3px", background: "#2C2824", flexShrink: 0 }}>
-              <div style={{ width: `${((pe.step + 1) / STEPS.length) * 100}%`, height: "100%", background: "linear-gradient(90deg, #7D5038, #C07A56)", borderRadius: "0 2px 2px 0", transition: "width 0.3s ease" }} />
+              <div style={{ width: `${((pe.step + 1) / STEPS.length) * 100}%`, height: "100%", background: "linear-gradient(90deg, #7D5B35, #B8864E)", borderRadius: "0 2px 2px 0", transition: "width 0.3s ease" }} />
             </div>
           )}
 
@@ -366,10 +366,10 @@ function StanzixInner() {
             <div style={{ borderBottom: "1px solid #2C2824", background: "rgba(0,0,0,0.1)", flexShrink: 0 }}>
               <button onClick={() => pe.setShowMobileNav(!pe.showMobileNav)} aria-expanded={pe.showMobileNav} aria-label="Toggle step navigation" style={{ width: "100%", padding: "12px 16px", background: "none", border: "none", display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: 1 }}>
-                  {(() => { const Icon = STEPS[pe.step].icon; return <Icon size={14} color="#C07A56" />; })()}
+                  {(() => { const Icon = STEPS[pe.step].icon; return <Icon size={14} color="#B8864E" />; })()}
                   <div style={{ textAlign: "left" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                      <span style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: "#C07A56", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.8px" }}>
+                      <span style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: "#B8864E", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.8px" }}>
                         {getPhaseInfo(pe.step).phase.label}
                       </span>
                       <span style={{ fontSize: "13px", fontWeight: 600, color: "#F0EBE0" }}>{STEPS[pe.step].label}</span>
@@ -378,8 +378,8 @@ function StanzixInner() {
                   </div>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <span style={{ fontSize: "11px", color: "#C07A56", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, padding: "4px 10px", borderRadius: "6px", background: "rgba(192,122,86,0.08)", border: "1px solid rgba(192,122,86,0.25)" }}>All Steps</span>
-                  <ChevronRight size={14} color="#C07A56" style={{ transform: pe.showMobileNav ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
+                  <span style={{ fontSize: "11px", color: "#B8864E", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, padding: "4px 10px", borderRadius: "6px", background: "rgba(184,134,78,0.08)", border: "1px solid rgba(184,134,78,0.25)" }}>All Steps</span>
+                  <ChevronRight size={14} color="#B8864E" style={{ transform: pe.showMobileNav ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
                 </div>
               </button>
               {pe.showMobileNav && (
@@ -387,16 +387,16 @@ function StanzixInner() {
                   {STEPS.map((s, i) => {
                     const Icon = s.icon; const active = pe.step === i; const completed = i < pe.step;
                     return (
-                      <button key={s.id} onClick={() => { pe.setStep(i); pe.setShowMobileNav(false); pe.trackActivity(); }} aria-current={active ? "step" : undefined} style={{ width: "100%", padding: "10px 16px", background: active ? "rgba(192,122,86,0.08)" : "transparent", border: "none", borderLeft: active ? "3px solid #C07A56" : "3px solid transparent", cursor: "pointer", display: "flex", alignItems: "center", gap: "10px", textAlign: "left", opacity: 1 }}>
+                      <button key={s.id} onClick={() => { pe.setStep(i); pe.setShowMobileNav(false); pe.trackActivity(); }} aria-current={active ? "step" : undefined} style={{ width: "100%", padding: "10px 16px", background: active ? "rgba(184,134,78,0.08)" : "transparent", border: "none", borderLeft: active ? "3px solid #B8864E" : "3px solid transparent", cursor: "pointer", display: "flex", alignItems: "center", gap: "10px", textAlign: "left", opacity: 1 }}>
                         <div style={{ position: "relative", flexShrink: 0 }}>
-                          <Icon size={14} color={active ? "#C07A56" : completed ? "#7DB86A" : "rgba(255,255,255,0.3)"} />
+                          <Icon size={14} color={active ? "#B8864E" : completed ? "#7DB86A" : "rgba(255,255,255,0.3)"} />
                           {completed && <CheckCircle2 size={8} color="#7DB86A" style={{ position: "absolute", top: -3, right: -3 }} />}
                         </div>
                         <div style={{ flex: 1 }}>
                           <div style={{ fontSize: "13px", fontWeight: active ? 600 : 400, color: active ? "#F0EBE0" : "#948C7E" }}>{s.label}</div>
-                          <div style={{ fontSize: "10px", color: active ? "rgba(192,122,86,0.7)" : "#5E5850", fontFamily: "'IBM Plex Mono', monospace", marginTop: "1px" }}>{s.desc}</div>
+                          <div style={{ fontSize: "10px", color: active ? "rgba(184,134,78,0.7)" : "#5E5850", fontFamily: "'IBM Plex Mono', monospace", marginTop: "1px" }}>{s.desc}</div>
                         </div>
-                        {active && <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#C07A56", flexShrink: 0 }} />}
+                        {active && <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#B8864E", flexShrink: 0 }} />}
                       </button>
                     );
                   })}
@@ -414,8 +414,8 @@ function StanzixInner() {
                   const active = pe.step === i;
                   const completed = i < pe.step;
                   return (
-                    <button key={s.id} onClick={() => { pe.setStep(i); pe.trackActivity(); }} aria-current={active ? "step" : undefined} style={{ width: "100%", padding: "9px 20px", background: active ? "rgba(192,122,86,0.08)" : "transparent", borderRight: active ? "2px solid #C07A56" : "2px solid transparent", borderLeft: "none", borderTop: "none", borderBottom: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: "10px", textAlign: "left" }}>
-                      <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "12px", color: completed ? "#C07A56" : active ? "#F0EBE0" : "#5E5850", fontWeight: active ? 600 : 400, width: "16px" }}>{completed ? "✓" : String(i + 1).padStart(2, "0")}</span>
+                    <button key={s.id} onClick={() => { pe.setStep(i); pe.trackActivity(); }} aria-current={active ? "step" : undefined} style={{ width: "100%", padding: "9px 20px", background: active ? "rgba(184,134,78,0.08)" : "transparent", borderRight: active ? "2px solid #B8864E" : "2px solid transparent", borderLeft: "none", borderTop: "none", borderBottom: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: "10px", textAlign: "left" }}>
+                      <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "12px", color: completed ? "#B8864E" : active ? "#F0EBE0" : "#5E5850", fontWeight: active ? 600 : 400, width: "16px" }}>{completed ? "✓" : String(i + 1).padStart(2, "0")}</span>
                       <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: "13px", color: active ? "#F0EBE0" : completed ? "#948C7E" : "#5E5850", fontWeight: active ? 500 : 400 }}>{s.label}</span>
                     </button>
                   );
@@ -440,15 +440,15 @@ function StanzixInner() {
                 <div style={{ padding: pe.isMobile ? "16px" : "36px 48px", flex: 1, maxWidth: "600px", width: "100%", margin: "0 auto" }}>
                   {/* Step header */}
                   <div style={{ marginBottom: "28px" }}>
-                    <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "12px", color: "#C07A56", fontStyle: "italic", marginBottom: "8px", letterSpacing: "0.5px" }}>Step {pe.step + 1} of {STEPS.length}</div>
+                    <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "12px", color: "#B8864E", fontStyle: "italic", marginBottom: "8px", letterSpacing: "0.5px" }}>Step {pe.step + 1} of {STEPS.length}</div>
                     <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "28px", fontWeight: 500, letterSpacing: "-0.3px", marginBottom: "8px", color: "#F0EBE0" }}>{STEPS[pe.step].label}</h2>
                     <p style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: "14px", color: "#948C7E", lineHeight: 1.7 }}>{STEPS[pe.step].desc}</p>
                   </div>
 
                   {/* Idle assist nudge — suppress on step 0 when context is pre-filled */}
                   {pe.showAssist && pe.step < 9 && !(pe.step === 0 && pe.projectName && pe.domain && pe.projectDesc && pe.goals) && (
-                    <div style={{ background: "rgba(192,122,86,0.08)", border: "1px solid rgba(192,122,86,0.25)", borderRadius: "10px", padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
-                      <Lightbulb size={18} color="#C07A56" />
+                    <div style={{ background: "rgba(184,134,78,0.08)", border: "1px solid rgba(184,134,78,0.25)", borderRadius: "10px", padding: "14px 18px", display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+                      <Lightbulb size={18} color="#B8864E" />
                       <span style={{ flex: 1, fontSize: "13px", color: "rgba(255,255,255,0.7)" }}>Looks like you might be stuck. Want me to auto-generate this section?</span>
                       <Btn small primary onClick={pe.autoFillCurrent}><Wand2 size={14} /> Auto-fill</Btn>
                     </div>
@@ -456,7 +456,7 @@ function StanzixInner() {
 
                   {/* Usage warning banner */}
                   {usageAtRisk && !usageHit && (
-                    <div style={{ background: "rgba(192,122,86,0.06)", border: "1px solid rgba(192,122,86,0.2)", borderRadius: "8px", padding: "10px 14px", display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px", fontSize: "12px", color: "rgba(192,122,86,0.85)" }}>
+                    <div style={{ background: "rgba(184,134,78,0.06)", border: "1px solid rgba(184,134,78,0.2)", borderRadius: "8px", padding: "10px 14px", display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px", fontSize: "12px", color: "rgba(184,134,78,0.85)" }}>
                       <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600 }}>{FREE_LIMIT - usageCount} prompt{FREE_LIMIT - usageCount === 1 ? "" : "s"} left</span>
                       <span style={{ color: "#948C7E" }}>this month on the free plan.</span>
                     </div>

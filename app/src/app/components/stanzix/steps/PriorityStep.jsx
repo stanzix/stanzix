@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Loader2, Sparkles, RefreshCw, Sliders, ArrowUp, ArrowDown } from "lucide-react";
 import { SectionLabel, Btn, Card, StepExample } from "../ui";
 
-const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(192,122,86,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#F0EBE0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
+const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(184,134,78,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#F0EBE0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
 
 export function PriorityStep({ loading, priorities, dragIdx, dragOverIdx, itemLoading, generatePriorities, regeneratePriority, handleDragStart, handleDragOver, handleDragEnd, movePriority, updatePriority, trackActivity }) {
   const [editKey, setEditKey] = useState(null);
@@ -42,7 +42,7 @@ export function PriorityStep({ loading, priorities, dragIdx, dragOverIdx, itemLo
       {priorities.length > 0 && <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", fontStyle: "italic" }}>Drag to reorder or use arrows. Higher position = higher priority.</div>}
       <div style={{ display: "flex", flexDirection: "column", gap: "6px" }} role="list" aria-label="Priority rules, ordered by importance">
         {priorities.map((p, i) => (
-          <Card key={i} style={{ display: "flex", alignItems: "center", gap: "12px", cursor: "grab", opacity: dragIdx === i ? 0.5 : 1, borderColor: dragOverIdx === i ? "rgba(192,122,86,0.5)" : undefined, transform: dragOverIdx === i ? "scale(1.02)" : "scale(1)", transition: "transform 0.2s, border-color 0.2s, opacity 0.2s" }}
+          <Card key={i} style={{ display: "flex", alignItems: "center", gap: "12px", cursor: "grab", opacity: dragIdx === i ? 0.5 : 1, borderColor: dragOverIdx === i ? "rgba(184,134,78,0.5)" : undefined, transform: dragOverIdx === i ? "scale(1.02)" : "scale(1)", transition: "transform 0.2s, border-color 0.2s, opacity 0.2s" }}
             draggable onDragStart={() => handleDragStart(i)} onDragOver={e => handleDragOver(e, i)} onDragEnd={handleDragEnd}>
             <div role="listitem" style={{ display: "flex", alignItems: "center", gap: "2px", flexShrink: 0 }}>
               <Sliders size={14} color="rgba(255,255,255,0.3)" style={{ cursor: "grab", marginRight: "4px" }} />
@@ -51,7 +51,7 @@ export function PriorityStep({ loading, priorities, dragIdx, dragOverIdx, itemLo
                 <button onClick={e => { e.stopPropagation(); movePriority(i, 1); }} aria-label={`Move "${p.rule}" down`} disabled={i === priorities.length - 1} style={{ background: "none", border: "none", cursor: i === priorities.length - 1 ? "default" : "pointer", padding: "10px", lineHeight: 0, minWidth: "36px", minHeight: "36px", display: "flex", alignItems: "center", justifyContent: "center", opacity: i === priorities.length - 1 ? 0.3 : 1 }}><ArrowDown size={14} color="rgba(255,255,255,0.55)" /></button>
               </div>
             </div>
-            <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px", color: "#C07A56", minWidth: "20px" }}>P{i + 1}</span>
+            <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px", color: "#B8864E", minWidth: "20px" }}>P{i + 1}</span>
             <div style={{ flex: 1 }}>
               {editKey === `${i}.rule` ? (
                 <input

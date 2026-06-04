@@ -12,7 +12,7 @@ export function TemplatesStep({ loading, templates, templatesEnabled, setTemplat
         </div>
         <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
           <button onClick={() => { setTemplatesEnabled(!templatesEnabled); trackActivity(); }} aria-label={templatesEnabled ? "Disable templates" : "Enable templates"} aria-pressed={templatesEnabled} style={{ background: "none", border: "none", cursor: "pointer", padding: "4px" }}>
-            {templatesEnabled ? <ToggleRight size={28} color="#C07A56" /> : <ToggleLeft size={28} color="rgba(255,255,255,0.3)" />}
+            {templatesEnabled ? <ToggleRight size={28} color="#B8864E" /> : <ToggleLeft size={28} color="rgba(255,255,255,0.3)" />}
           </button>
           <Btn small onClick={generateTemplates} disabled={loading || !templatesEnabled}>
             {loading ? <Loader2 size={14} className="spin" /> : templates.length ? <RefreshCw size={14} /> : <Sparkles size={14} />}
@@ -27,7 +27,7 @@ export function TemplatesStep({ loading, templates, templatesEnabled, setTemplat
             <Card key={i} highlight={selectedTemplates.has(i)} style={{ cursor: "pointer", marginBottom: "10px" }}>
               <div role="checkbox" aria-checked={selectedTemplates.has(i)} aria-label={t.name} tabIndex={0} onClick={() => { const next = new Set(selectedTemplates); next.has(i) ? next.delete(i) : next.add(i); setSelectedTemplates(next); trackActivity(); }} onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); const next = new Set(selectedTemplates); next.has(i) ? next.delete(i) : next.add(i); setSelectedTemplates(next); trackActivity(); } }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-                  {selectedTemplates.has(i) ? <CheckCircle2 size={16} color="#C07A56" /> : <Circle size={16} color="rgba(255,255,255,0.3)" />}
+                  {selectedTemplates.has(i) ? <CheckCircle2 size={16} color="#B8864E" /> : <Circle size={16} color="rgba(255,255,255,0.3)" />}
                   <span style={{ fontWeight: 700, color: "#F0EBE0", fontSize: "14px" }}>{t.name}</span>
                 </div>
                 <div style={{ marginLeft: "26px" }}>

@@ -100,7 +100,7 @@ export default function PromptLibraryModal({
           maxWidth: 560,
           maxHeight: "min(88vh, 720px)",
           background: "#161618",
-          border: "1px solid rgba(192,122,86,0.2)",
+          border: "1px solid rgba(184,134,78,0.2)",
           borderRadius: 14,
           display: "flex",
           flexDirection: "column",
@@ -119,7 +119,7 @@ export default function PromptLibraryModal({
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <Library size={20} color="#C07A56" />
+            <Library size={20} color="#B8864E" />
             <h2 id="prompt-library-title" style={{ margin: 0, fontSize: 17, fontWeight: 700 }}>
               Prompt library
             </h2>

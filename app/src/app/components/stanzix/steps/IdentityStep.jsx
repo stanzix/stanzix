@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Loader2, Sparkles, RefreshCw, CheckCircle2, Circle } from "lucide-react";
 import { SectionLabel, Btn, Card } from "../ui";
 
-const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(192,122,86,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#F0EBE0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
+const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(184,134,78,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#F0EBE0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
 
 export function IdentityStep({ loading, itemLoading, identityOptions, selectedIdentity, setSelectedIdentity, generateIdentities, updateIdentityOption, trackActivity }) {
   const cascading = itemLoading?.identity_cascade;
@@ -51,7 +51,7 @@ export function IdentityStep({ loading, itemLoading, identityOptions, selectedId
 
       {/* Review banner — cascade generated content, awaiting selection */}
       {hasContent && selectedIdentity === null && (
-        <div style={{ background: "rgba(192,122,86,0.06)", border: "1px solid rgba(192,122,86,0.15)", borderRadius: "8px", padding: "10px 14px", fontSize: "13px", color: "rgba(192,122,86,0.85)" }}>
+        <div style={{ background: "rgba(184,134,78,0.06)", border: "1px solid rgba(184,134,78,0.15)", borderRadius: "8px", padding: "10px 14px", fontSize: "13px", color: "rgba(184,134,78,0.85)" }}>
           We generated 3 options based on your project. Pick one, or regenerate for different options.
         </div>
       )}
@@ -59,7 +59,7 @@ export function IdentityStep({ loading, itemLoading, identityOptions, selectedId
       {/* Cascade in-progress placeholder */}
       {!hasContent && cascading && (
         <div style={{ color: "rgba(255,255,255,0.45)", fontSize: "14px", display: "flex", alignItems: "center", gap: "8px" }}>
-          <Loader2 size={14} color="#C07A56" className="spin" />
+          <Loader2 size={14} color="#B8864E" className="spin" />
           Generating identity options in the background...
         </div>
       )}
@@ -74,7 +74,7 @@ export function IdentityStep({ loading, itemLoading, identityOptions, selectedId
               onClick={() => { if (editKey === null) { setSelectedIdentity(i); trackActivity(); } }}
               onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedIdentity(i); trackActivity(); } }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-                {selectedIdentity === i ? <CheckCircle2 size={18} color="#C07A56" /> : <Circle size={18} color="rgba(255,255,255,0.3)" />}
+                {selectedIdentity === i ? <CheckCircle2 size={18} color="#B8864E" /> : <Circle size={18} color="rgba(255,255,255,0.3)" />}
                 {editKey === `${i}.title` ? (
                   <input
                     type="text"

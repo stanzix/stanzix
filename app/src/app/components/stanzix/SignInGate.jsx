@@ -29,13 +29,13 @@ export default function SignInGate({ isMobile, signInWithMagicLink }) {
 
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: isMobile ? "32px 20px" : "60px 24px", position: "relative", overflow: "hidden" }}>
-      <a href="/" style={{ position: "absolute", top: isMobile ? "16px" : "24px", left: isMobile ? "16px" : "24px", display: "flex", alignItems: "center", gap: "6px", color: "rgba(255,255,255,0.55)", fontSize: "13px", textDecoration: "none", fontFamily: "'Libre Franklin', sans-serif", transition: "color 0.2s", zIndex: 1 }} onMouseEnter={e => (e.currentTarget.style.color = "#C07A56")} onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.55)")}>
+      <a href="/" style={{ position: "absolute", top: isMobile ? "16px" : "24px", left: isMobile ? "16px" : "24px", display: "flex", alignItems: "center", gap: "6px", color: "rgba(255,255,255,0.55)", fontSize: "13px", textDecoration: "none", fontFamily: "'Libre Franklin', sans-serif", transition: "color 0.2s", zIndex: 1 }} onMouseEnter={e => (e.currentTarget.style.color = "#B8864E")} onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.55)")}>
         <ChevronLeft size={16} /> stanzix.com
       </a>
-      <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translateX(-50%)", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(circle, rgba(192,122,86,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translateX(-50%)", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(circle, rgba(184,134,78,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
 
       <div className="gate-fade" style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "32px" }}>
-        <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "linear-gradient(135deg, #C07A56, #A96A49)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "linear-gradient(135deg, #B8864E, #A07442)", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Zap size={26} color="#1a1a1a" />
         </div>
         <div>
@@ -45,11 +45,11 @@ export default function SignInGate({ isMobile, signInWithMagicLink }) {
       </div>
 
       {sent ? (
-        <div className="gate-fade-2" style={{ maxWidth: "420px", width: "100%", textAlign: "center", padding: "32px 24px", background: "rgba(192,122,86,0.06)", border: "1px solid rgba(192,122,86,0.25)", borderRadius: "14px" }}>
-          <CheckCircle2 size={40} color="#C07A56" style={{ marginBottom: "16px" }} />
+        <div className="gate-fade-2" style={{ maxWidth: "420px", width: "100%", textAlign: "center", padding: "32px 24px", background: "rgba(184,134,78,0.06)", border: "1px solid rgba(184,134,78,0.25)", borderRadius: "14px" }}>
+          <CheckCircle2 size={40} color="#B8864E" style={{ marginBottom: "16px" }} />
           <h2 style={{ fontSize: "18px", fontWeight: 700, marginBottom: "10px", color: "#F0EBE0" }}>Check your inbox</h2>
           <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.65)", lineHeight: 1.6, marginBottom: "16px" }}>
-            We sent a sign-in link to <strong style={{ color: "#C07A56" }}>{email}</strong>. Click it to unlock your prompt engine.
+            We sent a sign-in link to <strong style={{ color: "#B8864E" }}>{email}</strong>. Click it to unlock your prompt engine.
           </p>
           <button onClick={() => { setSent(false); setEmail(""); }} style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>
             Use a different email
@@ -70,7 +70,7 @@ export default function SignInGate({ isMobile, signInWithMagicLink }) {
               placeholder="you@example.com"
               aria-label="Email address"
               disabled={sending}
-              style={{ width: "100%", padding: "14px 18px", background: "rgba(255,255,255,0.05)", border: error ? "1.5px solid rgba(208,80,80,0.5)" : "1.5px solid rgba(192,122,86,0.2)", borderRadius: "12px", color: "#F0EBE0", fontSize: "15px", fontFamily: "'Libre Franklin', sans-serif", outline: "none", textAlign: "center", boxSizing: "border-box" }}
+              style={{ width: "100%", padding: "14px 18px", background: "rgba(255,255,255,0.05)", border: error ? "1.5px solid rgba(208,80,80,0.5)" : "1.5px solid rgba(184,134,78,0.2)", borderRadius: "12px", color: "#F0EBE0", fontSize: "15px", fontFamily: "'Libre Franklin', sans-serif", outline: "none", textAlign: "center", boxSizing: "border-box" }}
             />
             {error && <div role="alert" style={{ fontSize: "12px", color: "#D05050" }}>{error}</div>}
             <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.45)", textAlign: "center" }}>
@@ -84,7 +84,7 @@ export default function SignInGate({ isMobile, signInWithMagicLink }) {
           <div className="gate-fade-3" style={{ marginTop: "48px", display: "flex", gap: "24px", flexWrap: "wrap", justifyContent: "center" }}>
             {[{ icon: Target, label: "Identity" }, { icon: Brain, label: "Knowledge" }, { icon: ShieldOff, label: "Guardrails" }, { icon: Sliders, label: "Modes" }].map(({ icon: Icon, label }) => (
               <div key={label} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <Icon size={14} color="rgba(192,122,86,0.5)" />
+                <Icon size={14} color="rgba(184,134,78,0.5)" />
                 <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", fontFamily: "'IBM Plex Mono', monospace" }}>{label}</span>
               </div>
             ))}

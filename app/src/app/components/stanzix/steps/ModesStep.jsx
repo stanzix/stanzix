@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Loader2, Sparkles, RefreshCw } from "lucide-react";
 import { SectionLabel, Btn, Card, StepExample } from "../ui";
 
-const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(192,122,86,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#F0EBE0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
+const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(184,134,78,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#F0EBE0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
 
 export function ModesStep({ loading, modes, defaultModeIdx, setDefaultModeIdx, itemLoading, generateModes, regenerateMode, updateMode, trackActivity }) {
   const [editKey, setEditKey] = useState(null);
@@ -80,7 +80,7 @@ export function ModesStep({ loading, modes, defaultModeIdx, setDefaultModeIdx, i
                     />
                   ) : (
                     <span
-                      style={{ fontSize: "11px", padding: "2px 8px", borderRadius: "4px", background: "rgba(192,122,86,0.15)", color: "#C07A56", fontFamily: "'IBM Plex Mono', monospace", cursor: "text" }}
+                      style={{ fontSize: "11px", padding: "2px 8px", borderRadius: "4px", background: "rgba(184,134,78,0.15)", color: "#B8864E", fontFamily: "'IBM Plex Mono', monospace", cursor: "text" }}
                       title="Click to edit"
                       onClick={e => startEdit(`${i}.trigger`, m.trigger, e)}
                     >"{m.trigger}"</span>
@@ -109,7 +109,7 @@ export function ModesStep({ loading, modes, defaultModeIdx, setDefaultModeIdx, i
                   {m.characteristics?.map((c, j) => <span key={j} style={{ fontSize: "11px", padding: "3px 8px", borderRadius: "4px", background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.5)" }}>{c}</span>)}
                 </div>
                 <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", fontStyle: "italic" }}>
-                  To activate: type <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: "rgba(192,122,86,0.55)", fontStyle: "normal" }}>[{m.trigger}]</span> at the start of a message.
+                  To activate: type <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: "rgba(184,134,78,0.55)", fontStyle: "normal" }}>[{m.trigger}]</span> at the start of a message.
                 </div>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginLeft: "10px", flexShrink: 0 }}>

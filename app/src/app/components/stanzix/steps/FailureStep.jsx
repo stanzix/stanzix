@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Loader2, Sparkles, RefreshCw, ShieldOff, AlertTriangle } from "lucide-react";
 import { SectionLabel, Btn, Card } from "../ui";
 
-const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(192,122,86,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#F0EBE0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
+const INPUT_STYLE = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(184,134,78,0.4)", borderRadius: "4px", padding: "3px 8px", color: "#F0EBE0", fontSize: "inherit", fontFamily: "inherit", fontWeight: "inherit", width: "100%", outline: "none", resize: "vertical" };
 
 export function FailureStep({ loading, failures, itemLoading, generateFailures, regenerateFailure, updateFailure, trackActivity }) {
   const [editKey, setEditKey] = useState(null);
@@ -44,8 +44,8 @@ export function FailureStep({ loading, failures, itemLoading, generateFailures, 
       </div>
       {!failures.length && !loading && <div style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", fontStyle: "italic" }}>Domain-specific failure patterns Claude should be explicitly blocked from.</div>}
       {failures.length > 0 && (
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 16px", background: "rgba(192,122,86,0.06)", border: "1px solid rgba(192,122,86,0.15)", borderRadius: "8px" }}>
-          <ShieldOff size={16} color="#C07A56" style={{ flexShrink: 0 }} />
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 16px", background: "rgba(184,134,78,0.06)", border: "1px solid rgba(184,134,78,0.15)", borderRadius: "8px" }}>
+          <ShieldOff size={16} color="#B8864E" style={{ flexShrink: 0 }} />
           <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.6)" }}>All patterns will be included in your compiled instructions. Use "Redo" to replace any that don't fit.</span>
         </div>
       )}
@@ -53,7 +53,7 @@ export function FailureStep({ loading, failures, itemLoading, generateFailures, 
         {failures.map((f, i) => (
           <Card key={i}>
             <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
-              <AlertTriangle size={16} color={f.severity === "high" ? "#D05050" : f.severity === "medium" ? "#C07A56" : "rgba(255,255,255,0.3)"} style={{ marginTop: "2px", flexShrink: 0 }} />
+              <AlertTriangle size={16} color={f.severity === "high" ? "#D05050" : f.severity === "medium" ? "#B8864E" : "rgba(255,255,255,0.3)"} style={{ marginTop: "2px", flexShrink: 0 }} />
               <div style={{ flex: 1 }}>
                 {editKey === `${i}.pattern` ? (
                   <input
@@ -74,14 +74,14 @@ export function FailureStep({ loading, failures, itemLoading, generateFailures, 
                   >{f.pattern}</div>
                 )}
                 <div style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px", marginTop: "2px" }}>Severity: {f.severity}</div>
-                <div style={{ color: "rgba(192,122,86,0.8)", fontSize: "12px", marginTop: "4px", display: "flex", alignItems: "flex-start", gap: "4px" }}>
+                <div style={{ color: "rgba(184,134,78,0.8)", fontSize: "12px", marginTop: "4px", display: "flex", alignItems: "flex-start", gap: "4px" }}>
                   <span style={{ flexShrink: 0 }}>Prevention:</span>
                   {editKey === `${i}.prevention` ? (
                     <textarea
                       value={editVal}
                       autoFocus
                       rows={2}
-                      style={{ ...INPUT_STYLE, fontSize: "12px", color: "rgba(192,122,86,0.8)", flex: 1 }}
+                      style={{ ...INPUT_STYLE, fontSize: "12px", color: "rgba(184,134,78,0.8)", flex: 1 }}
                       onChange={e => setEditVal(e.target.value)}
                       onBlur={commitEdit}
                       onKeyDown={handleTextareaKeyDown}

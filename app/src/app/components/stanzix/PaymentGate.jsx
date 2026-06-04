@@ -2,9 +2,9 @@
 import { ChevronLeft, Zap, Loader2, Sparkles, Target, Brain, ShieldOff, Sliders, Check, Library } from "lucide-react";
 import { VERSION } from "../../lib/outputBuilder";
 
-const GOLD = "#C07A56";
-const GOLD_DIM = "rgba(192,122,86,0.08)";
-const GOLD_BORDER = "rgba(192,122,86,0.25)";
+const GOLD = "#B8864E";
+const GOLD_DIM = "rgba(184,134,78,0.08)";
+const GOLD_BORDER = "rgba(184,134,78,0.25)";
 
 const FEATURES_PRO = [
   { icon: Library, label: "30 ready-to-use templates" },
@@ -45,7 +45,7 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
             top: "-11px",
             left: "50%",
             transform: "translateX(-50%)",
-            background: `linear-gradient(90deg, ${GOLD}, #A96A49)`,
+            background: `linear-gradient(90deg, ${GOLD}, #A07442)`,
             color: "#1a1a1a",
             fontSize: "10px",
             fontWeight: 700,
@@ -98,8 +98,8 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
                 width: "20px",
                 height: "20px",
                 borderRadius: "5px",
-                background: "rgba(192,122,86,0.1)",
-                border: "1px solid rgba(192,122,86,0.2)",
+                background: "rgba(184,134,78,0.1)",
+                border: "1px solid rgba(184,134,78,0.2)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -148,8 +148,8 @@ function PlanCard({ title, price, period, features, ctaLabel, onCheckout, pendin
             cursor: pending ? "not-allowed" : "pointer",
             background: highlight
               ? pending
-                ? "rgba(192,122,86,0.4)"
-                : `linear-gradient(135deg, ${GOLD}, #A96A49)`
+                ? "rgba(184,134,78,0.4)"
+                : `linear-gradient(135deg, ${GOLD}, #A07442)`
               : GOLD_DIM,
             color: highlight ? "#1a1a1a" : GOLD,
             fontSize: "13px",
@@ -241,7 +241,7 @@ export default function PaymentGate({
           width: "600px",
           height: "400px",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(192,122,86,0.05) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(184,134,78,0.05) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -253,7 +253,7 @@ export default function PaymentGate({
             width: "44px",
             height: "44px",
             borderRadius: "13px",
-            background: `linear-gradient(135deg, ${GOLD}, #A96A49)`,
+            background: `linear-gradient(135deg, ${GOLD}, #A07442)`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",

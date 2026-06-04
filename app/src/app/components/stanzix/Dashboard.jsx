@@ -82,7 +82,7 @@ export default function Dashboard({
 
           {/* Logo */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "40px" }}>
-            <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "linear-gradient(135deg, #C07A56, #A96A49)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "linear-gradient(135deg, #B8864E, #A07442)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               <Zap size={22} color="#1a1a1a" />
             </div>
             <span style={{ fontSize: "22px", fontWeight: 700, letterSpacing: "-0.5px", fontFamily: "'Libre Franklin', sans-serif" }}>Stanzix</span>
@@ -98,8 +98,8 @@ export default function Dashboard({
           </p>
 
           {/* Free tier badge */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "14px 18px", background: "rgba(192,122,86,0.06)", border: "1px solid rgba(192,122,86,0.15)", borderRadius: "10px", marginBottom: "24px" }}>
-            <Zap size={18} color="#C07A56" style={{ flexShrink: 0 }} />
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "14px 18px", background: "rgba(184,134,78,0.06)", border: "1px solid rgba(184,134,78,0.15)", borderRadius: "10px", marginBottom: "24px" }}>
+            <Zap size={18} color="#B8864E" style={{ flexShrink: 0 }} />
             <div>
               <div style={{ fontSize: "14px", fontWeight: 600, color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif" }}>
                 5 free prompts to start
@@ -134,7 +134,7 @@ export default function Dashboard({
                       gap: "10px",
                       transition: "border-color 0.2s, background 0.2s",
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(192,122,86,0.25)"; e.currentTarget.style.background = "rgba(192,122,86,0.06)"; }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(184,134,78,0.25)"; e.currentTarget.style.background = "rgba(184,134,78,0.06)"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}
                   >
                     <Icon size={15} color="rgba(255,255,255,0.45)" />
@@ -158,7 +158,7 @@ export default function Dashboard({
           {/* Custom prompt CTA */}
           <button
             onClick={onNewPrompt}
-            style={{ width: "100%", padding: "13px 24px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #C07A56, #A96A49)", color: "#1a1a1a", fontSize: "14px", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", fontFamily: "'Libre Franklin', sans-serif", marginBottom: "10px" }}
+            style={{ width: "100%", padding: "13px 24px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #B8864E, #A07442)", color: "#1a1a1a", fontSize: "14px", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", fontFamily: "'Libre Franklin', sans-serif", marginBottom: "10px" }}
           >
             Describe What You Need
             <ArrowRight size={16} />
@@ -201,7 +201,7 @@ export default function Dashboard({
       {/* Compact header */}
       <header style={{ padding: isMobile ? "12px 16px" : "14px 24px", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between", alignItems: "center", background: "rgba(0,0,0,0.2)", flexShrink: 0 }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <div style={{ width: "28px", height: "28px", borderRadius: "7px", background: "linear-gradient(135deg, #C07A56, #A96A49)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <div style={{ width: "28px", height: "28px", borderRadius: "7px", background: "linear-gradient(135deg, #B8864E, #A07442)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <Zap size={15} color="#1a1a1a" />
           </div>
           <span style={{ fontSize: "15px", fontWeight: 700, letterSpacing: "-0.3px", fontFamily: "'Libre Franklin', sans-serif" }}>Stanzix</span>
@@ -210,7 +210,7 @@ export default function Dashboard({
           {!isPaid && usageCount !== null && (
             <div
               title={usageHit ? "Monthly limit reached" : `${freeLimit - usageCount} prompts remaining this month`}
-              style={{ fontSize: "11px", fontFamily: "'IBM Plex Mono', monospace", color: usageHit ? "#D05050" : usageAtRisk ? "#C07A56" : "rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.04)", border: `1px solid ${usageHit ? "rgba(208,80,80,0.3)" : usageAtRisk ? "rgba(192,122,86,0.25)" : "rgba(255,255,255,0.08)"}`, borderRadius: "6px", padding: "4px 10px", cursor: "default" }}
+              style={{ fontSize: "11px", fontFamily: "'IBM Plex Mono', monospace", color: usageHit ? "#D05050" : usageAtRisk ? "#B8864E" : "rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.04)", border: `1px solid ${usageHit ? "rgba(208,80,80,0.3)" : usageAtRisk ? "rgba(184,134,78,0.25)" : "rgba(255,255,255,0.08)"}`, borderRadius: "6px", padding: "4px 10px", cursor: "default" }}
             >
               {usageCount} / {freeLimit} free
             </div>
@@ -232,8 +232,8 @@ export default function Dashboard({
 
         {/* Active session card */}
         {hasActiveSession && (
-          <div style={{ background: "rgba(192,122,86,0.04)", border: "1px solid rgba(192,122,86,0.18)", borderLeft: "3px solid #C07A56", borderRadius: "10px", padding: isMobile ? "16px 18px" : "20px 24px", marginBottom: "32px" }}>
-            <div style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: "#C07A56", textTransform: "uppercase", letterSpacing: "1.2px", marginBottom: "10px" }}>
+          <div style={{ background: "rgba(184,134,78,0.04)", border: "1px solid rgba(184,134,78,0.18)", borderLeft: "3px solid #B8864E", borderRadius: "10px", padding: isMobile ? "16px 18px" : "20px 24px", marginBottom: "32px" }}>
+            <div style={{ fontSize: "10px", fontFamily: "'IBM Plex Mono', monospace", color: "#B8864E", textTransform: "uppercase", letterSpacing: "1.2px", marginBottom: "10px" }}>
               ▶ Active Session
             </div>
             <div style={{ fontSize: isMobile ? "16px" : "18px", fontWeight: 700, color: "#F0EBE0", fontFamily: "'Libre Franklin', sans-serif", marginBottom: activeDomain ? "4px" : "12px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
@@ -252,7 +252,7 @@ export default function Dashboard({
             <div style={{ display: "flex", gap: "10px", marginTop: "16px", flexWrap: "wrap" }}>
               <button
                 onClick={onContinue}
-                style={{ padding: "10px 20px", borderRadius: "8px", border: "none", background: "linear-gradient(135deg, #C07A56, #A96A49)", color: "#1a1a1a", fontSize: "13px", fontWeight: 700, cursor: "pointer", fontFamily: "'Libre Franklin', sans-serif" }}
+                style={{ padding: "10px 20px", borderRadius: "8px", border: "none", background: "linear-gradient(135deg, #B8864E, #A07442)", color: "#1a1a1a", fontSize: "13px", fontWeight: 700, cursor: "pointer", fontFamily: "'Libre Franklin', sans-serif" }}
               >
                 Continue Editing
               </button>
@@ -264,7 +264,7 @@ export default function Dashboard({
               </button>
               <button
                 onClick={() => onBrowseTemplates()}
-                style={{ padding: "10px 20px", borderRadius: "8px", border: "1px solid rgba(192,122,86,0.2)", background: "rgba(192,122,86,0.06)", color: "#C07A56", fontSize: "13px", fontWeight: 500, cursor: "pointer", fontFamily: "'Libre Franklin', sans-serif", display: "flex", alignItems: "center", gap: "6px" }}
+                style={{ padding: "10px 20px", borderRadius: "8px", border: "1px solid rgba(184,134,78,0.2)", background: "rgba(184,134,78,0.06)", color: "#B8864E", fontSize: "13px", fontWeight: 500, cursor: "pointer", fontFamily: "'Libre Franklin', sans-serif", display: "flex", alignItems: "center", gap: "6px" }}
               >
                 <Library size={14} />
                 Templates
@@ -333,7 +333,7 @@ export default function Dashboard({
         <div style={{ textAlign: "center", paddingTop: "8px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
           <button
             onClick={onNewPrompt}
-            style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "12px 28px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #C07A56, #A96A49)", color: "#1a1a1a", fontSize: "14px", fontWeight: 700, cursor: "pointer", fontFamily: "'Libre Franklin', sans-serif" }}
+            style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "12px 28px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #B8864E, #A07442)", color: "#1a1a1a", fontSize: "14px", fontWeight: 700, cursor: "pointer", fontFamily: "'Libre Franklin', sans-serif" }}
           >
             <Plus size={16} />
             New Prompt

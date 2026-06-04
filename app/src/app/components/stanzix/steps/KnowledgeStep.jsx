@@ -22,7 +22,7 @@ export function KnowledgeStep({ loading, quizQuestions, quizAnswers, setQuizAnsw
           <Card key={q.id}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
               <span style={{ color: "#F0EBE0", fontSize: "14px", fontWeight: 600, flex: 1 }}>{q.question}</span>
-              <span style={{ fontSize: "10px", padding: "2px 8px", borderRadius: "4px", height: "fit-content", background: q.difficulty === "advanced" ? "rgba(220,80,80,0.15)" : q.difficulty === "intermediate" ? "rgba(192,122,86,0.15)" : "rgba(125,184,106,0.15)", color: q.difficulty === "advanced" ? "#D05050" : q.difficulty === "intermediate" ? "#C07A56" : "#7DB86A", fontFamily: "'IBM Plex Mono', monospace", textTransform: "uppercase" }}>{q.difficulty}</span>
+              <span style={{ fontSize: "10px", padding: "2px 8px", borderRadius: "4px", height: "fit-content", background: q.difficulty === "advanced" ? "rgba(220,80,80,0.15)" : q.difficulty === "intermediate" ? "rgba(184,134,78,0.15)" : "rgba(125,184,106,0.15)", color: q.difficulty === "advanced" ? "#D05050" : q.difficulty === "intermediate" ? "#B8864E" : "#7DB86A", fontFamily: "'IBM Plex Mono', monospace", textTransform: "uppercase" }}>{q.difficulty}</span>
             </div>
             <TextArea value={quizAnswers[q.id] || ""} onChange={v => { setQuizAnswers({ ...quizAnswers, [q.id]: v }); trackActivity(); }} placeholder="Your answer (or skip)" rows={2} label={`Answer for: ${q.question}`} />
           </Card>
@@ -36,7 +36,7 @@ export function KnowledgeStep({ loading, quizQuestions, quizAnswers, setQuizAnsw
       {knowledgeResult.length > 0 && (
         <div style={{ marginTop: "12px" }}>
           <SectionLabel>Derived Knowledge Baseline</SectionLabel>
-          {knowledgeResult.map((k, i) => <div key={i} style={{ padding: "8px 12px", fontSize: "13px", color: "rgba(255,255,255,0.7)", borderLeft: "2px solid #C07A56", marginBottom: "6px", marginLeft: "4px" }}>{k}</div>)}
+          {knowledgeResult.map((k, i) => <div key={i} style={{ padding: "8px 12px", fontSize: "13px", color: "rgba(255,255,255,0.7)", borderLeft: "2px solid #B8864E", marginBottom: "6px", marginLeft: "4px" }}>{k}</div>)}
         </div>
       )}
     </div>

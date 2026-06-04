@@ -3,9 +3,9 @@ import { useState, useMemo } from "react";
 import { X, Zap, ChevronRight, Lock } from "lucide-react";
 import { CATEGORIES, TEMPLATES } from "../../lib/templateLibrary";
 
-const GOLD = "#C07A56";
-const GOLD_DIM = "rgba(192,122,86,0.08)";
-const GOLD_BORDER = "rgba(192,122,86,0.25)";
+const GOLD = "#B8864E";
+const GOLD_DIM = "rgba(184,134,78,0.08)";
+const GOLD_BORDER = "rgba(184,134,78,0.25)";
 
 export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPaid, onUpgrade, initialCategory }) {
   const [activeCategory, setActiveCategory] = useState(initialCategory || null);
@@ -215,7 +215,7 @@ export default function TemplateLibrary({ open, onClose, onSelectTemplate, isPai
                         padding: "12px 16px",
                         borderRadius: "10px",
                         border: "none",
-                        background: `linear-gradient(135deg, ${GOLD}, #A96A49)`,
+                        background: `linear-gradient(135deg, ${GOLD}, #A07442)`,
                         color: "#1a1a1a",
                         fontSize: "14px",
                         fontWeight: 700,

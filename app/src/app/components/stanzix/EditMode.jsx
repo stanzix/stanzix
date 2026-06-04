@@ -34,7 +34,7 @@ export default function EditMode({ isMobile, loading, parsedPreview, pastedInstr
             return (
               <Card key={key} highlight={isSelected} style={{ cursor: "pointer" }}>
                 <div role="checkbox" aria-checked={isSelected} aria-label={label} tabIndex={0} onClick={() => { const next = new Set(selectedSections); next.has(key) ? next.delete(key) : next.add(key); setSelectedSections(next); }} onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); const next = new Set(selectedSections); next.has(key) ? next.delete(key) : next.add(key); setSelectedSections(next); } }} style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-                  <div style={{ marginTop: "2px", flexShrink: 0 }}>{isSelected ? <CheckCircle2 size={16} color="#C07A56" /> : <Circle size={16} color="rgba(255,255,255,0.3)" />}</div>
+                  <div style={{ marginTop: "2px", flexShrink: 0 }}>{isSelected ? <CheckCircle2 size={16} color="#B8864E" /> : <Circle size={16} color="rgba(255,255,255,0.3)" />}</div>
                   <div style={{ flex: 1 }}>
                     <div style={{ color: "#F0EBE0", fontSize: "13px", fontWeight: 600, marginBottom: "6px" }}>{label}</div>
                     <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", fontFamily: "'IBM Plex Mono', monospace", lineHeight: 1.5 }}>

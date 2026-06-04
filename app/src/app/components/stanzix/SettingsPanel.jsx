@@ -8,7 +8,7 @@ function SectionLabel({ children }) {
     <div style={{
       fontSize: "10px",
       fontFamily: "'IBM Plex Mono', monospace",
-      color: "#C07A56",
+      color: "#B8864E",
       textTransform: "uppercase",
       letterSpacing: "1.2px",
       marginBottom: "12px",
@@ -71,7 +71,7 @@ export default function SettingsPanel({
           maxWidth: isMobile ? "100%" : 480,
           maxHeight: "min(88vh, 600px)",
           background: "#161618",
-          border: "1px solid rgba(192,122,86,0.2)",
+          border: "1px solid rgba(184,134,78,0.2)",
           borderRadius: 14,
           display: "flex",
           flexDirection: "column",
@@ -89,7 +89,7 @@ export default function SettingsPanel({
           flexShrink: 0,
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <Settings size={20} color="#C07A56" />
+            <Settings size={20} color="#B8864E" />
             <h2 id="settings-panel-title" style={{ margin: 0, fontSize: 17, fontWeight: 700, fontFamily: "'Libre Franklin', sans-serif" }}>
               Settings
             </h2>
@@ -163,9 +163,9 @@ export default function SettingsPanel({
               fontSize: "12px",
               fontWeight: 600,
               fontFamily: "'Libre Franklin', sans-serif",
-              background: isPaid ? "rgba(192,122,86,0.12)" : "rgba(255,255,255,0.06)",
-              border: `1px solid ${isPaid ? "rgba(192,122,86,0.3)" : "rgba(255,255,255,0.1)"}`,
-              color: isPaid ? "#C07A56" : "rgba(255,255,255,0.6)",
+              background: isPaid ? "rgba(184,134,78,0.12)" : "rgba(255,255,255,0.06)",
+              border: `1px solid ${isPaid ? "rgba(184,134,78,0.3)" : "rgba(255,255,255,0.1)"}`,
+              color: isPaid ? "#B8864E" : "rgba(255,255,255,0.6)",
             }}>
               {isPaid && <Crown size={13} />}
               {isPaid ? "Pro" : "Free"}
@@ -195,7 +195,7 @@ export default function SettingsPanel({
                   height: "100%",
                   width: `${Math.min(usageRatio * 100, 100)}%`,
                   borderRadius: "2px",
-                  background: usageRatio >= 1 ? "#D05050" : usageRatio >= 0.8 ? "#C07A56" : "rgba(255,255,255,0.3)",
+                  background: usageRatio >= 1 ? "#D05050" : usageRatio >= 0.8 ? "#B8864E" : "rgba(255,255,255,0.3)",
                   transition: "width 0.3s ease",
                 }} />
               </div>
@@ -210,9 +210,9 @@ export default function SettingsPanel({
                   width: "100%",
                   padding: "10px 14px",
                   borderRadius: "8px",
-                  border: "1px solid rgba(192,122,86,0.25)",
-                  background: "rgba(192,122,86,0.06)",
-                  color: "#C07A56",
+                  border: "1px solid rgba(184,134,78,0.25)",
+                  background: "rgba(184,134,78,0.06)",
+                  color: "#B8864E",
                   fontSize: "13px",
                   fontWeight: 500,
                   fontFamily: "'Libre Franklin', sans-serif",
@@ -253,7 +253,7 @@ export default function SettingsPanel({
                 padding: "11px 14px",
                 borderRadius: "8px",
                 border: "none",
-                background: "linear-gradient(135deg, #C07A56, #A96A49)",
+                background: "linear-gradient(135deg, #B8864E, #A07442)",
                 color: "#1a1a1a",
                 fontSize: "13px",
                 fontWeight: 700,

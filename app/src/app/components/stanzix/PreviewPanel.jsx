@@ -11,14 +11,14 @@ function FormattedPreview({ text }) {
       {lines.map((line, i) => {
         if (line.startsWith("## ")) {
           return (
-            <div key={i} style={{ color: "#C07A56", fontWeight: 600, fontSize: "12px", marginTop: i === 0 ? 0 : "14px", marginBottom: "2px", letterSpacing: "0.2px" }}>
+            <div key={i} style={{ color: "#B8864E", fontWeight: 600, fontSize: "12px", marginTop: i === 0 ? 0 : "14px", marginBottom: "2px", letterSpacing: "0.2px" }}>
               {line.replace(/^## /, "")}
             </div>
           );
         }
         if (line.startsWith("### ")) {
           return (
-            <div key={i} style={{ color: "rgba(192,122,86,0.75)", fontWeight: 600, fontSize: "11px", marginTop: "10px", marginBottom: "1px" }}>
+            <div key={i} style={{ color: "rgba(184,134,78,0.75)", fontWeight: 600, fontSize: "11px", marginTop: "10px", marginBottom: "1px" }}>
               {line.replace(/^### /, "")}
             </div>
           );
@@ -82,7 +82,7 @@ export default function PreviewPanel({ isMobile, showPreview, setShowPreview, co
           {/* Panel header */}
           <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between", alignItems: "center", flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <div style={{ fontSize: "11px", fontFamily: "'IBM Plex Mono', monospace", color: "#C07A56", textTransform: "uppercase", letterSpacing: "1.5px", fontWeight: 600 }}>Live Preview</div>
+              <div style={{ fontSize: "11px", fontFamily: "'IBM Plex Mono', monospace", color: "#B8864E", textTransform: "uppercase", letterSpacing: "1.5px", fontWeight: 600 }}>Live Preview</div>
               {showSample && (
                 <div style={{ fontSize: "9px", fontFamily: "'IBM Plex Mono', monospace", color: "rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "4px", padding: "2px 6px" }}>sample</div>
               )}
