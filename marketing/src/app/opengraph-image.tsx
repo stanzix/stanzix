@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Stanzix - Structured Prompts for Claude, ChatGPT, and Every LLM";
+export const alt =
+  "Stanzix - Structured Prompts for Claude, ChatGPT, and Every LLM";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -16,36 +17,21 @@ export default async function Image() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0C0B0A",
-          position: "relative",
+          backgroundColor: "#0C0B0A",
+          padding: "60px",
         }}
       >
-        {/* Subtle ambient glow */}
-        <div
-          style={{
-            position: "absolute",
-            top: "15%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 600,
-            height: 400,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(184,134,78,0.06) 0%, transparent 70%)",
-          }}
-        />
-
-        {/* Wordmark */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             gap: 14,
-            marginBottom: 32,
+            marginBottom: 36,
           }}
         >
           <span
             style={{
-              fontSize: 64,
+              fontSize: 72,
               fontWeight: 700,
               color: "#F0EBE0",
               letterSpacing: "-1px",
@@ -53,93 +39,130 @@ export default async function Image() {
           >
             Stanzix
           </span>
-          <span style={{ color: "#B8864E", fontSize: 16, marginTop: 8 }}>
-            ●
-          </span>
+          <div
+            style={{
+              width: 12,
+              height: 12,
+              borderRadius: 6,
+              backgroundColor: "#B8864E",
+              marginTop: 8,
+            }}
+          />
         </div>
 
-        {/* Tagline */}
         <div
           style={{
-            fontSize: 28,
+            display: "flex",
+            fontSize: 32,
             color: "#F0EBE0",
-            letterSpacing: "-0.5px",
             fontWeight: 500,
-            marginBottom: 12,
-            textAlign: "center",
+            marginBottom: 16,
           }}
         >
-          The architecture behind every{" "}
-          <span style={{ color: "#B8864E", fontStyle: "italic" }}>
-            great prompt
-          </span>
+          The architecture behind every great prompt
         </div>
 
-        {/* Subtitle */}
         <div
           style={{
-            fontSize: 18,
+            display: "flex",
+            fontSize: 20,
             color: "#948C7E",
-            maxWidth: 500,
-            textAlign: "center",
-            lineHeight: 1.6,
+            marginBottom: 48,
           }}
         >
           Structured prompts for Claude, ChatGPT, and every LLM
         </div>
 
-        {/* Lever preview row */}
-        <div
-          style={{
-            display: "flex",
-            gap: 24,
-            marginTop: 48,
-          }}
-        >
-          {["Role", "Expertise", "Guardrails", "Behavior", "Priority", "Safety", "Format", "Examples"].map(
-            (lever) => (
-              <div
-                key={lever}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 6,
-                }}
-              >
-                <div
-                  style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: "#B8864E",
-                  }}
-                />
-                <span
-                  style={{
-                    fontSize: 11,
-                    color: "#5E5850",
-                    letterSpacing: "0.5px",
-                  }}
-                >
-                  {lever}
-                </span>
-              </div>
-            )
-          )}
+        <div style={{ display: "flex", gap: 32 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor: "#B8864E",
+              }}
+            />
+            <span style={{ fontSize: 14, color: "#5E5850" }}>Role</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor: "#B8864E",
+              }}
+            />
+            <span style={{ fontSize: 14, color: "#5E5850" }}>Expertise</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor: "#B8864E",
+              }}
+            />
+            <span style={{ fontSize: 14, color: "#5E5850" }}>Guardrails</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor: "#B8864E",
+              }}
+            />
+            <span style={{ fontSize: 14, color: "#5E5850" }}>Behavior</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor: "#B8864E",
+              }}
+            />
+            <span style={{ fontSize: 14, color: "#5E5850" }}>Priority</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor: "#B8864E",
+              }}
+            />
+            <span style={{ fontSize: 14, color: "#5E5850" }}>Safety</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor: "#B8864E",
+              }}
+            />
+            <span style={{ fontSize: 14, color: "#5E5850" }}>Format</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor: "#B8864E",
+              }}
+            />
+            <span style={{ fontSize: 14, color: "#5E5850" }}>Examples</span>
+          </div>
         </div>
-
-        {/* Bottom accent line */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: 3,
-            background: "linear-gradient(90deg, transparent, #B8864E, transparent)",
-          }}
-        />
       </div>
     ),
     { ...size }
