@@ -116,33 +116,10 @@ export default function Footer() {
 
       <ScaffoldLine />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-6">
         <p className="font-sans text-sm text-text-dim">
           &copy; 2026 Stanzix. Built by DeJuan Spencer.
         </p>
-        <div className="flex items-center gap-4">
-          <a
-            href="https://x.com/stanzix"
-            aria-label="Stanzix on X (Twitter)"
-            className="text-text-dim hover:text-text-primary transition-colors"
-          >
-            <IconX />
-          </a>
-          <a
-            href="https://linkedin.com/company/stanzix"
-            aria-label="Stanzix on LinkedIn"
-            className="text-text-dim hover:text-text-primary transition-colors"
-          >
-            <IconLinkedIn />
-          </a>
-          <a
-            href="https://github.com/stanzix"
-            aria-label="Stanzix on GitHub"
-            className="text-text-dim hover:text-text-primary transition-colors"
-          >
-            <IconGitHub />
-          </a>
-        </div>
       </div>
     </footer>
   );
