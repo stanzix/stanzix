@@ -295,14 +295,33 @@ export function useStanzix(user) {
     setGoals(template.goals || "");
     setIntakeComplete(true);
     setViewMode("builder");
-    setTimeout(() => {
-      cascadeFromIntake(
-        template.projectName || "",
-        template.domain || "",
-        template.projectDesc || "",
-        template.goals || ""
-      );
-    }, 0);
+
+    if (template.identityOptions) {
+      setIdentityOptions(template.identityOptions);
+      setSelectedIdentity(template.selectedIdentity ?? 0);
+      setKnowledgeResult(template.knowledgeResult || []);
+      setNegativeSuggestions(template.negativeSuggestions || []);
+      setSelectedNegatives(new Set(template.selectedNegatives || []));
+      setModes(template.modes || []);
+      setDefaultModeIdx(template.defaultModeIdx ?? 0);
+      setPriorities(template.priorities || []);
+      setFailures(template.failures || []);
+      setTemplates(template.templates || []);
+      setTemplatesEnabled(template.templatesEnabled ?? false);
+      setSelectedTemplates(new Set(template.selectedTemplates || []));
+      setExamples(template.examples || []);
+      setApprovedExamples(new Set(template.approvedExamples || []));
+      setCustomInjection(template.customInjection || "");
+    } else {
+      setTimeout(() => {
+        cascadeFromIntake(
+          template.projectName || "",
+          template.domain || "",
+          template.projectDesc || "",
+          template.goals || ""
+        );
+      }, 0);
+    }
   }, [resetSession]);
 
   // Runs a generation fn under a named item-loading key (non-blocking cascade).
