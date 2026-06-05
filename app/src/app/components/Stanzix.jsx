@@ -264,7 +264,7 @@ function StanzixInner() {
           <Loader2 size={32} color="#B8864E" className="spin" />
         </div>
       ) : !auth.user ? (
-        <SignInGate isMobile={pe.isMobile} signInWithMagicLink={auth.signInWithMagicLink} />
+        <SignInGate isMobile={pe.isMobile} signInWithMagicLink={auth.signInWithMagicLink} signUp={auth.signUp} signInWithPassword={auth.signInWithPassword} resetPassword={auth.resetPassword} />
       ) : showPaywall && !isPaid ? (
         <PaymentGate
           email={auth.user.email}

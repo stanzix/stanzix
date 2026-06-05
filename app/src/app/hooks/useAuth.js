@@ -38,10 +38,30 @@ export function useAuth() {
     if (error) throw error;
   }, []);
 
+  const signUp = useCallback(async (email, password) => {
+    const supabase = getSupabaseClient();
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) throw error;
+  }, []);
+
+  const signInWithPassword = useCallback(async (email, password) => {
+    const supabase = getSupabaseClient();
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+  }, []);
+
+  const resetPassword = useCallback(async (email) => {
+    const supabase = getSupabaseClient();
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth/callback`,
+    });
+    if (error) throw error;
+  }, []);
+
   const signOut = useCallback(async () => {
     const supabase = getSupabaseClient();
     await supabase.auth.signOut();
   }, []);
 
-  return { user, loading, signInWithMagicLink, signOut };
+  return { user, loading, signInWithMagicLink, signUp, signInWithPassword, resetPassword, signOut };
 }
