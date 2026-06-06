@@ -20,6 +20,7 @@ const NAV_COLUMNS = [
     links: [
       { text: "Privacy Policy", href: "/privacy" },
       { text: "Terms of Service", href: "/terms" },
+      { text: "Cookie Policy", href: "/cookies" },
     ],
   },
 ];
