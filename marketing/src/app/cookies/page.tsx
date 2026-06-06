@@ -79,7 +79,7 @@ export default function Cookies() {
           <h2 className="font-serif text-xl font-medium text-text-primary pt-4">Contact</h2>
           <p>
             For questions about cookies:<br />
-            <a href="mailto:dejuan@stanzix.com" className="text-accent hover:underline">dejuan@stanzix.com</a>
+            <a href="mailto:support@stanzix.com" className="text-accent hover:underline">support@stanzix.com</a>
           </p>
 
         </div>

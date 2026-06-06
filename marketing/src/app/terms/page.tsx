@@ -77,7 +77,7 @@ export default function Terms() {
             If the output is not better than what you would get typing into ChatGPT directly,
             cancel within 7 days of your initial subscription for a full refund. No questions
             asked. To request a refund, email{" "}
-            <a href="mailto:dejuan@stanzix.com" className="text-accent hover:underline">dejuan@stanzix.com</a>{" "}
+            <a href="mailto:support@stanzix.com" className="text-accent hover:underline">support@stanzix.com</a>{" "}
             with your account email. Refunds are processed within 5&ndash;10 business days.
           </p>
 
@@ -184,7 +184,7 @@ export default function Terms() {
           <h2 className="font-serif text-xl font-medium text-text-primary pt-4">16. Contact</h2>
           <p>
             For questions about these Terms:<br />
-            <a href="mailto:dejuan@stanzix.com" className="text-accent hover:underline">dejuan@stanzix.com</a>
+            <a href="mailto:support@stanzix.com" className="text-accent hover:underline">support@stanzix.com</a>
           </p>
 
         </div>
