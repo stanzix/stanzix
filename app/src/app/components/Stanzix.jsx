@@ -28,6 +28,7 @@ import IntakeScreen from "./stanzix/IntakeScreen";
 import Dashboard from "./stanzix/Dashboard";
 import ErrorBoundary from "./ErrorBoundary";
 import { stripeProPriceId } from "../lib/stripeClient";
+import { trackEvent } from "../lib/analytics";
 
 const PHASES = [
   { label: "Describe",  steps: [0] },
@@ -62,15 +63,36 @@ function StanzixInner() {
   const [templateCategory, setTemplateCategory] = useState(null);
   const [showSettings, setShowSettings] = useState(false);
 
+  // Funnel-stage events fire once per page load; value actions (export,
+  // checkout) fire every time. Reset naturally on mount via the ref.
+  const firedSteps = useRef(new Set());
+  const fireStageOnce = (name, props) => {
+    if (firedSteps.current.has(name)) return;
+    firedSteps.current.add(name);
+    trackEvent(name, props);
+  };
+
   // Detect checkout=success / canceled / plan=pro params on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const result = params.get("checkout");
-    if (result === "success") { setIsPaid(true); setShowPaywall(false); }
-    if (result === "canceled") setCheckoutError("Payment was canceled. Try again when you're ready.");
+    if (result === "success") { setIsPaid(true); setShowPaywall(false); trackEvent("checkout_success", { plan: "pro" }); }
+    if (result === "canceled") { setCheckoutError("Payment was canceled. Try again when you're ready."); trackEvent("checkout_canceled", { plan: "pro" }); }
     if (params.get("plan") === "pro") setShowPaywall(true);
     if (result || params.get("plan")) window.history.replaceState({}, "", window.location.pathname);
   }, []);
+
+  // Top of funnel: an authenticated session became active.
+  useEffect(() => {
+    if (auth.user) fireStageOnce("app_opened");
+  }, [auth.user?.id]);
+
+  // Funnel stages reached, keyed to the view being shown.
+  useEffect(() => {
+    if (showPaywall && !isPaid) fireStageOnce("paywall_viewed");
+    else if (pe.viewMode === "intake") fireStageOnce("intake_started");
+    else if (pe.viewMode === "builder") fireStageOnce("builder_entered");
+  }, [pe.viewMode, showPaywall, isPaid]);
 
   // Fetch subscription status from Supabase after auth
   useEffect(() => {
@@ -117,6 +139,7 @@ function StanzixInner() {
     if (!auth.user) return;
     setPending(true);
     setCheckoutError("");
+    trackEvent("checkout_started", { plan: "pro" });
     try {
       const supabase = getSupabaseClient();
       const { data: { session } } = await supabase.auth.getSession();
@@ -170,6 +193,7 @@ function StanzixInner() {
   const onExportLogged = async () => {
     const usage = await pe.logExport();
     if (usage) {
+      trackEvent("export", { tier: isPaid ? "paid" : "free", used: usage.used });
       setUsageCount(usage.used);
       if (!isPaid && usage.used >= FREE_LIMIT) setShowPaywall(true);
     }
@@ -316,6 +340,7 @@ function StanzixInner() {
         <IntakeScreen
           onComplete={async (input) => {
             const ok = await pe.parseIntake(input);
+            trackEvent("intake_submitted", { parsed: ok });
             if (ok) pe.setViewMode("builder");
             return ok;
           }}
