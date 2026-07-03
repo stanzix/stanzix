@@ -338,8 +338,8 @@ export function useStanzix(user) {
       const r = await callClaude(
         `You generate professional role identities for AI assistants based on project context. Return ONLY valid JSON array of 3 objects: [{"title":"...","description":"...","traits":["...","...","..."]}]`,
         `Project: ${name}\nDescription: ${desc}\nDomain: ${dm}\nGoals: ${gl}`,
-        2048,
-        "claude-sonnet-4-20250514"
+        4096,
+        "claude-sonnet-5"
       );
       if (r && !r._error) setIdentityOptions(r);
     });
@@ -347,8 +347,8 @@ export function useStanzix(user) {
       const r = await callClaude(
         `You identify counterproductive AI behaviors for a specific domain and project. Return ONLY valid JSON array: [{"behavior":"short name","instruction":"do not... directive","reason":"why this matters"}]`,
         `Project: ${name}\nDomain: ${dm}\nDescription: ${desc}`,
-        2048,
-        "claude-sonnet-4-20250514"
+        4096,
+        "claude-sonnet-5"
       );
       if (r && !r._error) { setNegativeSuggestions(r); setSelectedNegatives(new Set(r.map((_, i) => i))); }
     });
@@ -370,8 +370,8 @@ export function useStanzix(user) {
 - description: A 1-2 sentence description of what this AI assistant will do. Be specific about the role and scope.
 - goals: 1-3 concrete goals the user likely has. Make them measurable where possible.`,
         `User input: "${userInput}"`,
-        1024,
-        "claude-sonnet-4-20250514"
+        2048,
+        "claude-sonnet-5"
       );
       if (r && !r._error && r.projectName) {
         const name = String(r.projectName || "");

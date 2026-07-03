@@ -38,7 +38,7 @@ const getSessionToken = async () => {
   }
 };
 
-const callClaude = async (systemPrompt, userPrompt, maxTokens = 8192, model = "claude-opus-4-20250514") => {
+const callClaude = async (systemPrompt, userPrompt, maxTokens = 8192, model = "claude-opus-4-8") => {
   const token = await getSessionToken();
 
   try {

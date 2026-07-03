@@ -46,7 +46,7 @@ npx tsc --noEmit     # TypeScript check
 - **`hooks/useAuth.js`** — Supabase auth via magic link (OTP). Provides `user`, `signInWithMagicLink`, `signOut`.
 - **`hooks/useStanzix.js`** — All builder state and logic. 800+ lines. Manages the 10-step wizard, AI generation for each lever, state persistence to Supabase (`prompt_engine_states` table), prompt history, intake parsing, cascade generation, and compiled output. This is the heart of the app.
 - **`lib/outputBuilder.js`** — Compiles all lever selections into the final prompt text. Exports `STEPS` (step definitions with id, label, icon, description) and `buildOutput()`.
-- **`lib/claudeApi.js`** — Client-side wrapper that calls `/api/claude`. Handles JSON extraction from Claude responses with fallback parsing. Default model: `claude-opus-4-20250514`; cascade/intake uses `claude-3-5-haiku-20241022`.
+- **`lib/claudeApi.js`** — Client-side wrapper that calls `/api/claude`. Handles JSON extraction from Claude responses with fallback parsing. Default model: `claude-opus-4-8`; cascade/intake uses `claude-sonnet-5`. The server route `/api/claude` enforces an allowlist of these two models.
 
 ### API routes (`src/app/api/`)
 - **`claude/`** — Proxies requests to Anthropic's Messages API. Authenticates via Supabase JWT, enforces monthly usage limits (5 free exports/month).
