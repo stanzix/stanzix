@@ -18,6 +18,14 @@ function tierFromPriceId(priceId: string): "pro" | "team" {
   return "pro";
 }
 
+// Stripe API 2025-03+ moved current_period_end from the subscription to its items.
+function subscriptionPeriodEnd(subscription: Stripe.Subscription): number | undefined {
+  return (
+    (subscription.items.data[0] as any)?.current_period_end ??
+    (subscription as any).current_period_end
+  );
+}
+
 export async function POST(req: Request) {
   const body = await req.text();
   const sig = req.headers.get("stripe-signature");
@@ -58,7 +66,7 @@ export async function POST(req: Request) {
       const priceId = subscription.items.data[0]?.price.id ?? "";
       const tier = tierFromPriceId(priceId);
 
-      const periodEnd = (subscription as any).current_period_end;
+      const periodEnd = subscriptionPeriodEnd(subscription);
       await supabase
         .from("profiles")
         .update({
@@ -85,7 +93,7 @@ export async function POST(req: Request) {
           ? "past_due"
           : "inactive";
 
-      const subPeriodEnd = (subscription as any).current_period_end;
+      const subPeriodEnd = subscriptionPeriodEnd(subscription);
       await supabase
         .from("profiles")
         .update({
